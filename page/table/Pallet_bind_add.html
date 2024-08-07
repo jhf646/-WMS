@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+</head>
+<style>
+    .JJSD div {
+        padding: 2.5px;
+    }
+
+    .lz label {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <!-- <div class="layuimini-main"> -->
+        <!-- // {"palletID":"P001",
+                        // "processID":"O001#01#OP10","fixtureNum":"1","loadID":"1",
+                        // "machineID":"A","unloadID":"2","processTime":"10","loopNum":"10"} -->
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-xs12">
+                <div class="layui-card top-panel">
+
+                    <div class="layui-card-body layui-row layui-col-space10">
+                        <div class="">
+                            <label class="layui-form-label required">托盘名：</label>
+                            <div class="layui-input-block">
+                                <input type="text"  name="palletID" autocomplete="off"
+                                    placeholder="托盘名" class="layui-input"  lay-verify="required">
+                            </div>
+                        </div>
+                        <div class="">
+                            <label class="layui-form-label required">托盘任务：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="processID" autocomplete="off" placeholder="托盘任务"
+                                    value="O001#01#OP10" class="layui-input"  lay-verify="required">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs4">
+                            <label class="layui-form-label required">工件数量：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="loopNum" autocomplete="off" placeholder="工件数量(循环次数)" value="10"
+                                    class="layui-input"  lay-verify="required">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs8">
+                            <label class="layui-form-label">备注：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" autocomplete="off" placeholder="备注" class="layui-input">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- <div class="layui-row layui-col-space15">
+            <div class="layui-col-xs12">
+                <div class="layui-card  ">
+                    <div class="layui-tab layui-tab-brief layadmin-latestData ">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">夹具1</li>
+                            <li>夹具2</li>
+                            <li>夹具3</li>
+                            <li>夹具4</li>
+                        </ul>
+                        <div class="layui-tab-content layui-row layui-col-space10">
+                            <div class="layui-tab-item  JJSD layui-show">
+                                <div class="layui-col-xs12">
+                                    <label class="layui-form-label">任务名称：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title1" autocomplete="off" placeholder="任务名称"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <label class="layui-form-label">备注：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="备注"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4">
+                                    <label class="layui-form-label">工件数量(循环次数)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="loopNum" autocomplete="off" placeholder="工件数量(循环次数)"
+                                            value="10" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs8">
+                                    <label class="layui-form-label">所属工件：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="所属工件"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-tab-item  JJSD">
+                                <div class="layui-col-xs12">
+                                    <label class="layui-form-label">任务名称：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="任务名称"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <label class="layui-form-label">备注：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="备注"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4">
+                                    <label class="layui-form-label">工件数量：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="工件数量"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs8">
+                                    <label class="layui-form-label">所属工件：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="所属工件"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-tab-item  JJSD">
+                                <div class="layui-col-xs12">
+                                    <label class="layui-form-label">任务名称：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="任务名称"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <label class="layui-form-label">备注：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="备注"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4">
+                                    <label class="layui-form-label">工件数量：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="工件数量"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs8">
+                                    <label class="layui-form-label">所属工件：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="所属工件"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-tab-item  JJSD">
+                                <div class="layui-col-xs12">
+                                    <label class="layui-form-label">任务名称：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="任务名称"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs12">
+                                    <label class="layui-form-label">备注：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="备注"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs4">
+                                    <label class="layui-form-label">工件数量：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="工件数量"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs8">
+                                    <label class="layui-form-label">所属工件：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" placeholder="所属工件"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> -->
+    <!-- </div> -->
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-xs4">
+            <div class="layui-card top-panel">
+                <div class="layui-card-header">托盘路径</div>
+                <div class="layui-card-body layui-form layuimini-form">
+                    <div class="layui-row layui-col-space5 lz">
+                        <div class="layui-col-xs12">
+                            <label class="layui-form-label">装载</label>
+                            <div class="layui-input-block">
+                                <select name="loadID" lay-verify="required">
+                                    <!-- <option value=""></option> -->
+                                    <option value="1" selected>L/UL1</option>
+                                    <option value="2">L/UL2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs12">
+                            <label class="layui-form-label">加工</label>
+                            <div class="layui-input-block">
+                                <select name="machineID" lay-verify="required">
+                                    <!-- <option value=""></option> -->
+                                    <option value="A" selected>MAC1</option>
+                                    <option value="B">MAC2</option>
+                                    <option value="C">MAC3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs12">
+                            <label class="layui-form-label">卸载</label>
+                            <div class="layui-input-block">
+                                <select name="unloadID" lay-verify="required">
+                                    <!-- <option value=""></option> -->
+                                    <option value="1">L/UL1</option>
+                                    <option value="2" selected>L/UL2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card top-panel">
+                <div class="layui-card-header">优先级</div>
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td>优先级</td>
+                                <td>
+                                    0
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td>当前任务</td>
+                                <td></td>
+                            </tr> -->
+                            <tr>
+                                <td>当前位置</td>
+                                <td>PST01</td>
+                            </tr>
+                            <tr>
+                                <td>原点位</td>
+                                <td>
+                                    PST01
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>状态</td>
+                                <td>
+                                    STOP
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs8">
+            <div class="layui-card top-panel">
+                <div class="layui-card-header">托盘夹具（任务）</div>
+                <div class="layui-card-body layui-row layui-col-space10 layui-form layuimini-form">
+                    <!-- <div class="layui-col-xs12">
+                        <label class="layui-form-label">任务设定栏：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" autocomplete="off" placeholder="任务" class="layui-input">
+                        </div>
+                    </div> -->
+                    <div class="layui-col-xs12">
+                        <label class="layui-form-label required">NC程序：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="NCID" autocomplete="off" placeholder="11FN25A203-1-001"
+                                value="11FN25A203-1-001" class="layui-input"  lay-verify="required">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <label class="layui-form-label required">加工节拍：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="processTime" autocomplete="off" placeholder="004500" value="10"
+                                class="layui-input"  lay-verify="required">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6 ">
+                        <label class="layui-form-label">取样时间：</label>
+                        <div class="layui-input-block ">
+                            <input type="checkbox" name="" title="取样实际时间" lay-skin="primary">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12">
+                        <label class="layui-form-label">刀补程序：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" autocomplete="off" placeholder="备注" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12" style="text-align:right">
+                        <button type="button" class="layui-btn layui-btn-sm">assign</button>
+                        <button type="button" class="layui-btn layui-btn-sm">release</button>
+                    </div>
+                    <!-- <div class="layui-col-xs12">
+                            <label class="layui-form-label">所属订单：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" autocomplete="off" placeholder="订单信息"
+                                    class="layui-input">
+                            </div>
+                        </div> -->
+                    <div class="layui-col-xs12">
+                        <label class="layui-form-label">状态设定：</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="1" title="闲置">
+                            <input type="radio" name="sex" value="2" title="人工调度">
+                            <input type="radio" name="sex" value="3" title="损坏">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12" style="text-align:center">
+                        <button type="button" class="layui-btn">托盘应急调度</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', "layuimini", 'laydate', "layer", "layedit", "tableSelect"], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+            tableSelect = layui.tableSelect;
+        });
+
+    </script>
+</body>
+
+</html>

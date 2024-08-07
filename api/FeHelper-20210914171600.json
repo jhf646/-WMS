@@ -1,0 +1,2777 @@
+{
+  "gameStarted": true,
+  "gameVersion": 0.7,
+  "debugMode": false,
+  "debugMultiplier": 1,
+  "currentTab": 2,
+  "jobs": [
+    {
+      "id": 0,
+      "type": 0,
+      "name": "Tramp",
+      "description": "You wander in the streets...",
+      "baseRevenuePerSec": 0.1,
+      "baseXpCost": 15,
+      "unlocked": true,
+      "level": 17,
+      "maxLevel": 0,
+      "exp": 121.29999999999987
+    },
+    {
+      "id": 1,
+      "type": 0,
+      "name": "App slave",
+      "description": "You get orders from an app, then have to do everything asked. Faster than this if you want to keep a good rating.",
+      "baseRevenuePerSec": 0.9,
+      "baseXpCost": 75,
+      "unlocked": true,
+      "level": 5,
+      "maxLevel": 0,
+      "exp": 161.09999999999704
+    },
+    {
+      "id": 2,
+      "type": 0,
+      "name": "Kitchen worker",
+      "description": "In a dark kitchen, you cook a new, AI created menu every day. Strangely, that AI really pushes octopus sandwiches.",
+      "baseRevenuePerSec": 7,
+      "baseXpCost": 800,
+      "unlocked": true,
+      "level": 5,
+      "maxLevel": 0,
+      "exp": 2857.7000000000157
+    },
+    {
+      "id": 3,
+      "type": 0,
+      "name": "Factory worker",
+      "description": "You do the same task all day.",
+      "baseRevenuePerSec": 43,
+      "baseXpCost": 5500,
+      "unlocked": true,
+      "level": 3,
+      "maxLevel": 0,
+      "exp": 3299.3399999998755
+    },
+    {
+      "id": 4,
+      "type": 1,
+      "name": "Scammer",
+      "description": "You sell fake memory cards in the streets.",
+      "baseRevenuePerSec": 237,
+      "baseXpCost": 24750,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 5,
+      "type": 1,
+      "name": "Thief",
+      "description": "You steal small things to stay under the radar.",
+      "baseRevenuePerSec": 1183,
+      "baseXpCost": 74250,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "name": "Troll farmer",
+      "description": "It ain't much but it's... online manipulation.",
+      "baseRevenuePerSec": 4730,
+      "baseXpCost": 222750,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 7,
+      "type": 1,
+      "name": "Drug dealer",
+      "description": "You sell drugs everywhere in the city.",
+      "baseRevenuePerSec": 56700,
+      "baseXpCost": 1680000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 8,
+      "type": 1,
+      "name": "Gang leader",
+      "description": "You have a small team of various talents in crime.",
+      "baseRevenuePerSec": 425700,
+      "baseXpCost": 10441000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 9,
+      "type": 1,
+      "name": "Criminal consortium president",
+      "description": "You are the head of a cartel of criminal organizations.",
+      "baseRevenuePerSec": 10600000,
+      "baseXpCost": 208000000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 10,
+      "type": 2,
+      "name": "Security agent by night",
+      "description": "You stay all night in a warehouse and hope nothing happens",
+      "baseRevenuePerSec": 237,
+      "baseXpCost": 24750,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 11,
+      "type": 2,
+      "name": "Bodyguard for Hire",
+      "description": "You safeguard the lives of important and notorious figures of the city.",
+      "baseRevenuePerSec": 1183,
+      "baseXpCost": 74250,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 12,
+      "type": 2,
+      "name": "Security Consultant",
+      "description": "Protect corporate secrets by securing their physical and digital assets. Never a dull moment.",
+      "baseRevenuePerSec": 4730,
+      "baseXpCost": 222750,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 13,
+      "type": 2,
+      "name": "Security Drones Swarm Specialist",
+      "description": "You manage thousands of drones that can record every movement in the city.",
+      "baseRevenuePerSec": 170000,
+      "baseXpCost": 4175000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 14,
+      "type": 2,
+      "name": "Security Company CEO",
+      "description": "You are the leader of a security company managing all security issues for companies, individuals or public organizations.",
+      "baseRevenuePerSec": 2650000,
+      "baseXpCost": 52199999,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 15,
+      "type": 3,
+      "name": "Script kiddy",
+      "description": "You buy scripts on the dark web, hoping they will work, and run a few scams.",
+      "baseRevenuePerSec": 4730,
+      "baseXpCost": 225000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 16,
+      "type": 3,
+      "name": "Data Smuggler",
+      "description": "You transport sensitive data through the darkest corners of the web, bypassing every form of digital surveillance.",
+      "baseRevenuePerSec": 18900,
+      "baseXpCost": 670000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 17,
+      "type": 3,
+      "name": "Software Cracker",
+      "description": "You unlock software protections aginst copies. A few fans love you for being always the first to crack the latest upgrade of their favorite app.",
+      "baseRevenuePerSec": 170000,
+      "baseXpCost": 4175000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 18,
+      "type": 3,
+      "name": "Elite Hacker",
+      "description": "From heists on the data banks of mega-corporations to cyber warfare, you are a ghost in the machine.",
+      "baseRevenuePerSec": 425700,
+      "baseXpCost": 10441000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 19,
+      "type": 3,
+      "name": "Cybernetic Espionage Agent",
+      "description": "You infiltrate the digital fortresses of corporate entities and governments, silently extracting secrets that shift the power balance of the city.",
+      "baseRevenuePerSec": 2650000,
+      "baseXpCost": 52199999,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 20,
+      "type": 3,
+      "name": "AI specialist",
+      "description": "You are the person that create life from nothing. It's constantly eating data and super useful. It will probably end badly of course.",
+      "baseRevenuePerSec": 10600000,
+      "baseXpCost": 208000000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 21,
+      "type": 3,
+      "name": "Architect of the Matrix",
+      "description": "You don't just hack the system, you rewrite it. Laws of the digital realm bend to your will.",
+      "baseRevenuePerSec": 42500000,
+      "baseXpCost": 835300000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 22,
+      "type": 4,
+      "name": "Cybernetics Clinic Owner",
+      "description": "You operate a clinic that offers cybernetic enhancements. Business is booming as everyone wants to be better, faster, stronger.",
+      "baseRevenuePerSec": 425700,
+      "baseXpCost": 10441000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 23,
+      "type": 4,
+      "name": "Underground Bar Proprietor",
+      "description": "Your bar is a hub for the city’s misfits and outcasts. The drinks are strong and the secrets traded are even stronger.",
+      "baseRevenuePerSec": 1050000,
+      "baseXpCost": 26100000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 24,
+      "type": 4,
+      "name": "Virtual Entertainment Complex Owner",
+      "description": "You own a Virtual Reality hub, where patrons lose themselves in different realities. Reality is a commodity and you re selling it.",
+      "baseRevenuePerSec": 5300000,
+      "baseXpCost": 104000000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 25,
+      "type": 4,
+      "name": "Megacorp CEO",
+      "description": "You are at the helm of a megacorporation, steering the course of the city’s future. Power is your game.",
+      "baseRevenuePerSec": 20898989,
+      "baseXpCost": 417898989,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    },
+    {
+      "id": 26,
+      "type": 4,
+      "name": "OmniCartel CEO",
+      "description": "Your company owns nearly everything in the world.",
+      "baseRevenuePerSec": 85140000,
+      "baseXpCost": 1656000000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0
+    }
+  ],
+  "skills": [
+    {
+      "id": 0,
+      "type": 0,
+      "name": "Relaxation",
+      "baseEffect": 0.04,
+      "description": "The ability to find inner peace boosts your capacity to learn.",
+      "baseXpCost": 20,
+      "unlocked": true,
+      "level": 41,
+      "maxLevel": 0,
+      "exp": 346.86000000000007,
+      "effectDescription": "x(multiplier) skill XP"
+    },
+    {
+      "id": 1,
+      "type": 0,
+      "name": "Logic",
+      "baseEffect": 0.1,
+      "description": "Enhance your cognitive abilities, making you a better problem-solver and thus improving your efficiency at work.",
+      "baseXpCost": 15,
+      "unlocked": true,
+      "level": 31,
+      "maxLevel": 0,
+      "exp": 5.469999999987454,
+      "effectDescription": "x(multiplier) work XP"
+    },
+    {
+      "id": 2,
+      "type": 0,
+      "name": "Frugality",
+      "baseEffect": 0,
+      "description": "Master the art of making the most of resources. A crucial skill for someone who started with nothing.",
+      "baseXpCost": 20,
+      "unlocked": true,
+      "level": 7,
+      "maxLevel": 0,
+      "exp": 6.599999999999996,
+      "effectDescription": "x(multiplierDecrease) expenses"
+    },
+    {
+      "id": 3,
+      "type": 0,
+      "name": "Charisma",
+      "baseEffect": 0.05,
+      "description": "Your charisma allows you to influence others with ease, proving beneficial in work situations and increasing your revenue.",
+      "baseXpCost": 80,
+      "unlocked": true,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier 0.5) work revenue"
+    },
+    {
+      "id": 4,
+      "type": 1,
+      "name": "Street Cred",
+      "baseEffect": 0.05,
+      "description": "Your reputation on the streets can prove to be an important asset, facilitating your advancement in the world of crime.",
+      "baseXpCost": 850,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) crime jobs XP"
+    },
+    {
+      "id": 5,
+      "type": 1,
+      "name": "Heist Mastery",
+      "baseEffect": 0.04,
+      "description": "Become a seasoned criminal, adept at maximizing profits from every unlawful venture.",
+      "baseXpCost": 850,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) crime jobs revenue"
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "name": "Underworld Connections",
+      "baseEffect": 0.05,
+      "description": "Your connections in the seedy underbelly of the city pay off, yielding more valuable information and resources.",
+      "baseXpCost": 2200,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) \"Street Cred\" XP"
+    },
+    {
+      "id": 7,
+      "type": 2,
+      "name": "Security Protocols",
+      "baseEffect": 0.04,
+      "description": "Understand and exploit the intricate security systems that protect the megacorps.",
+      "baseXpCost": 800,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) security jobs XP"
+    },
+    {
+      "id": 8,
+      "type": 2,
+      "name": "Vigilant Sentinel",
+      "baseEffect": 0.05,
+      "description": "Your alertness and tactical acumen turn every security gig into a gold mine.",
+      "baseXpCost": 900,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) security jobs revenue"
+    },
+    {
+      "id": 9,
+      "type": 2,
+      "name": "Defensive Specialist",
+      "baseEffect": 0.05,
+      "description": "Advance your knowledge of defensive strategies, making you more valuable in the security field.",
+      "baseXpCost": 2150,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) \"Security Protocols\" XP"
+    },
+    {
+      "id": 10,
+      "type": 3,
+      "name": "Digital Shadows",
+      "baseEffect": 0.05,
+      "description": "Navigate the intricate webs of the net, making every hacking operation a learning experience.",
+      "baseXpCost": 1850,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) hacking jobs XP"
+    },
+    {
+      "id": 11,
+      "type": 3,
+      "name": "Data Heist Pro",
+      "baseEffect": 0.05,
+      "description": "Your expert hacking skills ensure maximum rewards from every data heist.",
+      "baseXpCost": 1900,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) hacking jobs revenue"
+    },
+    {
+      "id": 12,
+      "type": 3,
+      "name": "Code Guru",
+      "baseEffect": 0.05,
+      "description": "Elevate your coding prowess, making you a digital force to be reckoned with.",
+      "baseXpCost": 3000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) \"Digital Shadows\" XP"
+    },
+    {
+      "id": 13,
+      "type": 4,
+      "name": "Corporate Savvy",
+      "baseEffect": 0.04,
+      "description": "Your business acumen ensures a steep learning curve in the cutthroat corporate world.",
+      "baseXpCost": 7500,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) business jobs XP"
+    },
+    {
+      "id": 14,
+      "type": 4,
+      "name": "Merger Mogul",
+      "baseEffect": 0.04,
+      "description": "Negotiate, manipulate, and profit. You always come out on top of every business transaction.",
+      "baseXpCost": 7700,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) business jobs revenue"
+    },
+    {
+      "id": 15,
+      "type": 4,
+      "name": "Influence Broker",
+      "baseEffect": 0.04,
+      "description": "Your ability to influence others and build relationships makes you a key player in the business world.",
+      "baseXpCost": 12000,
+      "unlocked": false,
+      "level": 1,
+      "maxLevel": 0,
+      "exp": 0,
+      "effectDescription": "x(multiplier) \"Corporate Savvy\" XP"
+    }
+  ],
+  "unlocks": {
+    "WORK": [
+      {
+        "id": 0,
+        "idToUnlock": 1,
+        "unlocked": true,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 0,
+            "value": 5
+          },
+          { "categoryTarget": "MONEY", "value": 50 }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 2,
+        "unlocked": true,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 1,
+            "value": 5
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 3,
+        "unlocked": true,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 2,
+            "value": 5
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "idToUnlock": 4,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 2,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "idToUnlock": 5,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 4,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "idToUnlock": 6,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 5,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "idToUnlock": 7,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 6,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "idToUnlock": 8,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 7,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "idToUnlock": 9,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 8,
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "WORK2": [
+      {
+        "id": 0,
+        "idToUnlock": 10,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 3,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 11,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 10,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 12,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 11,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "idToUnlock": 13,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 12,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "idToUnlock": 14,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 13,
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "WORK3": [
+      {
+        "id": 0,
+        "idToUnlock": 15,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 5,
+            "value": 15
+          },
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 11,
+            "value": 15
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 16,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 15,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 17,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 16,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "idToUnlock": 18,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 17,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "idToUnlock": 19,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 18,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "idToUnlock": 20,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 19,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "idToUnlock": 21,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 20,
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "WORK4": [
+      {
+        "id": 0,
+        "idToUnlock": 22,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 8,
+            "value": 15
+          },
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 13,
+            "value": 15
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 23,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 22,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 24,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 23,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "idToUnlock": 25,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 24,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "idToUnlock": 26,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 25,
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "SKILL": [
+      {
+        "id": 0,
+        "idToUnlock": 3,
+        "unlocked": true,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 0,
+            "value": 30
+          },
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 1,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 4,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 4,
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 5,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 4,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "idToUnlock": 6,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 5,
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "SKILL2": [
+      {
+        "id": 0,
+        "idToUnlock": 7,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 10,
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 8,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 7,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 9,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 8,
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "SKILL3": [
+      {
+        "id": 0,
+        "idToUnlock": 10,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 15,
+            "value": 6
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 11,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 10,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 12,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 11,
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "SKILL4": [
+      {
+        "id": 0,
+        "idToUnlock": 13,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "WORK",
+            "type": "level",
+            "idTarget": 22,
+            "value": 8
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 14,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 13,
+            "value": 10
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 15,
+        "unlocked": false,
+        "conditions": [
+          {
+            "categoryTarget": "SKILL",
+            "type": "level",
+            "idTarget": 14,
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "HOME": [
+      {
+        "id": 0,
+        "idToUnlock": 1,
+        "unlocked": true,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 1 }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 2,
+        "unlocked": true,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 2 }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 3,
+        "unlocked": true,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 3 }
+        ]
+      },
+      {
+        "id": 3,
+        "idToUnlock": 4,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 4 }
+        ]
+      },
+      {
+        "id": 4,
+        "idToUnlock": 5,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 5 }
+        ]
+      },
+      {
+        "id": 5,
+        "idToUnlock": 6,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 6 }
+        ]
+      },
+      {
+        "id": 6,
+        "idToUnlock": 7,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 7 }
+        ]
+      },
+      {
+        "id": 7,
+        "idToUnlock": 8,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 8 }
+        ]
+      },
+      {
+        "id": 8,
+        "idToUnlock": 9,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 9 }
+        ]
+      },
+      {
+        "id": 9,
+        "idToUnlock": 10,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 10 }
+        ]
+      },
+      {
+        "id": 10,
+        "idToUnlock": 11,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 11 }
+        ]
+      }
+    ],
+    "GEAR": [
+      {
+        "id": 0,
+        "idToUnlock": 1,
+        "unlocked": true,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 1 }
+        ]
+      },
+      {
+        "id": 1,
+        "idToUnlock": 2,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 2 }
+        ]
+      },
+      {
+        "id": 2,
+        "idToUnlock": 3,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 3 }
+        ]
+      },
+      {
+        "id": 3,
+        "idToUnlock": 4,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 4 }
+        ]
+      },
+      {
+        "id": 4,
+        "idToUnlock": 5,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 5 }
+        ]
+      },
+      {
+        "id": 5,
+        "idToUnlock": 6,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 6 }
+        ]
+      },
+      {
+        "id": 6,
+        "idToUnlock": 7,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 7 }
+        ]
+      },
+      {
+        "id": 7,
+        "idToUnlock": 8,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 8 }
+        ]
+      },
+      {
+        "id": 8,
+        "idToUnlock": 9,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 9 }
+        ]
+      },
+      {
+        "id": 9,
+        "idToUnlock": 10,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 10 }
+        ]
+      },
+      {
+        "id": 10,
+        "idToUnlock": 11,
+        "unlocked": false,
+        "conditions": [
+          { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 11 }
+        ]
+      }
+    ]
+  },
+  "homes": [
+    {
+      "id": 0,
+      "name": "Homeless",
+      "description": "You wander in the streets...",
+      "focusMultiplier": 1,
+      "cost": 0,
+      "unlocked": true
+    },
+    {
+      "id": 1,
+      "name": "Flat-sharing with a drug addict",
+      "description": "Life in here is hell, but you have a roof over the head.",
+      "focusMultiplier": 2,
+      "cost": 12,
+      "unlocked": true
+    },
+    {
+      "id": 2,
+      "name": "Capsule",
+      "description": "You can only sleep here.",
+      "focusMultiplier": 3,
+      "cost": 64,
+      "unlocked": true
+    },
+    {
+      "id": 3,
+      "name": "Slum Shack",
+      "description": "A dilapidated abode, where pests are the landlords. It leaks when it rains, but it is home.",
+      "focusMultiplier": 5,
+      "cost": 500,
+      "unlocked": true
+    },
+    {
+      "id": 4,
+      "name": "Old Motel Room",
+      "description": "The stains on the walls and carpet tell a thousand tales. Not the best, but private.",
+      "focusMultiplier": 7.5,
+      "cost": 1600,
+      "unlocked": false
+    },
+    {
+      "id": 5,
+      "name": "Underground Bunker",
+      "description": "A repurposed fallout shelter. Cold, metallic, safe.",
+      "focusMultiplier": 9,
+      "cost": 20000,
+      "unlocked": false
+    },
+    {
+      "id": 6,
+      "name": "Apartment in the Stacks",
+      "description": "A tiny box in the towering stacks. The neon lights outside never shut off.",
+      "focusMultiplier": 15,
+      "cost": 460000,
+      "unlocked": false
+    },
+    {
+      "id": 7,
+      "name": "Converted Warehouse Loft",
+      "description": "Spacious, raw, with a touch of industrial aesthetics. Your haven in the urban jungle.",
+      "focusMultiplier": 22,
+      "cost": 8200000,
+      "unlocked": false
+    },
+    {
+      "id": 8,
+      "name": "Luxury Micro-Apartment",
+      "description": "Small yet modern, with smart appliances. A perfect fusion of style and technology.",
+      "focusMultiplier": 25,
+      "cost": 78000000,
+      "unlocked": false
+    },
+    {
+      "id": 9,
+      "name": "Penthouse in a High-rise",
+      "description": "A sky-high oasis with a panoramic city view. The pinnacle of metropolitan living.",
+      "focusMultiplier": 32,
+      "cost": 700000000,
+      "unlocked": false
+    },
+    {
+      "id": 10,
+      "name": "Retrofitted Industrial Complex",
+      "description": "A fortress of solitude amidst the chaos. Privacy and security at its finest.",
+      "focusMultiplier": 40,
+      "cost": 12400000000,
+      "unlocked": false
+    },
+    {
+      "id": 11,
+      "name": "Cyber Mansion",
+      "description": "The ultimate dwelling of affluence, digitally enhanced for maximum comfort and security.",
+      "focusMultiplier": 50,
+      "cost": 212000000000,
+      "unlocked": false
+    }
+  ],
+  "gears": [
+    {
+      "id": 0,
+      "name": "Tablet",
+      "description": "The screen is cracked and it is really old.",
+      "cost": 8,
+      "effectDescription": "x(multiplier) skill XP",
+      "effectValue": 1.5,
+      "unlocked": true,
+      "active": true
+    },
+    {
+      "id": 1,
+      "name": "Old laptop",
+      "description": "An outdated laptop with rusty edges, yet still capable of performing basic tasks.",
+      "cost": 119,
+      "effectDescription": "x(multiplier) basic jobs XP",
+      "effectValue": 1.1,
+      "unlocked": true,
+      "active": false
+    },
+    {
+      "id": 2,
+      "name": "Virus scripts",
+      "description": "A collection of scripts used to steal money.",
+      "cost": 50000,
+      "effectDescription": "x(multiplier) crime jobs XP",
+      "effectValue": 1.5,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 3,
+      "name": "Security Drone",
+      "description": "A compact, remotely-controlled drone designed for surveillance and security.",
+      "cost": 81500,
+      "effectDescription": "x(multiplier) security jobs XP",
+      "effectValue": 1.5,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 4,
+      "name": "Stealth Suit",
+      "description": "Advanced stealth suit, ideal for covert operations.",
+      "cost": 277777,
+      "effectDescription": "x(multiplier) Heist Mastery skill XP",
+      "effectValue": 2,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 5,
+      "name": "Bio-Monitor",
+      "description": "A wearable device that continuously monitors physiological information.",
+      "cost": 299999,
+      "effectDescription": "x(multiplier) Vigilant Sentinel skill XP",
+      "effectValue": 2,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 6,
+      "name": "Neuro-Stimulant",
+      "description": "A potent nootropic drug that enhances cognitive abilities.",
+      "cost": 11213000,
+      "effectDescription": "x(multiplier) Focus",
+      "effectValue": 1.5,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 7,
+      "name": "Quantum PC",
+      "description": "A next-generation quantum computer capable of hacking sophisticated systems.",
+      "cost": 53333333,
+      "effectDescription": "x(multiplier) hacking jobs XP",
+      "effectValue": 1.5,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 8,
+      "name": "Data-Goggles",
+      "description": "Advanced eyewear that can analyze digital data and identify vulnerabilities.",
+      "cost": 156666666,
+      "effectDescription": "x(multiplier) Data Heist Pro skill XP",
+      "effectValue": 2,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 9,
+      "name": "Business super AI",
+      "description": "You get access to an exclusive AI helping on reports on market and decision-making.",
+      "cost": 2104500001,
+      "effectDescription": "x(multiplier) business jobs XP",
+      "effectValue": 1.5,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 10,
+      "name": "Stock market super AI",
+      "description": "The price is high, but this allow you to predict the future of the stock market.",
+      "cost": 41542000999,
+      "effectDescription": "x(multiplier) Merger Mogul skill XP",
+      "effectValue": 2,
+      "unlocked": false,
+      "active": false
+    },
+    {
+      "id": 11,
+      "name": "Knowledge Enhancer",
+      "description": "An implant that increases the user's learning speed and capacity.",
+      "cost": 123899000241,
+      "effectDescription": "x(multiplier) all skill XP",
+      "effectValue": 2,
+      "unlocked": false,
+      "active": false
+    }
+  ],
+  "currentJob": 3,
+  "currentSkill": 0,
+  "currentDay": 9719,
+  "isDead": false,
+  "isPaused": false,
+  "isInactiveTab": false,
+  "inactiveTabStart": null,
+  "nearDeathNotif": false,
+  "currentLifeExpectancy": 70,
+  "ageAtStart": 20,
+  "timeAdd": 1,
+  "unlockableCategories": [
+    "WORK",
+    "WORK2",
+    "WORK3",
+    "WORK4",
+    "SKILL",
+    "SKILL2",
+    "SKILL3",
+    "SKILL4",
+    "HOME",
+    "GEAR"
+  ],
+  "currentUnlockWork": [
+    {
+      "id": 3,
+      "idToUnlock": 4,
+      "unlocked": false,
+      "conditions": [
+        {
+          "categoryTarget": "WORK",
+          "type": "level",
+          "idTarget": 2,
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "idToUnlock": 10,
+      "unlocked": false,
+      "conditions": [
+        {
+          "categoryTarget": "WORK",
+          "type": "level",
+          "idTarget": 3,
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "idToUnlock": 15,
+      "unlocked": false,
+      "conditions": [
+        {
+          "categoryTarget": "WORK",
+          "type": "level",
+          "idTarget": 5,
+          "value": 15
+        },
+        {
+          "categoryTarget": "WORK",
+          "type": "level",
+          "idTarget": 11,
+          "value": 15
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "idToUnlock": 22,
+      "unlocked": false,
+      "conditions": [
+        {
+          "categoryTarget": "WORK",
+          "type": "level",
+          "idTarget": 8,
+          "value": 15
+        },
+        {
+          "categoryTarget": "WORK",
+          "type": "level",
+          "idTarget": 13,
+          "value": 15
+        }
+      ]
+    }
+  ],
+  "currentUnlockSkill": [
+    {
+      "id": 1,
+      "idToUnlock": 4,
+      "unlocked": false,
+      "conditions": [
+        { "categoryTarget": "WORK", "type": "level", "idTarget": 4, "value": 3 }
+      ]
+    },
+    {
+      "id": 0,
+      "idToUnlock": 7,
+      "unlocked": false,
+      "conditions": [
+        {
+          "categoryTarget": "WORK",
+          "type": "level",
+          "idTarget": 10,
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "idToUnlock": 10,
+      "unlocked": false,
+      "conditions": [
+        {
+          "categoryTarget": "WORK",
+          "type": "level",
+          "idTarget": 15,
+          "value": 6
+        }
+      ]
+    }
+  ],
+  "currentUnlockHome": {
+    "id": 3,
+    "idToUnlock": 4,
+    "unlocked": false,
+    "conditions": [
+      { "categoryTarget": "HOME", "type": "cost_x_100", "idTarget": 4 }
+    ]
+  },
+  "currentUnlockGear": {
+    "id": 1,
+    "idToUnlock": 2,
+    "unlocked": false,
+    "conditions": [
+      { "categoryTarget": "GEAR", "type": "cost_x_100", "idTarget": 2 }
+    ]
+  },
+  "currentHome": 2,
+  "messages": [],
+  "money": {
+    "AddMoneyPerSec": 135.45000000000002,
+    "SpendingMoneyPerSec": 62.6596312845345,
+    "MoneyTotal": 93579.19160285867
+  },
+  "focus": 3,
+  "karma": { "total": 0, "thisLoop": 0 },
+  "options": {
+    "autoSaveEnabled": true,
+    "progressBarAntiBlink": true,
+    "sideBarVisible": true
+  },
+  "reincarnations": 0,
+  "computer": {
+    "isActive": 0,
+    "activationTimer": 3,
+    "lootTimer": 3,
+    "currentMotherboard": 0,
+    "motherboardActive": [false, false, false, false, false, false],
+    "attackUnlocks": [true, false, false],
+    "attackTimers": [0, 0, 0],
+    "stats": {
+      "attack": 0,
+      "defense": 0,
+      "integrity": 0,
+      "integrityMax": 0,
+      "integrityRecover": 0,
+      "currentPower": 1,
+      "costPerDay": 0
+    },
+    "hacking": {
+      "autoAttack": false,
+      "attackOrder": false,
+      "connectingTimer": 8,
+      "clusterUnlocks": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "clusterHacked": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      "serversHacked": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ],
+      "currentCluster": 0,
+      "currentServer": 0,
+      "currentServerTimers": [0],
+      "isHacking": false,
+      "timer": 0,
+      "currentLoot": []
+    }
+  },
+  "shop": {
+    "itemsUnlocks": [
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "itemsVisible": [
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "itemsKnown": [
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "motherboardsUnlocks": [true, false, false, false, false, false],
+    "motherboardsVisible": [false, false, false, false, false, false]
+  },
+  "clinic": {
+    "level": 0,
+    "itemsLevels": [0, 0, 0],
+    "itemsVisible": [true, false, false],
+    "bodyModificationUnlocks": [true, false, false, false, false],
+    "bodyModificationEquiped": -1,
+    "bodyModifMultiplier": 25
+  },
+  "dataCards": {
+    "currentCards": [null, null, null, null, null, null],
+    "currentEquipedCards": [null, null, null, null],
+    "inventoryMaxSlots": 6,
+    "equipedMaxSlots": 4,
+    "stats": {
+      "addMoneyPerSec": 0,
+      "spendingMoneyPerSec": 0,
+      "lifeExpectancy": 0,
+      "focus": 0,
+      "attack": 0,
+      "defense": 0,
+      "integrityMax": 0,
+      "integrityRecover": 0,
+      "costPerDay": 0,
+      "shopPriceDecrease": 0
+    }
+  },
+  "dataCardsCollection": {
+    "cardsKnown": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "cardsLevelsMax": [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ],
+    "bonusCardsKnown": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "bonusCardsLevelsMax": [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0
+    ]
+  },
+  "gang": {
+    "type": 0,
+    "upgradeVisible": [
+      {
+        "INFRASTRUCTURE_UPGRADE": [true, true, false],
+        "PROJECT_UPGRADE": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "INFRASTRUCTURE_UPGRADE": [true, true, false],
+        "PROJECT_UPGRADE": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    ],
+    "upgradeLevels": [
+      {
+        "INFRASTRUCTURE_UPGRADE": [1, 1, 0],
+        "PROJECT_UPGRADE": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "INFRASTRUCTURE_UPGRADE": [1, 1, 0],
+        "PROJECT_UPGRADE": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      }
+    ],
+    "bonusVisible": [
+      {
+        "INFRASTRUCTURE": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [false, false, false, false, false, false, false, false, false, false]
+        ],
+        "CLICKS": [
+          [false, false, false, false, false, false, false, false, false, false]
+        ],
+        "PROJECTS": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [false, false, false, false, false, false, false, false, false, false]
+        ]
+      },
+      {
+        "INFRASTRUCTURE": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [false, false, false, false, false, false, false, false, false, false]
+        ],
+        "CLICKS": [
+          [false, false, false, false, false, false, false, false, false, false]
+        ],
+        "PROJECTS": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [false, false, false, false, false, false, false, false, false, false]
+        ]
+      }
+    ],
+    "bonusUnlocks": [
+      {
+        "INFRASTRUCTURE": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [false, false, false, false, false, false, false, false, false, false]
+        ],
+        "CLICKS": [
+          [false, false, false, false, false, false, false, false, false, false]
+        ],
+        "PROJECTS": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [false, false, false, false, false, false, false, false, false, false]
+        ]
+      },
+      {
+        "INFRASTRUCTURE": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [false, false, false, false, false, false, false, false, false, false]
+        ],
+        "CLICKS": [
+          [false, false, false, false, false, false, false, false, false, false]
+        ],
+        "PROJECTS": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [false, false, false, false, false, false, false, false, false, false]
+        ]
+      }
+    ],
+    "activateClicks": 0
+  },
+  "politicalInfluence": { "total": 0, "addPerDay": 0, "addPerClick": 0 },
+  "netInfluence": 0,
+  "scratchCard": {
+    "unlocked": false,
+    "level": 0,
+    "waitTimeInit": 180,
+    "waitTime": 180,
+    "result": 0,
+    "timer": 0,
+    "visible": false,
+    "scratchedTotal": 0,
+    "autoScratch": false
+  },
+  "planner": {
+    "buttonsCreateOrg": [false, false],
+    "autoJob": false,
+    "autoJob_minLevel": 0,
+    "autoJob_minLevels": [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0
+    ],
+    "autoSkill": false,
+    "autoSkill_minLevels": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "autoHouse": false,
+    "character": 0,
+    "characterUnlocks": [true, false, false, false, false, false]
+  },
+  "story": {
+    "unlocks": [
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "meta": {
+    "timeInfluence": 0,
+    "itemsUnlocks": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true
+    ],
+    "itemsVisible": [
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true
+    ],
+    "timeMultiplier": 1,
+    "timeMultiplierMax": 1,
+    "metaReincarnations": 0
+  },
+  "research": {
+    "currentInvest": 0,
+    "currentCost": 0,
+    "itemsLevels": [0, 0, 0, 0, 0, 0],
+    "itemsExp": [0, 0, 0, 0, 0, 0],
+    "itemsActive": [false, false, false, false, false, false]
+  },
+  "themes": {
+    "current": 0,
+    "names": ["base", "blue", "brown", "violet", "black & white"],
+    "unlocks": [true, true, true, true, true]
+  },
+  "timedBonus": { "refTimer": 30, "timer": 0, "multiplier": 1 },
+  "pill": {
+    "refTimer": 90,
+    "timerToSpawn": 90,
+    "pos": [0, 0],
+    "reftimerShow": 12,
+    "timerShow": 0,
+    "opacity": 0,
+    "pillsClicked": 0
+  },
+  "gameStats": {
+    "timer": 716,
+    "timerCalculated": 716,
+    "hours": 0,
+    "suicideToothUse": 0,
+    "karmaPreviousLives": 0
+  }
+}

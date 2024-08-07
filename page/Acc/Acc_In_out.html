@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+</head>
+<style>
+    #CCS1>div {
+        margin-bottom: 10px;
+    }
+
+    #PowerKey option {
+        color: #000;
+    }
+
+    input[name="isFire"],
+    input[name="isBatch"],
+    input[name="fireStorageTime"] {
+        color: darkgrey;
+    }
+
+    .isCss {
+        color: #0cc0ec !important;
+        font-weight: bold !important;
+    }
+
+    .layui-elem-quote {
+        padding: 7px !important;
+    }
+
+    .layui-form-item {
+        margin-bottom: 13px !important;
+    }
+
+    #PowerKey option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <!-- "InOrderLineID": "RKL0000000032",
+                            "InOrderID": "RKH00000024",    
+                            "InDateFrom": "1900-01-01 00:00:00",
+                            "InDateTo": "2900-01-01 00:00:00",
+                            "ItemLotNo": "1",
+                            "PalletID": "BOX10001",
+                            "ItemID": "1001" -->
+                            <div class="layui-inline">
+                                <label class="layui-form-label">日期选择</label>
+
+                                <div class="layui-input-inline">
+                                    <input type="text" name="date" autocomplete="off" id="date" class="layui-input"
+                                        placeholder="开始日期">
+                                </div>
+                            </div>
+                            <!-- 
+                            "InPreformID": "" , //毛坯入库编号
+                            "OutPreformID": ""   ,//毛坯领用单 编号
+                            "OutPreformCode": "#MC00000020#MC00000021" , //毛坯领用 组合识别码
+                            "PreformID": "234"   //毛坯编号
+                             -->
+                            <div class="layui-inline">
+                                <label class="layui-form-label">物资型号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="AccessoryID" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <label class="layui-form-label">物资类型</label>
+                                <div class="layui-input-inline">
+
+                                    <select id="AccessoryType" name="AccessoryType">
+
+
+                                    </select>
+                                    <!-- <input type="text" name="AccessoryType" autocomplete="off" class="layui-input"> -->
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <script type="text/html" id="toolbarDemo">
+
+                <div class="layui-btn-container">
+               
+                    <button class="layui-btn  data-add-btn"> 辅料入库 </button>
+                    <!-- <button class="layui-btn layui-btn-sm data-PL-btn"> 批量导入(excel) </button>
+                    <button class="layui-btn layui-btn-sm data-MB-btn"> 批量导入模板下载 </button> -->
+                </div>
+          
+
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+            <script type="text/html" id="currentTableBar">
+                <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">  编  辑  </a>
+                <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            </script>
+
+        </div>
+    </div>
+    <!-- 单个添加 -->
+    <div id="PZM" class="layui-form layuimini-form" lay-filter="PZM"
+        style="padding: 22px; line-height: 22px;  font-weight: 300;display: none;">
+        <div id="CCS1" class="layui-form-item">
+
+            <!-- 
+
+            "InAccessoryType": "采购入库", //入库类型        
+            "InAccessoryID": "", //附件物资的 入库单号号
+            "AccessoryID": "DP626", //附件物资的 物资型号
+            "AccessoryType": "刀片", // 物资类型
+            "AccessoryMaterial": "不锈钢316", //材质 -->
+
+            <label class="layui-form-label required" style="text-align: right;">入库类型：</label>
+            <div class="layui-input-inline">
+                <input id="InAccessoryType" type="text" name="InAccessoryType" lay-verify="required"
+                    lay-reqtext="输入辅料型号" readonly value="采购入库" placeholder="输入辅料型号" class="layui-input">
+            </div>
+            <!-- <label class="layui-form-label required" style="text-align: right;">入库单号：</label>
+            <div class="layui-input-inline">
+                <input id="InAccessoryID" type="text" name="InAccessoryID" lay-verify="required" lay-reqtext="输入入库单号"
+                    placeholder="输入入库单号" class="layui-input">
+            </div> -->
+            <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
+            <div class="layui-input-inline">
+                <input id="AccessoryID" type="text" name="AccessoryID" lay-verify="required" lay-reqtext="输入物资型号"
+                    placeholder="输入物资型号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">物资类型：</label>
+            <div class="layui-input-inline">
+                <select id="AccessoryType1" name="AccessoryType" lay-verify="sl" lay-reqtext="选择物资">
+                </select>
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">材质：</label>
+            <div class="layui-input-inline">
+                <input id="AccessoryMaterial" type="text" name="AccessoryMaterial" lay-verify="required"
+                    lay-reqtext="输入材质" placeholder="输入材质" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
+            <div class="layui-input-inline">
+                <input id="AccessoryName" type="text" name="AccessoryName" lay-verify="required" lay-reqtext="输入物资名称"
+                    placeholder="输入物资名称" class="layui-input">
+            </div>
+            <!-- "AccessoryName": "去划痕刀片", //物资名称
+            "Vendor": "东达电气", // 供应商
+            "Brand": "三一", // 品牌
+            "LocationWhs": "D", //存放位置
+            "LocationCode": "D-96", //库位编号
+            "AccessoryUnit": "片", //单位
+            "ProductModel": "发动机核心杆", //加工的产品  -->
+
+            <label class="layui-form-label required" style="text-align: right;">供应商：</label>
+            <div class="layui-input-inline">
+                <input id="Vendor" type="text" name="Vendor" lay-verify="required" lay-reqtext="输入供应商"
+                    placeholder="输入供应商" class="layui-input">
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">品牌：</label>
+            <div class="layui-input-inline">
+                <input id="Brand" type="text" name="Brand" value="" lay-verify="sl" lay-reqtext="输入品牌"
+                    placeholder="输入品牌" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">存放位置：</label>
+            <div class="layui-input-inline">
+                <input id="LocationWhs" type="text" name="LocationWhs" value="" lay-verify="sl" lay-reqtext="输入存放位置"
+                    placeholder="输入存放位置" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">库位编号：</label>
+            <div class="layui-input-inline">
+                <input id="LocationCode" type="text" name="LocationCode" value="" lay-verify="sl" lay-reqtext="输入库位编号"
+                    placeholder="输入库位编号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">单位：</label>
+            <div class="layui-input-inline">
+                <select id="AccessoryUnit" name="AccessoryUnit" lay-verify="sl" lay-reqtext="选择单位">
+                    <option value="个">个</option>
+                    <option value="台">台</option>
+                    <option value="支">支</option>
+                </select>
+
+                <!-- <input id="AccessoryUnit" type="text" name="AccessoryUnit" value="" lay-verify="sl" lay-reqtext="输入单位"
+                    placeholder="输入单位" class="layui-input"> -->
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">加工产品：</label>
+            <div class="layui-input-inline">
+                <input id="ProductModel" type="text" name="ProductModel" value="" lay-verify="sl" lay-reqtext="输入加工产品"
+                    placeholder="输入加工产品" class="layui-input">
+            </div>
+            <!-- "IndustrialEquipmentCode": "工装号", //工装号
+            "ProcedureInfo": "削砍磨", // 工序
+            "Creator": "1000",
+            "InDate": "2401-01-02 00:00:00",
+            "InQty": 2000,
+            "UnitPrice": 6.45, //单价
+            "Remark": "" -->
+            <label class="layui-form-label required" style="text-align: right;">工装号：</label>
+            <div class="layui-input-inline">
+                <input id="IndustrialEquipmentCode" type="text" name="IndustrialEquipmentCode" value="" lay-verify="sl"
+                    lay-reqtext="输入工装号" placeholder="输入工装号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">工序：</label>
+            <div class="layui-input-inline">
+                <input id="ProcedureInfo" type="text" name="ProcedureInfo" value="" lay-verify="sl" lay-reqtext="输入工序"
+                    placeholder="输入工序" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">单价：</label>
+            <div class="layui-input-inline">
+                <input id="UnitPrice" type="text" name="UnitPrice" value="" lay-verify="sl" lay-reqtext="输入单价"
+                    placeholder="输入单价" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">入库时间：</label>
+            <div class="layui-input-inline">
+                <input id="InDate" type="text" name="InDate" value="" lay-verify="sl" lay-reqtext="输入入库时间"
+                    placeholder="输入入库时间" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
+            <div class="layui-input-inline">
+                <input id="InQty" type="text" name="InQty" value="" lay-verify="sl" lay-reqtext="输入入库数量"
+                    placeholder="输入入库数量" class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">备注：</label>
+            <div class="layui-input-inline">
+                <textarea id="Remark" name="Remark" placeholder="" class="layui-textarea"></textarea>
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="demo1" lay-submit="">⽴即提交</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- 出库 -->
+    <div id="FLCK" class="layui-form layuimini-form" lay-filter="FLCK"
+        style="padding: 22px; line-height: 22px;  font-weight: 300;display: none;">
+        <div id="CCS1" class="layui-form-item">
+
+            <!-- 
+
+          "InAccessoryType": "采购入库", //入库类型        
+          "InAccessoryID": "", //附件物资的 入库单号号
+          "AccessoryID": "DP626", //附件物资的 物资型号
+          "AccessoryType": "刀片", // 物资类型
+          "AccessoryMaterial": "不锈钢316", //材质 -->
+
+            <label class="layui-form-label required" style="text-align: right;">出库类型：</label>
+            <div class="layui-input-inline">
+                <input id="OutAccessoryType" type="text" name="OutAccessoryType" lay-verify="required"
+                    lay-reqtext="输入生产领用" readonly value="生产领用" placeholder="输入生产领用" class="layui-input">
+            </div>
+            <!-- <label class="layui-form-label required" style="text-align: right;">入库单号：</label>
+            <div class="layui-input-inline">
+                <input id="InAccessoryID" type="text" name="InAccessoryID" lay-verify="required" lay-reqtext="输入入库单号"
+                    placeholder="输入入库单号" class="layui-input">
+            </div> -->
+            <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
+            <div class="layui-input-inline">
+                <input id="AccessoryID" type="text" name="AccessoryID" lay-verify="required" lay-reqtext="输入物资型号"
+                    placeholder="输入物资型号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">物资类型：</label>
+            <div class="layui-input-inline">
+                <!-- <select id="AccessoryType1" name="AccessoryType" lay-verify="sl" lay-reqtext="选择物资">
+                </select> -->
+                <input id="AccessoryType1" type="text" name="AccessoryType" lay-verify="required"
+                lay-reqtext="输入物资" placeholder="输入物资" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">材质：</label>
+            <div class="layui-input-inline">
+                <input id="AccessoryMaterial" type="text" name="AccessoryMaterial" lay-verify="required"
+                    lay-reqtext="输入材质" placeholder="输入材质" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
+            <div class="layui-input-inline">
+                <input id="AccessoryName" type="text" name="AccessoryName" lay-verify="required" lay-reqtext="输入物资名称"
+                    placeholder="输入物资名称" class="layui-input">
+            </div>
+            <!-- "AccessoryName": "去划痕刀片", //物资名称
+          "Vendor": "东达电气", // 供应商
+          "Brand": "三一", // 品牌
+          "LocationWhs": "D", //存放位置
+          "LocationCode": "D-96", //库位编号
+          "AccessoryUnit": "片", //单位
+          "ProductModel": "发动机核心杆", //加工的产品  -->
+
+            <label class="layui-form-label required" style="text-align: right;">供应商：</label>
+            <div class="layui-input-inline">
+                <input id="Vendor" type="text" name="Vendor" lay-verify="required" lay-reqtext="输入供应商"
+                    placeholder="输入供应商" class="layui-input">
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">品牌：</label>
+            <div class="layui-input-inline">
+                <input id="Brand" type="text" name="Brand" value="" lay-verify="sl" lay-reqtext="输入品牌"
+                    placeholder="输入品牌" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">存放位置：</label>
+            <div class="layui-input-inline">
+                <input id="LocationWhs" type="text" name="LocationWhs" value="" lay-verify="sl" lay-reqtext="输入存放位置"
+                    placeholder="输入存放位置" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">库位编号：</label>
+            <div class="layui-input-inline">
+                <input id="LocationCode" type="text" name="LocationCode" value="" lay-verify="sl" lay-reqtext="输入库位编号"
+                    placeholder="输入库位编号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">单位：</label>
+            <div class="layui-input-inline">
+                <!-- <select id="AccessoryUnit" name="AccessoryUnit" lay-verify="sl" lay-reqtext="选择单位">
+                    <option value="个">个</option>
+                    <option value="台">台</option>
+                    <option value="支">支</option>
+                </select> -->
+
+                <input id="AccessoryUnit" type="text" name="AccessoryUnit" value="" lay-verify="sl" lay-reqtext="输入单位"
+                  placeholder="输入单位" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">加工产品：</label>
+            <div class="layui-input-inline">
+                <input id="ProductModel" type="text" name="ProductModel" value="" lay-verify="sl" lay-reqtext="输入加工产品"
+                    placeholder="输入加工产品" class="layui-input">
+            </div>
+            <!-- "IndustrialEquipmentCode": "工装号", //工装号
+          "ProcedureInfo": "削砍磨", // 工序
+          "Creator": "1000",
+          "InDate": "2401-01-02 00:00:00",
+          "InQty": 2000,
+          "UnitPrice": 6.45, //单价
+          "Remark": "" -->
+            <label class="layui-form-label required" style="text-align: right;">工装号：</label>
+            <div class="layui-input-inline">
+                <input id="IndustrialEquipmentCode" type="text" name="IndustrialEquipmentCode" value="" lay-verify="sl"
+                    lay-reqtext="输入工装号" placeholder="输入工装号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">工序：</label>
+            <div class="layui-input-inline">
+                <input id="ProcedureInfo" type="text" name="ProcedureInfo" value="" lay-verify="sl" lay-reqtext="输入工序"
+                    placeholder="输入工序" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">单价：</label>
+            <div class="layui-input-inline">
+                <input id="UnitPrice" type="text" name="UnitPrice" value="" lay-verify="sl" lay-reqtext="输入单价"
+                    placeholder="输入单价" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">入库时间：</label>
+            <div class="layui-input-inline">
+                <input id="InDate" type="text" name="InDate" value="" lay-verify="sl" lay-reqtext="输入入库时间"
+                    placeholder="输入入库时间" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
+            <div class="layui-input-inline">
+                <input id="InQty" type="text" name="InQty" value="" lay-verify="sl" lay-reqtext="输入入库数量"
+                    placeholder="输入入库数量" class="layui-input">
+            </div>
+            <!-- "OutPersonName": "张三", // 领用人 
+            "Creator": "1000",
+            "OutDate": "2401-01-02 00:00:00",
+            "OutQty": 67,      -->
+            <label class="layui-form-label required" style="text-align: right;">领用人员：</label>
+            <div class="layui-input-inline">
+                <input id="OutPersonName" type="text" name="OutPersonName" value="" lay-verify="sl" lay-reqtext="输入领用人员"
+                    placeholder="输入领用人员" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">领用时间：</label>
+            <div class="layui-input-inline">
+                <input id="OutDate" type="text" name="OutDate" value="" lay-verify="sl" lay-reqtext="选择出库时间"
+                    placeholder="选择出库时间" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">领用数量：</label>
+            <div class="layui-input-inline">
+                <input id="OutQty" type="text" name="OutQty" value="" lay-verify="sl" lay-reqtext="输入领用数量"
+                    placeholder="输入领用数量" class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">备注：</label>
+            <div class="layui-input-inline">
+                <textarea id="Remark" name="Remark" placeholder="" class="layui-textarea"></textarea>
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="demo2" lay-submit="">⽴即提交</button>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../../js/xlsx.full.min.js"></script>
+    <script src="../../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', 'upload',], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                upload = layui.upload,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+            soulTable = layui.soulTable;
+            tableChild = layui.tableChild;
+            element = layui.element;
+
+
+            function getRecentDay(day) {
+                var today = new Date();
+                var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+                today.setTime(targetday_milliseconds);
+                var tYear = today.getFullYear();
+                var tMonth = today.getMonth();
+                var tDate = today.getDate();
+                var tHours = today.getHours();
+                var tMinutes = today.getMinutes();
+                var tSeconds = today.getSeconds();
+                tMonth = doHandleMonth(tMonth + 1);
+                tDate = doHandleMonth(tDate);
+                tHours = doHandleMonth(tHours);
+                tMinutes = doHandleMonth(tMinutes);
+                tSeconds = doHandleMonth(tSeconds);
+
+                return tYear + "-" + tMonth + "-" + tDate
+            }
+
+            function doHandleMonth(month) {
+                var m = month;
+                if (month.toString().length == 1) {
+                    m = "0" + month;
+                }
+                return m;
+            }
+
+            laydate.render({
+                elem: '#date',
+                type: 'date',
+                range: '~' //或 range: '~' 来自定义分割字符
+                ,
+                value: getRecentDay(-30) + ' ~ ' + getRecentDay(0),
+                // value: "2021-12-06 ~ 2021-12-31",
+
+            });
+            laydate.render({
+                elem: '#InDate'
+                , type: 'datetime'
+            });
+            laydate.render({
+                elem: '#OutDate'
+                , type: 'datetime'
+            });
+
+
+
+            readyselect()
+            function readyselect() {
+                let arr = []
+
+                // lj()
+                // zr()
+                zr()
+
+            }
+
+
+            //获取区域2.1  2.2区域
+            function zr() {
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "DataListType": "辅料物资类型" }
+                $.ajax({
+                    url: http1 + "GetDataListInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#AccessoryType");//TypeID为HTML标签ID
+                        let result = res.data
+                        select.append(new Option("", ""));
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.DataListName, item.DataListName));// 下拉菜单里添加元素
+                        });
+                        // layui.form.render("select");
+
+                        var select1 = $("#AccessoryType1");//TypeID为HTML标签ID
+                        let result1 = res.data
+                        $.each(result1, function (index, item) {
+                            console.log(index, item)
+                            select1.append(new Option(item.DataListName, item.DataListName));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+
+            table.render({
+                elem: '#currentTableId',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                // url: '../api/table.json',
+                // where: {
+                //     "interface": "getUserAll",
+                //     "right": "0"
+                // },
+                url: http1 + "GetInAccessoryInfoList",
+                contentType: 'application/json,charset=utf-8',
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": res.count,
+                        "data": res.data
+                    };
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+
+                cols: [
+                    //             "InAccessoryType": "采购入库", //入库类型        
+                    // "InAccessoryID": "", //附件物资的 入库单号号
+                    // "AccessoryID": "DP626", //附件物资的 物资型号
+                    // "AccessoryType": "刀片", // 物资类型
+                    // "AccessoryMaterial": "不锈钢316", //材质
+                    // "AccessoryName": "去划痕刀片", //物资名称
+                    // "Vendor": "东达电气", // 供应商
+                    // "Brand": "三一", // 品牌
+                    // "LocationWhs": "D", //存放位置
+                    // "LocationCode": "D-96", //库位编号
+                    // "AccessoryUnit": "片", //单位
+
+                    [
+                        // { type: 'checkbox', width: 150, fixed: 'left' },
+                        { field: 'InAccessoryType', width: 150, title: '入库类型' },
+                        { field: 'InAccessoryID', width: 150, title: '入库单' },
+                        { field: 'AccessoryID', width: 150, title: '物资型号' },
+                        { field: 'AccessoryType', width: 150, title: '物资类型' },
+                        { field: 'AccessoryMaterial', width: 150, title: '材质' },
+                        { field: 'AccessoryName', width: 150, title: '物资名称' },
+                        { field: 'Vendor', width: 150, title: '供应商' },
+                        { field: 'Brand', width: 150, title: '品牌' },
+                        { field: 'LocationWhs', width: 150, title: '存放位置' },
+                        { field: 'LocationCode', width: 150, title: '库位编号' },
+                        { field: 'AccessoryUnit', width: 150, title: '单位' },
+                        // "ProductModel": "发动机核心杆", //加工产品 
+                        // "IndustrialEquipmentCode": "工装号", //工装号
+                        // "ProcedureInfo": "削砍磨", // 工序
+                        // "Creator": "1000",
+                        // "InDate": "2401-01-02 00:00:00",
+                        // "InQty": 2000,
+                        // "UnitPrice": 6.45, //单价
+                        // "Remark": ""
+                        { field: 'ProductModel', width: 150, title: '加工产品 ' },
+                        { field: 'IndustrialEquipmentCode', width: 150, title: '工装号' },
+                        { field: 'ProcedureInfo', width: 150, title: '工序' },
+                        { field: 'Creator', width: 150, title: '入库员' },
+                        { field: 'InDate', width: 150, title: '入库时间' },
+                        { field: 'InQty', width: 150, title: '入库数量' },
+                        { field: 'UnitPrice', width: 150, title: '单价' },
+                        { field: 'Remark', width: 150, title: '备注' },
+                        {
+                            title: '操作',
+                            minWidth: 200,
+                            // templet: '#currentTableBar',
+                            fixed: "right",
+                            align: "center",
+                            templet: function (d) {
+                                //***重点***：判断颜色
+                                // var ys = d.Currsent_tep
+                                // //***重点***：拼接进度条
+                                // let power = sessionStorage.getItem("PowerKey");
+
+
+                                // if (power == "3" ||power == "4") {
+                                //     return '<span>无操作权限</span>'
+                                // } else if (power == "1" || power == "2") {
+
+                                return `
+                            <button class="layui-btn  layui-btn-sm data-count-waste" lay-event="waste">辅料物资出库</button>`
+                                // }
+
+
+
+
+                            }
+                        }]
+                ],
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 15,
+                // page: true
+            });
+
+            // 监听搜索操作
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function (data) {
+                var result = data.field;
+                // layer.alert(result, {
+                //     title: '最终的搜索信息'
+                // });
+                let cans1 = (result.date).split(" ")[0]
+                cans1 = cans1.replace(/^\s*/g, '')
+                let cans2 = (result.date).split(" ")[2]
+                cans2 = cans2.replace(/^\s*/g, '')
+                console.log(result)
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // DateFrom日期从2022 - 11 - 01
+                // DateTo日期到2022 - 11 - 12
+                result.DateFrom = cans1
+                result.DateTo = cans2
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: result
+                }, 'data');
+
+                return false;
+            });
+            //辅料入库添加
+            form.on('submit(demo1)', function (data) {
+
+
+
+                let sj = data.field
+                sj.Creator = sessionStorage.getItem("UserID")
+                // sj.InDate = getRecentDay(0)
+
+                $.ajax({
+
+                    url: http1 + "AddInAccessoryInfo",
+                    type: "post",
+                    // dataType: 'json',
+                    data: JSON.stringify(sj),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg(data.msg, function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+                    },
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+                return false;
+            });
+
+            //编辑
+            form.on('submit(demo2)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+                let sj = data.field
+                sj.Creator = sessionStorage.getItem("UserID")
+
+                $.ajax({
+                    // AddItemInfo  UpdateItemInfo    DeleteItemInfo
+                    url: http1 + "AddOutAccessoryInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(sj),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg(data.msg, function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('AddOutAccessoryInfo', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+
+                return false;
+            });
+
+            $('body').on('click', '.data-add-btn', function () {
+
+                var index = layer.open({
+                    type: 1,
+                    title: "添加辅料入库信息" //不显示标题栏
+                    ,
+                    // closeBtn: false,
+                    area: '800px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,
+                    // btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                    ,
+                    content: $("#PZM"),
+                    success: function (layero) { },
+                    yes: function (layero, index) {
+
+
+                    }
+                });
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+                return false;
+            });
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'waste') {
+
+
+                    var index = layer.open({
+                        type: 1,
+                        title: "辅料物资出库信息" //不显示标题栏
+                        ,
+                        // closeBtn: false,
+                        area: '800px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                        // btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                        ,
+                        content: $("#FLCK"),
+                        success: function (layero) { 
+
+                            form.val("FLCK", data);
+
+                        },
+                        yes: function (layero, index) {
+
+
+                        }
+                    });
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+
+                } else if (obj.event === 'wastepro') {
+
+                    sessionStorage.setItem("InPreformID", data.InPreformID);
+
+
+                    // <button class="layui-btn  layui-btn-sm data-count-waste" lay-event="waste">废料</button>
+                    //         <button class="layui-btn layui-btn-sm  data-count-wastepro" lay-event="wastepro">废品</button>
+
+                    var index = layer.open({
+                        type: 2,
+                        title: "废品添加" //不显示标题栏
+                        ,
+                        // closeBtn: false,
+                        area: ['100%', '100%'],
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                        // btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                        ,
+                        content: 'wastepro.html',
+                        success: function (layero) { },
+                        yes: function (layero, index) {
+
+
+                        }
+                    });
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+
+                } else if (obj.event === 'delete') {
+
+                    layer.confirm('是否删除' + data.ItemID + '物料?', function (index) {
+
+                        console.log(data.UserID)
+                        console.log(index)
+
+                        let data1 = {
+                            "ItemID": data.ItemID
+                        }
+
+                        $.ajax({
+                            url: http1 + "DeleteItemInfo",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(data1),
+                            success: function (data) {
+
+                                if (data.code == "200") {
+                                    layer.msg('删除成功！', function () { });
+                                    // alert("提交成功：" + data)
+                                    obj.del();
+                                    layer.closeAll()
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+
+                                        }
+                                    }, 'data');
+                                } else {
+                                    layer.msg(data.msg, function () { });
+                                }
+                            },
+                            error: function () {
+                                alert("提交失败")
+                            }
+                        })
+                    });
+
+                }
+            });
+
+        });
+    </script>
+    <script>
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 9,
+    "data": [
+        {
+            "configName": "配置1",
+            "palletList": [
+                {
+                    "palletID": "P001",
+                    "isFirst": 0,
+                    "orderID": null,
+                    "partID": "P001",
+                    "processID": "O001#P001#OP10",
+                    "processTime": 10.0,
+                    "loadID": "1",
+                    "machineID": "A",
+                    "unloadID": "2",
+                    "loopNum": 2,
+                    "status": 1
+                },
+                {
+                    "palletID": "P002",
+                    "isFirst": 0,
+                    "orderID": null,
+                    "partID": "P002",
+                    "processID": "O001#P002#OP20",
+                    "processTime": 10.0,
+                    "loadID": "1",
+                    "machineID": "A",
+                    "unloadID": "2",
+                    "loopNum": 2,
+                    "status": 1
+                }
+            ]
+        },
+        {
+            "configName": "配置2",
+            "palletList": [
+                {
+                    "palletID": "P001",
+                    "isFirst": 0,
+                    "orderID": null,
+                    "partID": "P001",
+                    "processID": "O001#P001#OP10",
+                    "processTime": 10.0,
+                    "loadID": "1",
+                    "machineID": "A",
+                    "unloadID": "2",
+                    "loopNum": 2,
+                    "status": 1
+                },
+                {
+                    "palletID": "P002",
+                    "isFirst": 0,
+                    "orderID": null,
+                    "partID": "P002",
+                    "processID": "O001#P002#OP20",
+                    "processTime": 10.0,
+                    "loadID": "1",
+                    "machineID": "A",
+                    "unloadID": "2",
+                    "loopNum": 2,
+                    "status": 1
+                }
+            ]
+        },
+        {
+            "configName": "配置3",
+            "palletList": [
+                {
+                    "palletID": "P001",
+                    "isFirst": 0,
+                    "orderID": null,
+                    "partID": "P001",
+                    "processID": "O001#P001#OP10",
+                    "processTime": 10.0,
+                    "loadID": "1",
+                    "machineID": "A",
+                    "unloadID": "2",
+                    "loopNum": 2,
+                    "status": 1
+                },
+                {
+                    "palletID": "P002",
+                    "isFirst": 0,
+                    "orderID": null,
+                    "partID": "P002",
+                    "processID": "O001#P002#OP20",
+                    "processTime": 10.0,
+                    "loadID": "1",
+                    "machineID": "A",
+                    "unloadID": "2",
+                    "loopNum": 2,
+                    "status": 1
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>毛坯入库</title>
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <link rel="stylesheet" href="../../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+</head>
+
+<style>
+    input[name="isFire"],
+    input[name="isBatch"],
+    input[name="fireStorageTime"] {
+        color: darkgrey;
+    }
+
+    .isCss {
+        color: #0cc0ec !important;
+        font-weight: bold !important;
+    }
+
+    .layui-elem-quote {
+        padding: 7px !important;
+    }
+
+    .layui-form-item {
+        margin-bottom: 13px !important;
+    }
+
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #PowerKey option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <blockquote class="layui-elem-quote">
+                <!-- <button class="layui-btn" id="Query_RK" lay-submit lay-filter="">获取当前扫码信息</button> -->
+                <!-- <button lay-verify="required" class="layui-btn " id="ADD_data">添加工单信息</button> -->
+                <!-- <button class="layui-btn" id="qrbd" lay-submit lay-filter="">保存入库单</button>
+                <button class="layui-btn" id="qrbd_run" lay-submit lay-filter="">保存并执行入库</button> -->
+                <!-- <button class="layui-btn" id="qrbd" lay-submit lay-filter="">确认入库</button> -->
+                <!-- <button class="layui-btn" id="deleteSJ" lay-submit lay-filter="">新增入库单</button> -->
+                <button class="layui-btn" id="ETR" lay-submit lay-filter="">空托盘出库</button>
+                <button class="layui-btn" id="Query_KPHK" lay-submit lay-filter="Query_KPHK">新空托盘入库</button>
+            </blockquote>
+
+            <!-- <fieldset class="table-search-fieldset">
+                <legend>周转箱信息</legend> -->
+            <form class="layui-form layui-form-pane" action="" lay-filter="example" id="formID">
+
+
+
+                <!-- <div class="layui-form-item ">
+                    <label class="layui-form-label">入库单</label>
+                    <div class="layui-input-inline">
+                        <input id="InOrderID" type="text" name="InOrderID" value="" lay-verify="required" readonly
+                            placeholder="自动生成" autocomplete="off" class="layui-input">
+                    </div>
+
+                    <div class="layui-form-mid layui-word-aux">入库单状态: <span style="color: coral;" id="ZT">数据录入</span>
+                    </div>
+                </div> -->
+
+                <!-- <button class="layui-btn layui-btn-normal" id="ETR" lay-submit lay-filter="ETR">查询入库单信息</button>
+                <button class="layui-btn layui-btn-normal" id="Query_TB" lay-submit lay-filter="Query_TB">更新入库单列表</button> -->
+                <div class="layui-form-item " style="margin-top: 10px;">
+                    <label class="layui-form-label">库位选择</label>
+                    <div class="layui-input-inline">
+                        <select id="LocationID" name="LocationID" lay-filter="LocationID" lay-search>
+
+                        </select>
+                    </div>
+
+                    <div class="layui-form-mid layui-word-aux">动态选择库位(为空则自动分配)</div>
+                </div>
+                <div class="layui-form-item " style="margin-top: 10px; display: none;">
+                    <label class="layui-form-label">入库类型</label>
+                    <div class="layui-input-inline">
+                        <select id="JobInputType" name="JobInputType" lay-filter="InOrderType" lay-search>
+                            <!-- 自制毛坯入库  外购毛坯入库 外协毛坯入库   -->
+                            <option value="毛坯到货入库" selected="">毛坯到货入库</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- <div class="layui-form-item " pane="" style="margin-top: 10px;">
+
+                    <label class="layui-form-label">虚拟入库</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="IsVisualOrder" value="是" title="是" checked="">
+                        <input type="radio" name="IsVisualOrder" value="否" title="否">
+                    </div>
+                </div> -->
+                <!-- <button type="button" class="layui-btn layui-btn-normal" id="hq">取值</button> -->
+            </form>
+            <!-- </fieldset> -->
+            <!-- <br><br> -->
+            <!-- <fieldset class="table-search-fieldset">
+                <legend>零部件详细信息</legend>
+                <div> -->
+            <table class="layui-hide" id="tableId" lay-filter="currentTableFilter"></table>
+
+            <script type="text/html" id="toolbarDemo">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" id="ADD_data">添加毛坯入库信息</button>
+                        </div>
+                    </script>
+            <script type="text/html" id="currentTableBar">
+                        <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除数据</a>
+                    </script>
+            <!-- </div>
+
+            </fieldset> -->
+            <!-- <br> -->
+
+            <blockquote class="layui-elem-quote">
+                <button class="layui-btn" id="qrbd" lay-submit lay-filter="">提交入库请求</button>
+            </blockquote>
+        </div>
+    </div>
+    <!-- 单个添加 -->
+    <div id="PZM" class="layui-form layuimini-form" lay-filter="PZM"
+        style="padding: 22px; line-height: 22px;  font-weight: 300;display: none;">
+        <div id="CCS1" class="layui-form-item">
+
+
+            <label class="layui-form-label required" style="text-align: right;">毛坯型号：</label>
+            <div class="layui-input-block">
+                <!-- <div class="layui-form"> -->
+                <div class="layui-input-inline" name="ItemID" id="ItemID"></div>
+                <!-- </div> -->
+                <!-- <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入毛坯型号"
+                    placeholder="输入毛坯型号" class="layui-input"> -->
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">炉号：</label>
+            <div class="layui-input-block">
+                <input id="FurnaceID" type="text" name="FurnaceID" lay-verify="required" lay-reqtext="输入炉号"
+                    placeholder="输入炉号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">毛坯来料状态：</label>
+            <div class="layui-input-block">
+                <input id="BlankInputStatus" type="text" name="BlankInputStatus" value="" lay-verify="required"
+                    lay-reqtext="输入毛坯来料状态" placeholder="输入毛坯来料状态" class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">热处理批号：</label>
+            <div class="layui-input-block">
+                <input id="HeatTreatmentLotNo" type="text" name="HeatTreatmentLotNo" placeholder="输入热处理批号"
+                    class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">热处理厂商：</label>
+            <div class="layui-input-block">
+                <!-- <input id="HeatTreatmentVendor" type="text" name="HeatTreatmentVendor" placeholder="输入热处理厂商"
+                    class="layui-input"> -->
+
+
+                <select id="HeatTreatmentVendor" name="HeatTreatmentVendor" lay-verify="required">
+
+                </select>
+            </div>
+            <label class="layui-form-label " style="text-align: right;">单据号：</label>
+            <div class="layui-input-block">
+                <input id="OrderCode" type="text" name="OrderCode" placeholder="输入单据号" class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">供应商：</label>
+            <div class="layui-input-block">
+                <!-- <input id="Vendor" type="text" name="Vendor" placeholder="输入单据号" class="layui-input"> -->
+                <select id="Vendor" name="Vendor" lay-verify="required">
+
+                </select>
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
+            <div class="layui-input-block">
+                <input id="CurrentItemQty" type="text" name="CurrentItemQty" value="" lay-verify="sl"
+                    lay-reqtext="输入入库数量" placeholder="输入入库数量" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="demo1" lay-submit="">确认添加</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['table', 'form', 'tableSelect', "util", 'table', "layuimini", 'laydate', "layer", "layedit", "tableSelect", "dropdown", "selectInput"], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                miniTab = layui.miniTab;
+            table = layui.table,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate,
+                tableSelect = layui.tableSelect,
+                dropdown = layui.dropdown;
+            numinput = layui.numinput;
+            selectInput = layui.selectInput;
+            util = layui.util;
+
+
+
+
+
+            // 初始化日期选择器
+            laydate.render({
+                elem: '#ProductDate', //指定元素
+                type: 'date' //日期选择器类型
+            });
+            // $("#Creator").html("")
+            // $("#Creator").html(sessionStorage.getItem("UserName"))
+            $("#Creator").val(sessionStorage.getItem("UserName"));
+            //select 可编辑 可模糊
+
+
+            readyselect()
+            function readyselect() {
+                cp("")
+                tableCZ()
+                selectrender("ItemID")
+                rcl()
+                rcl1()
+            }
+            //获取区域2.1  2.2区域
+            function rcl() {
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "DataListType": "热处理厂商" }
+                $.ajax({
+                    url: http1 + "GetDataListInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#HeatTreatmentVendor");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.DataListValue, item.DataListValue));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+            //获取区域2.1  2.2区域
+            function rcl1() {
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "DataListType": "供应商" }
+                $.ajax({
+                    url: http1 + "GetDataListInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#Vendor");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.DataListValue, item.DataListValue));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+
+            function selectrender(idname) {
+                selectInput.render('#' + idname, {
+                    // 容器id，必传参数
+                    name: idname, // 渲染的input的name值
+                    hasSelectIcon: true,
+                    layFilter: 'test', //同layui form参数lay-filter
+                    layVerify: 'required', //同layui form参数lay-verify
+                    layVerType: '', // 同layui form参数lay-verType
+                    layReqText: '请填写文本', //同layui form参数lay-ReqText
+                    initValue: '', // 渲染初始化默认值
+                    placeholder: '请输入内容', // 渲染的inputplaceholder值
+                    // 联想select的初始化本地值，数组格式，里面的对象属性必须为value，name，value是实际选中值，name是展示值，两者可以一样
+                    invisibleMode: true,
+                    ignoreCase: true,
+                    data: [],
+                    hasCut: true, // 是否允许剪贴
+                    //url: "http://toys.shop.com/site/test", // 异步加载的url，异步加载联想词的数组值，设置url，data参数赋的值将会无效，url和data参数两者不要同时设置
+                    remoteSearch: false, // 是否启用远程搜索 默认是false，和远程搜索回调保存同步
+                    parseData: function (res) { // 此参数仅在异步加载data数据下或者远程搜索模式下有效，解析回调，如果你的异步返回的data不是上述的data格式，请在此回调格式成对应的数据格式，回调参数是异步加载的数据
+                        let data = [];
+                        res.map(item => {
+                            data.push({ name: item.title, value: item.val })
+                        });
+                        console.log(data)
+                        return data;
+                    },
+                    error: function (error) { // 异步加载出错的回调 回调参数是错误msg
+
+                    },
+                    done: function (data) { // 异步加载成功后的回调 回调参数加载返回数据
+                        console.log(data)
+                    },
+                    remoteMethod: function (value, cb) { // 远程搜索的回调函数
+                        // value 是input实施输入的value值
+                        // cb是回调处理函数，请在执行ajax搜索请求成功之后执行此回调函数
+
+                        //案例
+                        //这里如果val为空, 则不触发搜索
+                        if (!value) {
+                            return cb([]);
+                        }
+                        //这里的$.ajax去请求后台拿回数据
+                        $.ajax({
+                            method: 'get',
+                            url: 'http://toys.shop.api.com/user/test', // 此处是你服务端的接口
+                            data: {
+                                keyword: value,
+                            },
+                            success: function (data) {
+                                // 此处最好直接返回取你返回的 data属性，如：data.data，这样不限制你后端返回的数据对象格式，如果整体传参，必须满足：{"code":0,"msg":"success","data":[]}
+                                return cb(data)
+                            }
+                        })
+                    }
+                });
+            }
+
+            // ==================
+            var ins = selectInput.getInstance("#ItemID");
+
+            // 监听input 实时输入事件
+
+            ins.on('itemInput(ItemID)', function (obj) {
+                console.log($(obj).val());
+                let data1 = {
+                    "BlankMPID": $(obj).val(),
+                }
+                $.ajax({
+
+                    url: http1 + "GetBlankInfoListFuzzy",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    async: true,
+                    data: JSON.stringify(data1),
+
+                    success: function (res) {
+
+                        if (res.data != []) {
+                            let aj = res.data
+                            let aj1 = []
+                            aj.map(function (item) {
+                                console.log(item)
+                                return aj1.push({ value: item.BlankMPID, name: item.BlankMPID });
+                            });
+
+                            ins.addSelect(aj1)
+                        }
+
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+            });
+
+            // 监听select 选择事件
+            ins.on('itemSelect(ItemID)', function (obj) {
+                let data2 = {
+                    "BlankMPID": obj.innerHTML
+                }
+                $.ajax({
+
+                    url: http1 + "GetOneBlankInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        form.val('PZM', res.data)
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+            });
+
+            // =========================================================================
+
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题⾄少得5个字符啊';
+                    }
+                }, fname: function (value) {
+                    if (value.length < 4) {
+                        return '请输⼊⾄少4位的⽤户名';
+                    }
+                }, contact: function (value) {
+                    if (value.length < 4) {
+                        return '内容请输⼊⾄少4个字符';
+                    }
+                }
+                , phone: [/^1[3|4|5|7|8]\d{9}$/, '⼿机必须11位，只能是数字！']
+
+                , email: [/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/, '邮箱格式不对']
+                // , email: [/^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}/, '邮箱格式不对']
+                , sl: [/^[1-9]\d*$/, '数量格式不对，需为大于零的整数']
+            });
+            //删除行
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'delete') {
+                    layer.confirm('是否删除？', function (index) {
+                        let rowindex = $(obj.tr).attr("data-index")
+                        obj.del();
+                        let oldData = layui.table.cache['tableId'];
+                        oldData.splice(rowindex, 1);
+
+                        layui.table.reload('tableId', {
+                            url: "",
+                            data: oldData,   // 将新数据重新载入表格
+                            limit: 1000
+                        });
+                        layer.close(index);
+                    });
+                }
+            });
+
+
+
+
+            //添加行
+            $('body').on('click', '#ADD_data', function () {
+
+
+                var index = layer.open({
+                    type: 1,
+                    title: "添加工单信息" //不显示标题栏
+                    ,
+                    // closeBtn: false,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,
+                    // btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                    ,
+                    content: $("#PZM"),
+                    success: function (layero) {
+
+                        // wl()
+                    },
+                    yes: function (layero, index) {
+
+
+                    }
+                });
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+                return false;
+
+            });
+            //确认提交
+
+            form.on('submit(demo1)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+
+                console.log(data.field)
+                // var dataBak = [];   //定义一个空数组,用来存储之前编辑过的数据已经存放新数据
+                // for (var i = 0; i < tableBak.length; i++) {
+                //     dataBak.push(tableBak[i]);      //将之前的数组备份
+                // }
+                var sj = data.field;
+                var olddata = table.cache["tableId"];
+
+                sj.materialID1 = (olddata.length == 0 ? "" : olddata[0].materialID1)
+
+                console.log(JSON.stringify(olddata.length))
+                //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，tableId 为表格的id
+
+                // var sj = {
+                //     "materialID1": olddata.length == 0 ? "" : olddata[0].materialID1,
+                //     "boxIndex": parseFloat(olddata.length) + 1,
+                //     "batchNo": $("#batchNo").val(),
+                //     "storageNumber": 1,
+                //     "ItemID": data.field.ItemID,
+                //     "ItemLotNo": data.field.ItemLotNo,
+                //     "ItemQty": data.field.ItemInQty,//已经入库赋值
+                //     "WorkID": data.field.WorkID,
+                //     "ItemName": data.field.ItemName,
+                //     "FurnaceID": data.field.FurnaceID
+                // }
+
+                // 在尾部新增一行空数据，实现增行效果
+                olddata.push(sj);
+
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+
+                layer.closeAll()
+
+                olddata = []
+
+                return false
+            });
+            //库位
+
+            function cp(key) {
+                let data2 = {
+                    // "LocationType": "立库库位",
+                    // "StockStatus": "空闲",
+                    // "WorkStatus": "空闲"
+
+                }
+                $.ajax({
+                    url: http1 + "GetLocationInfoListForInput",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#LocationID");//TypeID为HTML标签ID
+                        select.empty();
+                        let result = res.data
+                        select.append(new Option("", ""));
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.LocationID, item.LocationID));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+
+            }
+
+
+
+            //根据入库单显示相关信息
+
+            // form.on('select(InOrderID)', function (data) {
+
+
+            //     // tableCZ_OLD(data.value)
+
+            //     tableCZ(data.value)
+
+            //     return false; // 阻止默认 form 跳转
+            // });
+
+
+
+
+            function tableCZ(field) {
+                //table 箱子详细信息
+                // alert(('#InOrderID').val() )
+                table.render({
+                    elem: '#tableId',
+                    toolbar: '#toolbarDemo',
+                    method: "post",
+                    // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    url: http1 + "GetOneInOrderInfoWithDetail",
+                    // headers: {"token": "111"},
+                    cellMinWidth: 80,
+                    where: { "InOrderID": field },
+                    totalRow: true,
+                    contentType: 'application/json,charset=utf-8',
+                    parseData: function (res) { //res 即为原始返回的数据
+                        console.log(res)
+
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": 0,
+                            "data": ""
+                        }
+
+                    },
+
+                    cols: [[
+
+
+                        // "ItemID": "6666M", //毛坯型号
+                        // "CurrentItemQty": 5000, //入库数量
+                        // "FurnaceID": "AT-000305", //炉号
+                        // "HeatTreatmentLotNo": "DS0902301", //热处理批号
+                        // "HeatTreatmentVendor": "淮安东升热处理厂", //热处理厂商
+                        // "BlankInputStatus": "棒料", //毛坯来料状态        
+                        // "Vendor": "双环33", //供应商         
+                        // "OrderCode": "FD001" //单据号
+
+                        { type: 'numbers', field: 'boxIndex', title: '#', align: "center", fixed: 'left', totalRowText: '合计' },
+                        { field: 'ItemID', Width: "100", title: '毛坯型号', align: "center" },
+                        { field: 'FurnaceID', Width: "100", title: '炉号', align: "center", },
+                        { field: 'HeatTreatmentLotNo', Width: "100", title: '热处理批号', align: "center", },
+                        { field: 'HeatTreatmentVendor', Width: "100", title: '热处理厂商', align: "center", },
+                        { field: 'BlankInputStatus', Width: "100", title: '毛坯来料状态', align: "center", },
+                        { field: 'Vendor', Width: "100", title: '供应商', align: "center", },
+                        { field: 'OrderCode', Width: "100", title: '单据号', align: "center", },
+                        { field: 'CurrentItemQty', Width: "100", sort: true, title: '入库数量', align: "center", totalRow: true },
+                        { title: '操作', Width: "100", templet: '#currentTableBar', fixed: "right", align: "center" }
+                    ]
+                    ],
+                    done: function (res, currentCount) {
+
+                    }
+
+                    // ,limits: [10, 15, 20, 25, 50, 100],
+                    // limit: 10,
+                    // page: true
+                });
+            }
+
+
+
+            //单元格编辑
+            table.on('edit(test)', function (obj) {
+                var value = obj.value //得到修改后的值
+                    , data = obj.data //得到所在行所有键值
+                    , field = obj.field; //得到字段
+                layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改值为：' + util.escape(value));
+            });
+
+
+            var $ = layui.$, active = {
+                getCheckData: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('tableId')
+                        , data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                }
+                // , getCheckLength: function () { //获取选中数目
+                //     var checkStatus = table.checkStatus('idTest')
+                //         , data = checkStatus.data;
+                //     layer.msg('选中了：' + data.length + ' 个');
+                // }
+                // , ADD_data: function () { //验证是否全选
+                //     var checkStatus = table.checkStatus('idTest');
+                //     layer.msg(checkStatus.ADD_data ? '全选' : '未全选')
+                // }
+            };
+            //空托盘出库
+            $("#ETR").on("click", function () {
+
+                // var field = data.field.InOrderID; // 获取表单字段值
+                // 显示填写结果，仅作演示用
+                // layer.alert(field, {
+                //     title: '当前填写的字段值'
+                // });
+                // 此处可执行 Ajax 等操作
+                // …layui.msg
+                let data2 = { "Creator": sessionStorage.getItem("UserID") }
+                $.ajax({
+
+                    url: http1 + "SubmitEmptyPalletOutInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        layer.msg(res.msg, function () { });
+
+                    },
+
+
+                    error: function () {
+                        layer.msg(res.msg, function () { });
+                    }
+                })
+                return false; // 阻止默认 form 跳转
+            });
+
+
+
+            //查询工单信息
+            $("#Query_GD").on("click", function () {
+
+
+
+                let data2 = { "WorkID": $('input[name="WorkID"]').val() }
+
+                $.ajax({
+
+                    url: http1 + "GetWorkInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        console.log(res)
+                        //表单获取
+                        form.val('PZM', res.data)
+                        //表格重载
+                        // tableCZ()
+
+                    },
+
+
+                    error: function () {
+                        layer.msg("服务器连接失败！", function () { });
+                    }
+                })
+            });
+
+
+            //查询已入库信息
+            $("#Query_YRK").on("click", function () {
+
+
+
+                let data2 = { "WorkID": $('input[name="WorkID"]').val() }
+
+                $.ajax({
+
+                    url: http1 + "GetHaveQtyInfoByWorkID",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        console.log(res)
+                        //表单获取
+                        $('#ItemHaveQty').val(res.data);
+                        //表格重载
+                        // tableCZ()
+
+                    },
+
+
+                    error: function () {
+                        layer.msg("服务器连接失败！", function () { });
+                    }
+                })
+            });
+            //获取扫码信息
+
+            var SM = function () {
+
+                $.ajax({
+                    url: http1 + "wms/querynewboxinfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    // data: data,
+
+                    success: function (res) {
+
+                        if (res.workStatus == "等待绑定") {
+                            console.log(res)
+                            //表单获取
+                            form.val('example', res)
+                            //表格重载
+                            tableCZ()
+
+                            clearInterval(int);
+                        }
+
+                    },
+
+
+                    error: function () {
+                        layer.msg("服务器连接失败！", function () { });
+                    }
+                })
+
+            }
+            //  定时器
+            // var int = self.setInterval(SM, 3000);
+
+            //确认绑定
+            $("#qrbd").on("click", function () {
+
+                let dataz = layui.table.cache['tableId'];
+                // var checkStatus = table.checkStatus('tableId')
+                //     , dataz = checkStatus.data;
+                // layer.alert(JSON.stringify(dataz));
+                let SL = 0
+
+                var data = form.val('example')
+
+                console.log(data)
+
+                BDSJ()
+
+            });
+
+            //确认绑定并提交入库任务
+            $("#qrbd_run").on("click", function () {
+
+                let dataz = layui.table.cache['tableId'];
+                // var checkStatus = table.checkStatus('tableId')
+                //     , dataz = checkStatus.data;
+                // layer.alert(JSON.stringify(dataz));
+                let SL = 0
+
+                var data = form.val('example')
+
+                console.log(data)
+
+                BDSJ("star")
+
+            });
+            //绑定数据提交
+
+            function BDSJ(key) {
+
+                let dataz = layui.table.cache['tableId'];
+                // var checkStatus = table.checkStatus('tableId')
+                //     , dataz = checkStatus.data;
+                // layer.alert(JSON.stringify(dataz));
+                let SL = 0
+                var data = form.val('example')
+
+                let ce = "StorageLineInfoList"
+                let ce1 = "Creator"
+                let value = dataz
+                data[ce] = value
+                data[ce1] = sessionStorage.getItem("UserID")
+                console.log(data)
+                data = JSON.stringify(data)
+                console.log(data)
+                // data.push({"ce":JSON.stringify(dataz)})
+                // layer.alert(data);
+                $.ajax({
+                    url: http1 + "SubmitBlankInputInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: data,
+
+                    success: function (res) {
+
+                        if (res.code == 200) {
+                            // int = self.setInterval(SM, 3000);
+                            $('#InOrderID').val(res.data.InOrderID)
+                            $('#ZT').text(res.data.InOrderStatus)
+                            layer.msg(res.msg, function () { });
+                            QK()
+
+                        } else {
+
+                            layer.msg(res.msg, function () { });
+                        }
+
+                    },
+
+                    error: function (res) {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+            }
+            //清除数据
+            $("#deleteSJ").on("click", function () {
+
+                QK()//清空数据
+                // tb()//刷新入库单列表
+                cp()//清空库位
+            })
+            //执行入库
+
+            function ZXRK(key) {
+
+                let data2 = { "InOrderID": key }
+
+                $.ajax({
+
+                    url: http1 + "RunInOrderInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        if (res.code == 200) {
+
+                            layer.msg(res.msg, function () { });
+
+                        } else {
+
+                            layer.msg(res.msg, function () { });
+                        }
+
+                    },
+
+                    error: function (res) {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+            }
+
+            //清空数据
+            function QK() {
+
+
+                var select = $("#batchNo");//TypeID为HTML标签ID
+
+                select.empty();
+
+                var select = $("#materialTypeId");//TypeID为HTML标签ID
+
+                select.empty();
+
+                var select = $("#boxModel");//TypeID为HTML标签ID
+
+                select.empty();
+
+                $('#formID')[0].reset();
+
+                form.render();//必须写
+
+
+                $("#Creator").val(sessionStorage.getItem("UserName"));
+                let olddata = []
+
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+                olddata = []
+            }
+
+
+            //新空盘回库
+
+            function KPHK() {
+                let data2 = {
+                    // "LocationID": key,
+                    "Creator": sessionStorage.getItem("UserID")
+                }
+                $.ajax({
+                    url: http1 + "SubmitNewPalletInOrderInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        layer.msg(res.msg, function () { });
+
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+
+            }
+            //新空盘回库
+            form.on('submit(Query_KPHK)', function (data) {
+
+                // var field = data.field.LocationIDFrom; // 获取表单字段值
+
+                // $("#PalletID_add").val(field)
+                //回库
+                KPHK()
+
+
+                return false; // 阻止默认 form 跳转
+            });
+
+        });
+    </script>
+</body>
+
+</html>

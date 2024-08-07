@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>table下拉选择器</title>
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+</head>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <blockquote class="layui-elem-quote">
+                堆垛车(ROB)调度/新增托盘
+                <P style="color: #941010;">必须在没有上线任务的前提下操作</P>
+            </blockquote>
+
+            <form class="layui-form" action="" style="padding:20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">起始位：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input" id="demo" value="" ts-selected="002,003">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux"></div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">目的地：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input" id="demo2">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-inline">
+                        <input type="button" class="layui-btn layui-btn-sm  KS" id="return_parent" value="开始执行">
+                        <input type="button" class="layui-btn layui-btn-sm  JX" id="return_parent" value="继续执行">
+                    </div>
+                </div>
+
+
+
+            </form>
+            <blockquote class="layui-elem-quote">
+                RFID读写操作
+            </blockquote>
+
+            <form class="layui-form" action="" style="padding:20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">托盘信息：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input" id="demo3">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">目前就是托盘编号</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-inline">
+                        <input type="button" class="layui-btn layui-btn-sm  XR" id="return_parent" value="写RFID">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">读写信息：</label>
+                    <div class="layui-input-inline">
+                        <input id="DX" style="background-color: #e1d9d9;" readonly="readonly" type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux"></div>
+                </div>
+
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-inline">
+                        <input type="button" class="layui-btn layui-btn-sm  DX" id="return_parent" value="读RFID">
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['table', 'form', 'tableSelect'], function() {
+            var $ = layui.jquery,
+                table = layui.table,
+                form = layui.form,
+                tableSelect = layui.tableSelect;
+
+            tableSelect.render({
+                elem: '#demo',
+                searchKey: 'my',
+                checkedKey: 'id',
+                searchPlaceholder: '',
+                table: {
+                    url: '../api/tableSelect.json',
+                    cols: [
+                        [{
+                            type: 'radio'
+                        }, {
+                            field: 'id',
+                            title: 'ID',
+                            width: 100
+                        }, {
+                            field: 'id1',
+                            title: '名称',
+                            width: 200
+                        }, {
+                            field: 'id2',
+                            title: '位置',
+                            width: 200
+                        }]
+                    ]
+                },
+                done: function(elem, data) {
+                    var NEWJSON = []
+                    layui.each(data.data, function(index, item) {
+                        NEWJSON.push(item.id2)
+                    })
+                    elem.val(NEWJSON.join(","))
+                }
+            })
+
+            tableSelect.render({
+                elem: '#demo2',
+                checkedKey: 'id',
+                table: {
+                    url: '../api/tableSelect.json',
+                    cols: [
+                        [{
+                            type: 'radio'
+                        }, {
+                            field: 'id',
+                            title: 'ID',
+                            width: 100
+                        }, {
+                            field: 'id1',
+                            title: '名称',
+                            width: 200
+                        }, {
+                            field: 'id2',
+                            title: '位置',
+                            width: 200
+                        }]
+                    ]
+                },
+                done: function(elem, data) {
+                    var NEWJSON = []
+                    layui.each(data.data, function(index, item) {
+                        NEWJSON.push(item.id2)
+                    })
+                    elem.val(NEWJSON.join(","))
+                }
+            })
+
+            tableSelect.render({
+                    elem: '#demo3',
+                    checkedKey: 'id',
+                    table: {
+                        url: '../api/tableSelect.json',
+                        cols: [
+                            [{
+                                type: 'radio'
+                            }, {
+                                field: 'id',
+                                title: 'ID',
+                                width: 100
+                            }, {
+                                field: 'id1',
+                                title: '名称',
+                                width: 200
+                            }, {
+                                field: 'id2',
+                                title: '位置',
+                                width: 200
+                            }]
+                        ]
+                    },
+                    done: function(elem, data) {
+                        var NEWJSON = []
+                        layui.each(data.data, function(index, item) {
+                            NEWJSON.push(item.id2)
+                        })
+                        elem.val(NEWJSON.join(","))
+                    }
+                })
+                // 0是！，1是√，2是×，3是❓，4是一个?，5是?，6是?
+
+
+
+            // 开始执行
+            $("body").on("click", ".KS", function() {
+                $.ajax({
+
+                    url: http1 + "?interface=robAToB&A=" + $("#demo").val() + "&B=" + $("#demo2").val(),
+
+                    type: "get",
+
+                    dataType: 'json',
+
+                    // data: JSON.stringify(data1),
+
+                    success: function(data) {
+                        layer.msg("成功！", {
+                            icon: 1,
+                            offset: "auto",
+                            time: 2000
+                        });
+                    },
+
+                    error: function() {
+                        layer.msg("发送服务器失败！", {
+                            icon: 2,
+                            offset: "auto",
+                            time: 2000
+                        });
+
+
+                    }
+                })
+            });
+            //继续执行
+            $("body").on("click", ".JX", function() {
+                $.ajax({
+
+                    url: http1 + "?interface=robContinue",
+
+                    type: "get",
+
+                    dataType: 'json',
+
+                    // data: JSON.stringify(data1),
+
+                    success: function(data) {
+                        layer.msg("成功！", {
+                            icon: 1,
+                            offset: "auto",
+                            time: 2000
+                        });
+
+                    },
+
+                    error: function() {
+
+                        layer.msg("发送服务器失败！", {
+                            icon: 2,
+                            offset: "auto",
+                            time: 2000
+                        });
+
+
+                    }
+                })
+            });
+            //写入RFID
+            $("body").on("click", ".XR", function() {
+                $.ajax({
+
+                    url: http1 + "?interface=rfidWrite&rfid=" + $("#demo3").val(),
+
+                    type: "get",
+
+                    dataType: 'json',
+
+                    // data: JSON.stringify(data1),
+
+                    success: function(data) {
+                        layer.msg("成功！", {
+                            icon: 1,
+                            offset: "auto",
+                            time: 2000
+                        });
+                    },
+
+                    error: function() {
+
+                        layer.msg("发送服务器失败！", {
+                            icon: 2,
+                            offset: "auto",
+                            time: 2000
+                        });
+
+
+                    }
+                })
+            });
+            //读写RFID
+            $("body").on("click", ".DX", function() {
+                $.ajax({
+
+                    url: http1 + "?interface=rfidRead",
+
+                    type: "get",
+
+                    dataType: 'json',
+
+                    // data: JSON.stringify(data1),
+
+                    success: function(data) {
+                        layer.msg("成功！", {
+                            icon: 1,
+                            offset: "auto",
+                            time: 2000
+                        });
+                        $("#DX").val("")
+                        $("#DX").val(data)
+                    },
+
+                    error: function(data) {
+
+                        layer.msg("发送服务器失败！", {
+                            icon: 2,
+                            offset: "auto",
+                            time: 2000
+                        });
+
+
+                    }
+                })
+            });
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="../page/layui-soul-table/soulTable.css" media="all">
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+            <script type="text/html" id="currentTableBar">
+                <!-- <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">配置删除</a> -->
+            <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">导入计划</a>
+            </script>
+        </div>
+    </div>
+
+
+</body>
+<script src="soulTable.js" charset="utf-8"></script>
+<script src="../js/api/http.js" charset="utf-8"></script>
+
+<script>
+    layui.use(['form', 'table', 'laydate', 'soulTable', 'element'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            layuimini = layui.layuimini,
+            laydate = layui.laydate;
+        soulTable = layui.soulTable;
+        element = layui.element;
+
+
+        // var index_loading;
+
+        // index_loading = layer.load(4);
+
+        // f1()
+        // function f1() {
+        //     $.ajax({
+        //         url: 'http://192.168.0.114:8080/?interface=getSchedulePlanList',
+        //         type: "get",
+        //         dataType: 'json',
+        //         // data: JSON.stringify(data1),
+        //         success: function (data) {
+
+        //             f2(data)
+        //         },
+        //         error: function () {
+        //             alert("提交失败")
+        //         }
+        //     })
+        // }
+
+
+        // function f2(data) {
+
+        table.render({
+            elem: '#currentTableId',
+            method: "post",
+            overflow: 'tips',
+            // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            url: http1 + "wms/querytaskreadylist",
+            contentType: 'application/json,charset=utf-8',
+            parseData: function (res) { //res 即为原始返回的数据
+                console.log(res)
+
+                return {
+                    "code": 0,
+                    "msg": "",
+                    "count": 0,
+                    "data": res.data.length == 0 ? "" : res.data
+                }
+
+            }
+
+
+
+            , page: false
+            , cols: [[
+                // "taskReadyId": "BR202305271301",
+                // "taskID": "TR0000000029",
+                // "productType": "",
+                // "productionTime": "2023-05-27T16:11:08",
+                { field: 'taskReadyId', title: '备料计划单号', width: 160 }
+                , { field: 'taskID', title: '任务单号', width: 160 }
+                , { field: 'productionTime', title: '生产时间', width: 220 }
+                , { title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center" }
+            ]]
+            , done: function () {
+
+            }
+        });
+        // }
+
+
+        //监听表格复选框选择
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                layer.confirm('确定导入吗？', function (index) {
+                    // console.log(index)
+                    // console.log(JSON.stringify(table))
+                    // layer.alert(JSON.stringify(table.cache.currentTableId[index-1].PlanName));
+                    // console.log(JSON.stringify(table.cache.currentTableId[$(obj.tr).data('index')].planName))
+                    parent.tools.reload(table.cache.currentTableId[$(obj.tr).data('index')].taskReadyId);
+                    // layer.alert(JSON.stringify(table[index].palletList));
+
+                    // layer.closeALL();
+                });
+            }
+        });
+
+
+        function f1() {
+            table.render({
+
+                elem: '#currentTableId'
+
+                // , url: '../api/pz.json'
+
+                , url: http1 + '?interface=getSchedulePlanList'
+
+                , parseData: function (res) { //res 即为原始返回的数据
+
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": 1,
+                        "data": res //解析数据列表
+                    };
+                }
+                // , data: function () {
+                //     console.log(data)
+                //     return {
+                //         "code": 0,
+                //         "msg": "",
+                //         "count": 1,
+                //         "data": data //解析数据列表
+                //     };
+
+                // }
+                , rowDrag: {/*trigger: 'row',*/ done: function (obj) {
+                    // 完成时（松开时）触发
+                    // 如果拖动前和拖动后无变化，则不会触发此方法
+                    console.log(obj.row) // 当前行数据
+                    console.log(obj.cache) // 改动后全表数据
+                    console.log(obj.oldIndex) // 原来的数据索引
+                    console.log(obj.newIndex) // 改动后数据索引
+                }
+                }
+                , height: 600
+                , page: false
+                , cols: [[
+                    {
+                        title: '#', width: 50, lazy: true, collapse: true, children: [
+                            {
+                                title: '配置信息'
+                                , data: function (row) {
+                                    // d 为当前行数据
+                                    console.log(row)
+
+                                    return row.storageLineInfoList;
+                                }
+
+                                , height: 200
+                                , page: false
+                                , cols: [[
+                                    { type: 'checkbox' }
+                                    , { field: 'palletID', title: '托盘号', width: 160 }
+                                    , { field: 'processID', title: '托盘任务', minwidth: 180 }
+                                    , { field: 'loopNum', title: '工件数', width: 160 }
+                                    , { field: 'stationID', title: '加工站', width: 160 }
+                                ]]
+                                , done: function () {
+                                    // layer.close(index_loading);
+                                    soulTable.render(this);
+                                }
+                            }
+                        ]
+                    },
+                    { type: 'checkbox' }
+                    , { field: 'planName', title: '配置名', width: 160 }
+                    , { title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center" }
+                ]]
+                , done: function () {
+                    soulTable.render(this)
+                }
+            });
+        }
+    });
+</script>
+
+</html>

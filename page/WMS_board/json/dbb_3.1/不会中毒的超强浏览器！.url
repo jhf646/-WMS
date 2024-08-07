@@ -1,0 +1,8 @@
+[DEFAULT]
+BASEURL=http://www.jz5u.net/huohu/down.htm
+[DOC#152]
+BASEURL=http://www.jz5u.net/huohu/foot.htm
+ORIGURL=foot.htm
+[InternetShortcut]
+URL=http://www.jz5u.net/huohu/down.htm
+Modified=8050AE346B0DC801F3

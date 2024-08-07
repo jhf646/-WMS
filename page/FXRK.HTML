@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>箱码绑定</title>
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+</head>
+
+<style>
+    input[name="isFire"],
+    input[name="isBatch"],
+    input[name="fireStorageTime"] {
+        color: darkgrey;
+    }
+
+    .isCss {
+        color: #0cc0ec !important;
+        font-weight: bold !important;
+    }
+
+    .layui-elem-quote {
+        padding: 7px !important;
+    }
+
+    .layui-form-item {
+        margin-bottom: 13px !important;
+    }
+
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #PowerKey option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+
+
+            <!-- <fieldset class="table-search-fieldset">
+                <legend>周转箱信息</legend> -->
+
+            <blockquote class="layui-elem-quote">
+                <form class="layui-form layui-form-pane" action="" lay-filter="example_OLD" id="formID">
+
+                    <div class="layui-form-item ">
+
+                        <label class="layui-form-label">托盘码</label>
+                        <div class="layui-input-inline">
+
+                            <select id="PalletID" name="PalletID" lay-filter="PalletID" lay-search>
+
+                            </select>
+                        </div>
+
+
+                        <div class="layui-form-mid layui-word-aux">选择已到分拣确认区托盘<p></p>
+
+                        </div>
+
+
+                    </div>
+                    <button class="layui-btn" id="Query_XM" lay-submit lay-filter="Query_XM">查询分选信息</button>
+                    <button class="layui-btn" id="Query_TB" lay-submit lay-filter="Query_TB">更新托盘列表</button>
+                </form>
+            </blockquote>
+
+            <!-- </fieldset> -->
+            <!-- <br><br> -->
+            <!-- <fieldset class="table-search-fieldset">
+                <legend>零部件详细信息</legend>
+                <div> -->
+            <table class="layui-hide" id="tableId1" lay-filter="currentTableFilter1"></table>
+
+
+            <blockquote class="layui-elem-quote">
+                <!-- <button class="layui-btn" id="Query_XM" lay-submit lay-filter="">获取当前扫码信息</button> -->
+                <!-- <button lay-verify="required" class="layui-btn " id="ADD_data">添加物料信息</button> -->
+                <form class="layui-form layui-form-pane" action="" lay-filter="example" id="formID">
+
+
+
+                    <div class="layui-form-item">
+
+                        <label class="layui-form-label">托盘码</label>
+                        <div class="layui-input-inline">
+                            <input id="PalletID_add" type="text" name="PalletID" lay-verify="required"
+                                lay-reqtext="输入物料型号" readonly="true" placeholder="输入物料型号" class="layui-input">
+                        </div>
+
+                        <label class="layui-form-label">库位选择</label>
+                        <div class="layui-input-inline">
+                            <select id="LocationID" name="LocationID" lay-filter="LocationID" lay-search>
+
+                            </select>
+                        </div>
+
+                        <div class="layui-form-mid layui-word-aux">动态选择库位(为空则自动分配)</div>
+                    </div>
+
+
+                </form>
+
+                <button class="layui-btn" id="qrbd" lay-submit lay-filter="">分拣确认</button>
+            </blockquote>
+
+            <table class="layui-hide" id="tableId" lay-filter="currentTableFilter"></table>
+            <!-- <script type="text/html" id="toolbarDemo">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" id="ADD_data">添加数据</button>
+                        </div>
+                    </script> -->
+            <script type="text/html" id="currentTableBar">
+                        <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除数据</a>
+                    </script>
+
+            <script type="text/html" id="currentTableBarNew">
+                        <a class="layui-btn layui-btn-xs layui-btn data-count-delete" lay-event="add">分拣添加</a>
+                    </script>
+            <!-- </div>
+
+            </fieldset> -->
+            <!-- <br> -->
+            <!-- <blockquote class="layui-elem-quote">
+                <button class="layui-btn" id="qrbd" lay-submit lay-filter="saveBtn">确认绑定</button>
+                <button class="layui-btn" lay-submit lay-filter="saveBtn1">更新表单数据</button>
+            </blockquote> -->
+        </div>
+    </div>
+    <!-- 单个添加 -->
+    <div id="PZM" class="layui-form layuimini-form" lay-filter="PZM"
+        style="padding: 22px; line-height: 22px;  font-weight: 300;display: none;">
+        <div id="CCS1" class="layui-form-item">
+
+            <label class="layui-form-label required" style="text-align: right;">物料型号：</label>
+            <div class="layui-input-block">
+
+                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物料型号" readonly="true"
+                    placeholder="输入物料型号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">批号：</label>
+            <div class="layui-input-block">
+                <input id="ItemLotNo" type="text" name="ItemLotNo" lay-verify="required" lay-reqtext="输入批号"
+                    readonly="true" placeholder="输入批号" class="layui-input">
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">库存编号：</label>
+            <div class="layui-input-block">
+                <input id="StorageLineID" type="text" name="StorageLineID" value="" lay-verify="required"
+                    lay-reqtext="输入库存编号" readonly="true" placeholder="输入库存编号" class="layui-input">
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">可用数量：</label>
+            <div class="layui-input-block">
+                <input id="ItemQty" type="text" name="ItemQty" value="" lay-verify="required" lay-reqtext="输入数量"
+                    readonly="true" placeholder="输入数量" class="layui-input">
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">分拣数量：</label>
+            <div class="layui-input-block">
+                <input id="PickQty" type="text" name="PickQty" value="" lay-verify="sl" lay-reqtext="输入分拣数量"
+                    placeholder="输入分拣数量" class="layui-input">
+            </div>
+            <!--       "PickID": "LY0001",     //分拣单号
+                             "Picker": "老王",   // 分拣人员
+                             "Project": "月球登录项目",
+                             "PickerDepartment": "研发部",// 分拣部门
+                            "StorageLineID": "KC00000095",//  库存编号
+                            "PickQty": 2                 //   分拣数量 -->
+
+            <label class="layui-form-label required" style="text-align: right;">分拣单号：</label>
+            <div class="layui-input-block">
+                <input id="PickID" type="text" name="PickID" value="" lay-verify="required" lay-reqtext="输入分拣单号"
+                    placeholder="输入分拣单号" class="layui-input">
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">分拣人员：</label>
+            <div class="layui-input-block">
+                <input id="Picker" type="text" name="Picker" value="" lay-verify="required" lay-reqtext="输入分拣人员"
+                    placeholder="输入分拣人员" class="layui-input">
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">分拣项目：</label>
+            <div class="layui-input-block">
+                <input id="Project" type="text" name="Project" value="" lay-verify="required" lay-reqtext="输入分拣项目"
+                    placeholder="输入分拣项目" class="layui-input">
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">分拣部门：</label>
+            <div class="layui-input-block">
+                <input id="PickerDepartment" type="text" name="PickerDepartment" value="" lay-verify="required"
+                    lay-reqtext="输入分拣部门" placeholder="输入分拣部门" class="layui-input">
+            </div>
+
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="demo1" lay-submit="">⽴即提交</button>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['table', 'form', 'tableSelect', "util"], function () {
+            var $ = layui.jquery,
+                table = layui.table,
+                form = layui.form,
+                tableSelect = layui.tableSelect
+                , util = layui.util;
+
+            //select 可编辑 可模糊
+            readyselect()
+            function readyselect() {
+                // let arr = []
+                // selectrender("ItemID")
+                // selectrender("BlockContent")
+                // pm("")
+                // lbj("")
+                cp("")
+                tableCZ_OLD()
+                tableCZ()
+                tb()
+            }
+            // 刷新托盘
+            form.on('submit(Query_TB)', function (data) {
+                tb()
+                layer.msg("托盘列表已更新", function () { });
+                return false
+            });
+
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题⾄少得5个字符啊';
+                    }
+                }, fname: function (value) {
+                    if (value.length < 4) {
+                        return '请输⼊⾄少4位的⽤户名';
+                    }
+                }, contact: function (value) {
+                    if (value.length < 4) {
+                        return '内容请输⼊⾄少4个字符';
+                    }
+                }
+                , phone: [/^1[3|4|5|7|8]\d{9}$/, '⼿机必须11位，只能是数字！']
+
+                , email: [/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/, '邮箱格式不对']
+                // , email: [/^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}/, '邮箱格式不对']
+                , sl: [/^[1-9]\d*$/, '请输入分拣数量，需为大于零的整数']
+            });
+            //删除行
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'delete') {
+                    layer.confirm('是否删除？', function (index) {
+
+                        updateRowDataByValue(data.StorageLineID, 'ItemQty', parseInt(data.PickQty));
+
+                        let rowindex = $(obj.tr).attr("data-index")
+                        obj.del();
+                        let oldData = layui.table.cache['tableId'];
+                        oldData.splice(rowindex, 1);
+
+                        layui.table.reload('tableId', {
+                            url: "",
+                            data: oldData,   // 将新数据重新载入表格
+                            limit: 1000
+                        });
+                        layer.close(index);
+                    });
+                }
+            });
+            //
+
+
+
+            // 监听分拣数量的输入事件
+            $('#PickQty').on('input', function () {
+                var aVal = parseInt($(this).val());
+                var bVal = parseInt($('#ItemQty').val());
+
+                // 如果A的值小于等于B的值
+                if (aVal <= bVal) {
+                    $(this).val(aVal);
+                    // 可以在这里添加提示信息，比如使用layer.msg()函数
+                } else {
+                    $(this).val("");
+                    layer.msg("分拣数量:" + aVal + ",  分拣数量<=可用数量", function () { });
+                }
+            });
+
+
+            //添加分拣行
+            table.on('tool(currentTableFilter1)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'add') {
+
+                    // { field: 'ItemID', Width: "100", title: '物料型号', align: "center", edit: 'text' },
+
+                    // { field: 'ItemLotNo', Width: "100", title: '批号', align: "center", edit: 'text' },
+
+                    // { field: 'ItemQty', Width: "100", title: '分拣数量', align: "center", edit: 'text' },
+
+                    // { field: 'StorageLineID', Width: "100", title: '库存编号', align: "center", edit: 'text' },
+
+                    // { field: 'PickID', Width: "100", title: '分拣单号', align: "center", edit: 'text' },
+
+                    // { field: 'Project', Width: "100", title: '分拣项目', align: "center", edit: 'text' },
+
+                    // { field: 'PickerDepartment', Width: "100", title: '分拣部门', align: "center", edit: 'text' },
+
+                    // { field: 'Picker', Width: "100", title: '分拣人员', align: "center", edit: 'text' },
+
+                    form.val('PZM', {
+                        "ItemID": data.ItemID,
+                        "ItemLotNo": data.ItemLotNo,
+                        "ItemQty": data.ItemQty,//可用数量  
+                        "PickQty": "",//分拣数量  
+                        "StorageLineID": data.StorageLineID,
+                        "PickID": "",
+                        "Project": "",
+                        "PickerDepartment": "",
+                        "Picker": "",
+                    });
+                    // $("#UserID1").val(data.UserID)
+                    // $("#PowerKey1").val(data.PowerKey)
+                    // $("#UserName1").val(data.UserName)
+                    // $("#Department1").val(data.Department)
+                    // "Department": $("#Department").val()
+                    form.render()
+
+                    var index = layer.open({
+                        type: 1,
+                        title: "分拣添加" //不显示标题栏
+                        ,
+                        // closeBtn: false,
+                        area: '500px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                        // btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                        ,
+                        content: $("#PZM"),
+                        success: function (layero) {
+
+                            wl()
+                        },
+                        yes: function (layero, index) {
+
+                            //ItemID//型号 唯一
+                            // ItemName//批号 物料 可能重复
+                            //LocationIMaxQty//一个库位最大存放数量
+                            // let data1 = {
+
+                            //     //         { field: 'ItemID', width: 260, title: '物料号' },
+                            //     // { field: 'ItemName', width: 260, title: '批号' },
+                            //     // { field: 'ItemModel', width: 260, title: '数量' },
+                            //     // { field: 'SourceType', minwidth: 160, title: '来源' }, 
+                            //     "ItemID": $("#ItemID").val(),
+                            //     "ItemName": $("#ItemName").val(),
+                            //     "ItemModel": $("#ItemModel").val(),
+                            //     "SourceType": $("#SourceType").val(),
+                            // }
+
+                        }
+                    });
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+                }
+            });
+
+            //组件通用代码
+
+            function moNi(keyid, keyName) {
+
+                console.log("11")
+                // var dataBak = [];   //定义一个空数组,用来存储之前编辑过的数据已经存放新数据
+                // for (var i = 0; i < tableBak.length; i++) {
+                //     dataBak.push(tableBak[i]);      //将之前的数组备份
+                // }
+                let ZYZ = ["312-202165-0001", "312-202165-0002", "312-202165-0003", "312-202165-0004", "312-202165-0005", "312-202165-0006"]
+                let FYZ = ["312-202165-0001", "312-202165-0002", "312-202165-0003", "312-202165-0004", "312-202165-0005", "312-202165-0006"]
+                let YXZ = ["22-08JL10-22-02-0001", "22-08JL10-22-02-0002", "22-08JL10-22-02-0003", "22-08JL10-22-02-0004", "22-08JL10-22-02-0005", "22-08JL10-22-02-0006"]
+                let KT = ["0001-19-2022", "0002-19-2022", "0003-19-2022", "0004-19-2022", "0005-19-2022", "0006-19-2022"]
+
+                var olddata = [];
+
+                console.log(JSON.stringify(olddata.length))
+                //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，tableId 为表格的id
+                table.reload("tableId", {
+                    url: "",
+                    data: [],   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+
+
+                if (keyid == "1") {
+
+                    for (let i in ZYZ) {
+
+                        var sj = {
+                            "materialID1": ZYZ[i] + "-" + Date.now(),
+                            "boxIndex": parseFloat(olddata.length) + 1,
+                            "batchNo": $("#batchNo").val(),
+                            "storageNumber": 1
+                        }
+                        olddata.push(sj);
+
+                    }
+
+                } else if (keyid == "2") {
+
+                    for (let i in FYZ) {
+
+                        var sj = {
+                            "materialID1": FYZ[i] + "-" + Date.now(),
+                            "boxIndex": parseFloat(olddata.length) + 1,
+                            "batchNo": $("#batchNo").val(),
+                            "storageNumber": 1
+                        }
+                        olddata.push(sj);
+
+                    }
+
+                } else if (keyid == "3") {
+
+                    for (let i in YXZ) {
+
+                        var sj = {
+                            "materialID1": YXZ[i] + "-" + Date.now(),
+                            "boxIndex": parseFloat(olddata.length) + 1,
+                            "batchNo": $("#batchNo").val(),
+                            "storageNumber": 1
+                        }
+                        olddata.push(sj);
+
+                    }
+
+                } else if (keyid == "4") {
+
+                    for (let i in KT) {
+
+                        var sj = {
+                            "materialID1": KT[i] + "-" + Date.now(),
+                            "boxIndex": parseFloat(olddata.length) + 1,
+                            "batchNo": $("#batchNo").val(),
+                            "storageNumber": 1
+                        }
+
+                        olddata.push(sj);
+                    }
+
+                } else {
+
+                    var sj = {
+                        "materialID1": "",
+                        "boxIndex": parseFloat(olddata.length) + 1,
+                        "batchNo": $("#batchNo").val(),
+                        "storageNumber": keyName
+                    }
+
+                    olddata.push(sj);
+
+                }
+
+
+
+
+                // 在尾部新增一行空数据，实现增行效果
+
+                // olddata[parseInt(olddata.length) - 1].LAY_TABLE_INDEX = parseInt(olddata.length)
+                // LAY_TABLE_INDEX
+                // // olddata.push(sj);
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+
+                olddata = []
+
+                return false
+
+            }
+
+            // 表格通过唯一值来修改数据
+            function updateRowDataByValue(StorageLineID, fieldName, newValue) {
+
+                // console.log(layui.table.cache['tableId1'])
+                // 定位到特定的行
+                var index = layui.table.cache['tableId1'].findIndex(function (item) {
+                    return item.StorageLineID === StorageLineID;
+                });
+
+                if (index !== -1) {
+                    // 获取当前行数据
+                    var rowData = layui.table.cache['tableId1'][index];
+                    // 更新指定字段的值
+                    rowData[fieldName] = rowData[fieldName] + newValue;
+
+                    console.log(layui.table.cache['tableId1'])
+                    // 更新表格数据
+                    // table.reload('tableId1', {
+                    //     data: layui.table.cache['tableId1']
+                    // });
+                    table.reload("tableId1", {
+                        url: "",
+                        data: layui.table.cache['tableId1'],   // 将新数据重新载入表格
+                        limit: 1000,
+                        page: false
+                    })
+                    // 如果需要，可以在这里做一些其他的操作，比如发送Ajax请求到服务器
+                } else {
+                    layer.msg('未找到指定StorageLineID库存编号的数据行');
+                }
+            }
+
+
+
+            //确认提交
+
+            form.on('submit(demo1)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+
+                console.log(data.field)
+                // var dataBak = [];   //定义一个空数组,用来存储之前编辑过的数据已经存放新数据
+                // for (var i = 0; i < tableBak.length; i++) {
+                //     dataBak.push(tableBak[i]);      //将之前的数组备份
+                // }
+
+                var olddata = table.cache["tableId"];
+
+                console.log(JSON.stringify(olddata.length))
+                //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，tableId 为表格的id
+
+                //                 { field: 'ItemID', Width: "100", title: '物料型号', align: "center",  },
+
+                // { field: 'ItemLotNo', Width: "100", title: '批号', align: "center",  },
+
+                // { field: 'ItemQty', Width: "100", title: '分拣数量', align: "center", },
+
+                // { field: 'StorageLineID', Width: "100", title: '库存编号', align: "center", },
+
+                // { field: 'PickID', Width: "100", title: '分拣单号', align: "center",  },
+
+                // { field: 'Project', Width: "100", title: '分拣项目', align: "center",  },
+
+                // { field: 'PickerDepartment', Width: "100", title: '分拣部门', align: "center", },
+
+                // { field: 'Picker', Width: "100", title: '分拣人员', align: "center",  },
+                var sj = {
+
+                    "ItemID": data.field.ItemID,
+                    "ItemLotNo": data.field.ItemLotNo,
+                    "PickQty": data.field.PickQty,
+                    "StorageLineID": data.field.StorageLineID,
+                    "PickID": data.field.PickID,
+                    "Project": data.field.Project,
+                    "PickerDepartment": data.field.PickerDepartment,
+                    "Picker": data.field.Picker,
+
+                }
+
+
+                // 示例：通过ID修改姓名
+                updateRowDataByValue(data.field.StorageLineID, 'ItemQty', - parseInt(data.field.PickQty)); // 将ID为1的行的姓名修改为“张小三”
+
+                // 在尾部新增一行空数据，实现增行效果
+                olddata.push(sj);
+                // olddata[parseInt(olddata.length) - 1].LAY_TABLE_INDEX = parseInt(olddata.length)
+                // LAY_TABLE_INDEX
+                // // olddata.push(sj);
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+
+                layer.closeAll()
+
+                olddata = []
+
+                return false
+            });
+            //库位
+
+            function cp(key) {
+                let data2 = {
+                    "LocationType": "立库库位",
+                    "StockStatus": "空闲",
+                    "WorkStatus": "空闲"
+                }
+                $.ajax({
+                    url: http1 + "GetLocationInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#LocationID");//TypeID为HTML标签ID
+                        select.empty();
+                        let result = res.data
+                        select.append(new Option("", ""));
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.LocationID, item.LocationID));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+
+            }
+
+
+            //物料号
+
+            function wl(key) {
+                let data2 = {
+                    "StockStatus": "空闲",
+                    "WorkStatus": "空闲"
+                }
+                $.ajax({
+                    url: http1 + "GetItemInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#ItemID");//TypeID为HTML标签ID
+                        select.empty();
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.ItemID, item.ItemID));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+
+            }
+            //托盘
+
+            function tb(key) {
+                let data2 = {
+                    "StockStatus": "存储", "WorkStatus": "分拣出库待确认"
+                }
+                $.ajax({
+                    url: http1 + "GetPalletInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#PalletID");//TypeID为HTML标签ID
+                        select.empty();
+                        let result = res.data
+                        select.append(new Option("", ""));
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+
+                            // if(item.CurrentLocationID==""){
+                            //     select.find("option[value=" + item.PalletID + "]").attr("disabled", "")
+                            // }
+
+                            if (item.CurrentLocationID == "分拣出库确认区") {
+                                select.append(new Option(item.PalletID, item.PalletID));// 下拉菜单里添加元素
+                            }
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+
+            }
+
+
+            //  查询分选入库托盘信息表
+            function tableCZ_OLD(field) {
+                //table 箱子详细信息
+                // alert(('#PalletID').val() )
+                table.render({
+                    elem: '#tableId1',
+                    // toolbar: '#toolbarDemo',
+                    method: "post",
+                    // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    url: http1 + "GetPalletInfoWithStorageLine",
+                    // headers: {"token": "111"},
+                    cellMinWidth: 80,
+                    where: { "PalletID": field },
+                    contentType: 'application/json,charset=utf-8',
+                    parseData: function (res) { //res 即为原始返回的数据
+                        console.log(res)
+
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": 0,
+                            "data": res.StorageLineInfoList == null ? "" : res.StorageLineInfoList
+                        }
+
+                    },
+
+                    cols: [[
+
+                        //     "ItemID": "WL0001",
+                        // "ItemLotNo": "TYYY",
+                        // "ItemQty": 1000
+
+                        { type: 'numbers', field: 'boxIndex', title: '#', align: "center" },
+
+                        { field: 'ItemID', Width: "100", title: '物料型号', align: "center", },
+
+                        { field: 'ItemQty', title: '可用数量', Width: "100", align: "center" },
+
+                        { field: 'ItemLotNo', Width: "100", title: '批号', align: "center" },
+
+                        { field: 'StorageLineID', Width: "100", title: '库存编号', align: "center", },
+
+                        { title: '操作', Width: "100", templet: '#currentTableBarNew', fixed: "right", align: "center" }
+                    ]
+                    ],
+                    done: function (res, currentCount) {
+
+                    },
+                    edit: true,
+                    // limits: [10, 15, 20, 25, 50, 100],
+                    // limit: 10,
+                    // page: true
+                });
+            }
+
+            //领料单表
+            function tableCZ() {
+                //table 箱子详细信息
+                // alert(('#PalletID').val() )
+                table.render({
+                    elem: '#tableId',
+                    // toolbar: '#toolbarDemo',
+                    method: "post",
+                    // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    url: http1 + "wms/querynewboxinfo",
+                    // headers: {"token": "111"},
+                    cellMinWidth: 80,
+                    where: { "PalletID": $('input[name="PalletID"]').val() },
+                    contentType: 'application/json,charset=utf-8',
+                    parseData: function (res) { //res 即为原始返回的数据
+                        console.log(res)
+
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": 0,
+                            "data": ""
+                        }
+
+                    },
+
+                    cols: [[
+
+                        //             "PickID": "LY0001",     //分拣单号
+                        //                  "Picker": "老王",   // 分拣人员
+                        //                  "Project": "月球登录项目",
+                        //                  "PickerDepartment": "研发部",// 分拣部门
+                        //                 "StorageLineID": "KC00000095",//  库存编号
+                        //                 "PickQty": 2                 //   分拣数量 
+                        { type: 'numbers', field: 'boxIndex', title: '#', align: "center" },
+
+                        { field: 'ItemID', Width: "100", title: '物料型号', align: "center", },
+
+                        { field: 'ItemLotNo', Width: "100", title: '批号', align: "center", },
+
+                        { field: 'StorageLineID', Width: "100", title: '库存编号', align: "center", },
+
+                        { field: 'PickQty', Width: "100", title: '分拣数量', align: "center", },
+
+                        { field: 'PickID', Width: "100", title: '分拣单号', align: "center", },
+
+                        { field: 'Project', Width: "100", title: '分拣项目', align: "center", },
+
+                        { field: 'PickerDepartment', Width: "100", title: '分拣部门', align: "center", },
+
+                        { field: 'Picker', Width: "100", title: '分拣人员', align: "center", },
+
+                        { title: '操作', Width: "100", templet: '#currentTableBar', fixed: "right", align: "center" }
+                    ]
+                    ],
+                    done: function (res, currentCount) {
+
+                    }
+
+                    // limits: [10, 15, 20, 25, 50, 100],
+                    // limit: 10,
+                    // page: true
+                });
+            }
+
+
+
+            var $ = layui.$, active = {
+                getCheckData: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('tableId')
+                        , data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                }
+                // , getCheckLength: function () { //获取选中数目
+                //     var checkStatus = table.checkStatus('idTest')
+                //         , data = checkStatus.data;
+                //     layer.msg('选中了：' + data.length + ' 个');
+                // }
+                // , ADD_data: function () { //验证是否全选
+                //     var checkStatus = table.checkStatus('idTest');
+                //     layer.msg(checkStatus.ADD_data ? '全选' : '未全选')
+                // }
+            };
+            //查询箱码
+            form.on('submit(Query_XM)', function (data) {
+                var field = data.field.PalletID; // 获取表单字段值
+
+                $("#PalletID_add").val(field)
+                //表格重载
+                tableCZ_OLD(field)
+                tableCZ()
+                return false; // 阻止默认 form 跳转
+            });
+
+            function moNi(keyid, keyName) {
+
+                console.log("11")
+
+                var olddata = [];
+
+                console.log(JSON.stringify(olddata.length))
+                //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，tableId 为表格的id
+                table.reload("tableId", {
+                    url: "",
+                    data: [],   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+
+
+                if (keyid == "0") {
+
+                    for (let i = 1; i <= keyName; i++) {
+
+                        var sj = {
+                            "materialID1": i + "-" + Date.now(),
+                            "boxIndex": parseFloat(olddata.length) + 1,
+                            "batchNo": $("#batchNo").val(),
+                            "storageNumber": 1
+                        }
+                        olddata.push(sj);
+
+                    }
+
+                } else {
+
+                    var sj = {
+                        "materialID1": "",
+                        "boxIndex": parseFloat(olddata.length) + 1,
+                        "batchNo": $("#batchNo").val(),
+                        "storageNumber": keyName
+                    }
+
+                    olddata.push(sj);
+
+                }
+
+
+
+
+                // 在尾部新增一行空数据，实现增行效果
+
+                // olddata[parseInt(olddata.length) - 1].LAY_TABLE_INDEX = parseInt(olddata.length)
+                // LAY_TABLE_INDEX
+                // // olddata.push(sj);
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+
+                olddata = []
+
+                return false
+
+            }
+
+            //根据产品类型，
+            form.on('select(PalletID)', function (data) {
+
+                $("#PalletID_add").val(data.value)
+
+                tableCZ_OLD(data.value)
+                tableCZ()
+                return false; // 阻止默认 form 跳转
+            });
+
+
+
+            //  定时器
+            // var int = self.setInterval(SM, 3000);
+
+            //确认绑定
+            $("#qrbd").on("click", function () {
+
+                let dataz = layui.table.cache['tableId'];
+                // var checkStatus = table.checkStatus('tableId')
+                //     , dataz = checkStatus.data;
+                // layer.alert(JSON.stringify(dataz));
+                let SL = 0
+
+                var data = form.val('example')
+
+                console.log(data)
+
+                BDSJ()
+
+                // if (dataz.length != 0) {
+
+                //     for (let i in dataz) {
+
+                //         SL += parseInt(dataz[i].storageNumber)
+
+                //     }
+
+                //     if (SL == parseInt(data.boxStorageNumber)) {
+
+                //         BDSJ()
+
+                //     } else {
+
+                //         layer.msg("箱子数量与详细信息条目数量不符！", function () { });
+
+                //         return false
+
+                //     }
+
+                // } else if (parseInt(data.boxStorageNumber) != "") {
+
+                //     layer.msg("箱子数量与详细信息条目数量不符！", function () { });
+                // }
+
+            });
+
+            //绑定数据提交
+
+            function BDSJ() {
+
+                let dataz = layui.table.cache['tableId'];
+                // var checkStatus = table.checkStatus('tableId')
+                //     , dataz = checkStatus.data;
+                // layer.alert(JSON.stringify(dataz));
+                let SL = 0
+                var data = form.val('example')
+
+                let ce = "OutOrderLineInfoList"
+                let ce1 = "Creator"
+                let value = dataz
+                data[ce] = value
+                data[ce1] = sessionStorage.getItem("UserID")
+                console.log(data)
+                data = JSON.stringify(data)
+                console.log(data)
+                // data.push({"ce":JSON.stringify(dataz)})
+                // layer.alert(data);
+                $.ajax({
+                    url: http1 + "SubmitApplyPickOutOrderInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: data,
+
+                    success: function (res) {
+
+                        if (res.code == 200) {
+                            // int = self.setInterval(SM, 3000);
+                            layer.msg(res.msg, function () { });
+                            QK()//清空数据
+                            tb()//清空托盘
+                            cp()//清空库位
+                        } else {
+
+                            layer.msg(res.msg, function () { });
+                        }
+
+                    },
+
+                    error: function (res) {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+            }
+
+            //清空数据
+            function QK() {
+
+
+                var select = $("#batchNo");//TypeID为HTML标签ID
+
+                select.empty();
+
+                var select = $("#materialTypeId");//TypeID为HTML标签ID
+
+                select.empty();
+
+                var select = $("#boxModel");//TypeID为HTML标签ID
+
+                select.empty();
+
+                $('#formID')[0].reset();
+
+                form.render();//必须写
+
+                let olddata = []
+
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+
+                table.reload("tableId1", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+                olddata = []
+            }
+
+        });
+    </script>
+</body>
+
+</html>

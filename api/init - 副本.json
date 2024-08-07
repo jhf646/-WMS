@@ -1,0 +1,183 @@
+{
+    "clearInfo": {
+        "clearUrl": "api/clear.json"
+    },
+    "homeInfo": {
+        "title": "单元监控主界面",
+        "icon": "fa fa-home",
+        "href": "page/welcome-1.html?mpi=m-p-i-0"
+    },
+    "logoInfo": {
+        "title": "比益特FMS系统",
+        "image": "images/logo.png",
+        "href": ""
+    },
+    "menuInfo": {
+        "currency": {
+            "title": "常规管理",
+            "icon": "fa fa-address-book",
+            "child": [{
+                    "title": "单元监控界面",
+                    "href": "",
+                    "icon": "fa fa-home",
+                    "target": "_self",
+                    "child": [{
+                            "title": "主页机床监控界面",
+                            "href": "page/welcome-1.html",
+                            "icon": "fa fa-line-chart",
+                            "target": "_self"
+                      
+                        }
+                     
+                    ]
+                },
+                {
+                    "title": "物料信息管理",
+                    "href": "page/11.html",
+                    "icon": "fa fa-cube",
+                    "target": "_self",
+                    "child": [{
+                            "title": "物料基础信息",
+                            "href": "page/tray.html",
+                            "icon": "fa fa-cube",
+                            "target": "_self"
+                        },
+                        {
+                            "title": "托盘任务创建",
+                            "href": "page/Tray_task.html",
+                            "icon": "fa fa-cube",
+                            "target": "_self"
+                        }
+                    ]
+                },
+                {
+                    "title": "托盘/夹具",
+                    "href": "page/11.html",
+                    "icon": "fa fa-cube",
+                    "target": "_self",
+                    "child": [{
+                            "title": "托盘任务表",
+                            "href": "page/tray.html",
+                            "icon": "fa fa-cube",
+                            "target": "_self"
+                        },
+                        {
+                            "title": "托盘任务创建",
+                            "href": "page/Tray_task.html",
+                            "icon": "fa fa-cube",
+                            "target": "_self"
+                        }
+                    ]
+                },
+                {
+                    "title": "备料计划",
+                    "href": "page/11.html",
+                    "icon": "fa fa-edit",
+                    "target": "_self",
+                    "child": [{
+                            "title": "备料计划",
+                            "href": "page/schedule.html",
+                            "icon": "fa fa-edit",
+                            "target": "_self"
+                        }
+
+                    ]
+                },
+                {
+                    "title": "订单",
+                    "href": "page/moni.html",
+                    "icon": "fa fa-gears",
+                    "target": "_self",
+                    "child": [{
+                        "title": "排产订单",
+                        "href": "page/moni.html",
+                        "icon": "fa fa-gears",
+                        "target": "_self"
+                    }]
+                },
+                {
+                    "title": "NC程序",
+                    "href": "page/ncProgram.html",
+                    "icon": "fa fa-gears",
+                    "target": "_self",
+                    "child": [{
+                        "title": "ROB",
+                        "href": "page/ncProgram.html",
+                        "icon": "fa fa-gears",
+                        "target": "_self"
+                    }]
+                },
+
+                {
+                    "title": "工件",
+                    "href": "page/11.html",
+                    "icon": "fa fa-calendar",
+                    "target": "_self",
+                    "child": [{
+                        "title": "工件界面",
+                        "href": "page/work.html",
+                        "icon": "fa fa-calendar",
+                        "target": "_self"
+                    }]
+                },
+                {
+                    "title": "刀具",
+                    "href": "page/knife_Tool.html",
+                    "icon": "fa fa-calendar",
+                    "target": "_self",
+                    "child": [{
+                        "title": "刀具管理",
+                        "href": "page/knife_Tool.html",
+                        "icon": "fa fa-calendar",
+                        "target": "_self"
+                    }]
+                },
+                {
+                    "title": "日志",
+                    "href": "page/11.html",
+                    "icon": "fa fa-file-text",
+                    "target": "_self",
+                    "child": [{
+                            "title": "排产记录",
+                            "href": "page/table.html",
+                            "icon": "fa fa-file-text",
+                            "target": "_self"
+                        },
+                        {
+                            "title": "机床记录",
+                            "href": "page/table_1.html",
+                            "icon": "fa fa-file-text",
+                            "target": "_self"
+                        },
+                        {
+                            "title": "装载记录",
+                            "href": "page/table_2.html",
+                            "icon": "fa fa-file-text",
+                            "target": "_self"
+                        }
+                    ]
+                }
+            ]
+        },
+        "component": {
+            "title": "系统管理",
+            "icon": "fa fa-lemon-o",
+            "child": [{
+                "title": "系统设置",
+                "href": "page/table-select.html",
+                "icon": "fa fa-dot-circle-o",
+                "target": "_self"
+            }]
+        },
+        "other": {
+            "title": "用户管理",
+            "icon": "fa fa-slideshare",
+            "child": [{
+                "title": "用户列表",
+                "href": "page/userlist.html",
+                "icon": "fa fa-superpowers",
+                "target": "_self"
+            }]
+        }
+    }
+}

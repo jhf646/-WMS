@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="../page/layui-soul-table/soulTable.css" media="all">
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+            <script type="text/html" id="currentTableBar">
+                <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">添加</a>
+            </script>
+
+        </div>
+    </div>
+
+    <input id="qk" name="cc" style="display: none;" type="text">
+</body>
+<script src="soulTable.js" charset="utf-8"></script>
+<script src="../js/api/http.js" charset="utf-8"></script>
+<!-- <script src="soulTable.slim.js"></script>
+<script src="tableChild.js"></script>
+<script src="tableMerge.js"></script>
+<script src="tableFilter.js"></script>
+<script src="excel.js"></script> -->
+<script>
+    // var parent_json = $.parseJSON(parent.req_data);
+    layui.use(['form', 'table', 'laydate', 'soulTable', 'element'], function() {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            layuimini = layui.layuimini,
+            laydate = layui.laydate;
+        soulTable = layui.soulTable;
+        element = layui.element;
+        // alert($('input[name=cc]').val())
+        // var parent_json = $.parseJSON(parent.req_data); 
+        // console.log(parent.req_data)
+        var filter
+        table.render({
+            elem: '#currentTableId',
+            // url: '../api/ce.json',
+            url: http1 + '?interface=getPalletInfoList',
+            toolbar: '#toolbarDemo',
+            data: '',
+            parseData: function(res) { //res 即为原始返回的数据
+                // alert(parent_json)
+
+                // filter=$('input[name=cc]').val()
+                filter = $('input[name=cc]').val().split("-")
+                for (var i = 0; i < filter.length; i++) {
+
+                    for (var k = 0; k < res.infoList.length; k++) {
+
+                        if (res.infoList[k].palletID == filter[i]) {
+
+                            // delete res.infoList[k];
+                            res.infoList.splice(k, 1);
+                            break;
+
+                        }
+
+                    }
+                }
+                console.log(res.infoList)
+                console.log(res.infoList.length)
+                $('#qk').val("")
+                return {
+                    "code": 0,
+                    "msg": "",
+                    "count": 1,
+                    "data": res.infoList //解析数据列表
+                };
+            },
+            defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }]
+                // toolbar: true
+                ,
+            cellMinWidth: 80
+                // , height: 500
+                ,
+            rowDrag: { /*trigger: 'row',*/
+                done: function(obj) {
+                    // 完成时（松开时）触发
+                    // 如果拖动前和拖动后无变化，则不会触发此方法
+                    console.log(obj.row) // 当前行数据
+                    console.log(obj.cache) // 改动后全表数据
+                    console.log(obj.oldIndex) // 原来的数据索引
+                    console.log(obj.newIndex) // 改动后数据索引
+                }
+            },
+            cols: [
+                [{
+                    type: 'checkbox'
+                }, {
+                    field: 'palletID',
+                    title: '托盘号',
+                    width: 80
+                }, {
+                    field: 'processID',
+                    title: '托盘任务',
+                    width: 150
+                }, {
+                    field: 'loopNum',
+                    title: '工件数',
+                    width: 80
+                }, {
+                    field: 'loadID',
+                    title: '装载站',
+                    width: 100,
+                    templet: function(d) {
+                        return d.loadID == '1' ? "L\UL1" : "L\UL2";
+                    }
+                }, {
+                    field: 'machineID',
+                    title: '加工站',
+                    width: 100,
+                    templet: function(d) {
+                        return d.machineID == 'A' ? "MC1" : d.machineID == 'B' ? "MC2" : "MC3";
+                    }
+                }, {
+                    field: 'unloadID',
+                    title: '卸载站',
+                    width: 100,
+                    templet: function(d) {
+                        return d.unloadID == '1' ? "L\UL1" : "L\UL2";
+                    }
+                }, {
+                    title: '操作',
+                    minWidth: 50,
+                    templet: '#currentTableBar',
+                    fixed: "right",
+                    align: "center"
+                }]
+            ],
+            done: function(res, currentCount) {
+                // soulTable.render(this)
+                //***重点***：table渲染完成后渲染element进度条
+                element.render()
+            }
+
+            // limits: [10, 15, 20, 25, 50, 100],
+            // limit: 10,
+            // page: true
+        });
+
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function(data) {
+            var result = JSON.stringify(data.field);
+            layer.alert(result, {
+                title: '最终的搜索信息'
+            });
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                },
+                where: {
+                    searcorderStatusarams: result
+                }
+            }, 'data');
+
+            return false;
+        });
+
+
+
+        //监听表格复选框选择
+        table.on('tool(currentTableFilter)', function(obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                layer.confirm('确定添加吗？', function(index) {
+                    console.log(index)
+                        // obj.del();
+                        // layer.close(index);
+                        // console.log(index)
+                        // console.log(JSON.stringify(table))
+                        // alert();
+                        // layer.alert(JSON.stringify(table.cache.currentTableId[index-1].PlanName));
+                    parent.tool3.reload(JSON.stringify(table.cache.currentTableId[$(obj.tr).data('index')].palletID));
+                    // layer.alert(JSON.stringify(table[index].palletList));
+                    obj.del();
+
+
+                    // layer.closeALL();
+
+                    //添加附带删除
+
+                });
+            } else if (obj.event === 'delete') {
+
+
+
+            }
+        });
+
+
+        function f1() {
+            table.render({
+
+                elem: '#currentTableId'
+
+                // , url: '../api/pz.json'
+
+                ,
+                url: http1 + '?interface=getSchedulePlanList'
+
+                ,
+                parseData: function(res) { //res 即为原始返回的数据
+
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": 1,
+                            "data": res //解析数据列表
+                        };
+                    }
+                    // , data: function () {
+                    //     console.log(data)
+                    //     return {
+                    //         "code": 0,
+                    //         "msg": "",
+                    //         "count": 1,
+                    //         "data": data //解析数据列表
+                    //     };
+
+                // }
+                ,
+                rowDrag: { /*trigger: 'row',*/
+                    done: function(obj) {
+                        // 完成时（松开时）触发
+                        // 如果拖动前和拖动后无变化，则不会触发此方法
+                        console.log(obj.row) // 当前行数据
+                        console.log(obj.cache) // 改动后全表数据
+                        console.log(obj.oldIndex) // 原来的数据索引
+                        console.log(obj.newIndex) // 改动后数据索引
+                    }
+                },
+                height: 600,
+                page: false,
+                cols: [
+                    [{
+                        title: '#',
+                        width: 50,
+                        lazy: true,
+                        collapse: true,
+                        children: [{
+                            title: '配置信息',
+                            data: function(row) {
+                                // d 为当前行数据
+                                console.log(row)
+
+                                return row.palletList;
+                            }
+
+                            ,
+                            height: 200,
+                            page: false,
+                            cols: [
+                                [{
+                                    type: 'checkbox'
+                                }, {
+                                    field: 'palletID',
+                                    title: '托盘号',
+                                    width: 160
+                                }, {
+                                    field: 'processID',
+                                    title: '托盘任务',
+                                    minwidth: 180
+                                }, {
+                                    field: 'loopNum',
+                                    title: '工件数',
+                                    width: 160
+                                }, {
+                                    field: 'stationID',
+                                    title: '加工站',
+                                    width: 160
+                                }]
+                            ],
+                            done: function() {
+                                // layer.close(index_loading);
+                                soulTable.render(this);
+                            }
+                        }]
+                    }, {
+                        type: 'checkbox'
+                    }, {
+                        field: 'planName',
+                        title: '配置名',
+                        width: 160
+                    }, {
+                        title: '操作',
+                        minWidth: 50,
+                        templet: '#currentTableBar',
+                        fixed: "right",
+                        align: "center"
+                    }]
+                ],
+                done: function() {
+                    soulTable.render(this)
+                }
+            });
+        }
+    });
+</script>
+
+</html>

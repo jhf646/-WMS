@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>比益特电子看板</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./fonts/icomoon.css">
+</head>
+
+<body>
+    <header>
+        <h1>
+            <ruby>
+                StereoScopic Data Base <rt> 立 体 库 数 据 监 控 </rt>
+            </ruby>
+        </h1>
+        <div class="showTime">当前时间：<span></span></div>
+    </header>
+    <div class="viewport">
+        <div class="column">
+            <!--概览-->
+
+
+            <div class="channel panel">
+                <div class="inner">
+                    <h3>库位实时信息</h3>
+                    <div class="data">
+                        <div class="item">
+                            <!--     "totalCount": 150,
+    "usedCount": 9,
+    "freeCount": 141,
+    "flangeCount": 0 -->
+
+                            <h4 id="AllLocationCount">166</h4>
+                            <span>
+                                <i class="icon-dot" style="color: #ffffff"></i>
+                                总库位数量
+                            </span>
+                        </div>
+                        <div class="item">
+                            <h4 id="AllFreeLocationCount">15</h4>
+                            <span>
+                                <i class="icon-dot" style="color: #10a851"></i>
+                                闲置库位数
+                            </span>
+                        </div>
+                    </div>
+                    <div class="data">
+                        <div class="item">
+                            <h4 id="AllStockedLocationCount">151</h4>
+                            <span>
+                                <i class="icon-dot" style="color: #0975c8"></i>
+                                物料库位数
+                            </span>
+                        </div>
+                        <div class="item">
+                            <h4 id="AllEmptyPalletLocationCount">13</h4>
+                            <span>
+                                <i class="icon-dot" style="color: #818d97"></i>
+                                空盘库位数
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--库位使用占比-->
+            <div class="quarter panel">
+                <div class="inner">
+                    <h3> 库位实时使用占比</h3>
+                    <div class="chart gauge">
+             
+         
+                    </div>
+                </div>
+            </div>
+            <!--库位使用占比-->
+            <div class="quarter panel">
+                <div class="inner">
+                    <h3>今日运行效率</h3>
+                    <div class="chart efficiency">
+                        
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        <div class="column">
+
+        </div>
+        <div class="column">
+
+            <!-- 渠道 季度 -->
+            <div class="wrap">
+
+                <!-- 曲线 -->
+
+                <div class="sales sales_1 panel">
+                    <div class="inner">
+                        <div class="caption">
+                            <h3>近七天出入库数</h3>
+                            <a href="javascript:;" class="active" data-type="year">日</a>
+                            <!-- <a href="javascript:;" data-type="quarter">季</a>
+                            <a href="javascript:;" data-type="month">月</a>
+                            <a href="javascript:;" data-type="week">周</a> -->
+                        </div>
+                        <div class="chart">
+                            <div class="label">单位:次数</div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="users point_1 panel">
+                    <div class="inner">
+                        <h3>近七天物料使用前十</h3>
+                        <div class="chart">
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 排行榜 -->
+            <div class="wrap">
+                <div class="monitor channel_1 panel">
+                    <div class="inner">
+                        <div class="tabs">
+                            <a href="javascript:;" data-index="0" class="active">当日入库任务列表</a>
+                            <!-- <a href="javascript:;" data-index="1">异常设备监控</a> -->
+                        </div>
+                        <div class="content" style="display: block;">
+                            <div class="head">
+                                <span class="col">任务序列号</span>
+                                <span class="col">库位号</span>
+                                <span class="col">物料编号</span>
+                                <span class="col">入库数量</span>
+                            </div>
+                            <div class="marquee-view">
+                                <div class="marquee" id="GetFlangeStockInfo_left">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="monitor quarter_1 panel">
+                    <div class="inner">
+                        <div class="tabs">
+                            <a href="javascript:;" data-index="0" class="active">当日出库任务列表</a>
+                            <!-- <a href="javascript:;" data-index="1">异常设备监控</a> -->
+                        </div>
+                        <div class="content" style="display: block;">
+                            <div class="head">
+                                <span class="col">任务序列号</span>
+                                <span class="col">库位号</span>
+                                <span class="col">物料编号</span>
+                                <span class="col">出库数量</span>
+                            </div>
+                            <div class="marquee-view">
+                                <div class="marquee1" id="GetFlangeStockInfo_right">
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--监控-->
+
+
+        </div>
+    </div>
+</body>
+<script src="./js/jquery-2.0.3.min.js"></script>
+<script src="./js/echarts.min.js "></script>
+<script src="../../js/api/http.js"></script>
+<!-- <script src="./js/index.js"></script> -->
+<script>
+    // document.write("<s" + "cript type='text/javascript' src='./js/index.js?" + Math.random() + "'></scr" + "ipt>");
+    document.write("<s" + "cript type='text/javascript' src='./js/CE.js?" + Math.random() + "'></scr" + "ipt>");
+
+
+    (function (fn) {
+
+        fn();
+
+        setInterval(fn, 1000);
+    })(function () {
+
+        var dt = new Date();
+        console.log(dt.getMonth())
+        document.querySelector(".showTime span").innerHTML =
+            dt.getFullYear() + "-" +
+            PrefixInteger(parseInt(dt.getMonth()+1), 2)  + "-" +
+            PrefixInteger(dt.getDate(), 2)  + " " +
+            PrefixInteger(dt.getHours(), 2)  + ":" +
+            PrefixInteger(dt.getMinutes(), 2) + ":"+
+            PrefixInteger(dt.getSeconds(), 2)  + "";
+    });
+
+    function PrefixInteger(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
+    
+    // f1()
+
+    function f1() {
+        var html = ''
+        var html1 = ''
+        for (var i = 0; i < 41; i++) {
+            html += ` <div class="row" id="A${i}">
+        <span class="col">A${i}</span>
+        <span class="col" id="ItemCode">-</span>
+        <span class="col" id="PlanNumber">-</span>
+        <span class="icon-dot"></span>
+    </div>`
+        }
+
+        $("#GetFlangeStockInfo_left").html("")
+        $("#GetFlangeStockInfo_left").html(html)
+
+        for (var i = 40; i < 81; i++) {
+            html1 += ` <div class="row" id="A${i}">
+        <span class="col">A${i}</span>
+        <span class="col" id="ItemCode">-</span>
+        <span class="col" id="PlanNumber">-</span>
+        <span class="icon-dot"></span>
+    </div>`
+        }
+
+        $("#GetFlangeStockInfo_right").html("")
+        $("#GetFlangeStockInfo_right").html(html1)
+    }
+
+    // (function () {
+    //     //事件委托
+    //     $('.monitor').on('click', ' a', function () {
+    //         //点击当前的a 加类名 active  他的兄弟删除类名
+    //         $(this).addClass('active').siblings().removeClass('active');
+    //         //获取一一对应的下标 
+    //         var index = $(this).index();
+    //         //选取content 然后狗日对应下标的 显示   当前的兄弟.content隐藏
+    //         $('.content').eq(index).show().siblings('.content').hide();
+    //     });
+    //     //滚动
+    //     //原理：把marquee下面的子盒子都复制一遍 加入到marquee中
+    //     //      然后动画向上滚动，滚动到一半重新开始滚动
+    //     //因为选取的是两个marquee  所以要遍历
+    //     $('.monitor .marquee').each(function (index, dom) {
+    //         //将每个 的所有子级都复制一遍
+    //         var rows = $(dom).children().clone();
+    //         //再将新的到的加入原来的
+    //         $(dom).append(rows);
+    //     });
+
+    // })();
+    //"00722"
+</script>
+<!-- <script src="./js/china.js"></script> -->
+<!-- <script src="./js/mymap.js"></script> -->
+<!-- <script src="./js/myls.js"></script> -->
+<!-- <script src="./js/Lct.js"></script> -->
+
+</html>

@@ -1,0 +1,121 @@
+{
+    "clearInfo": {
+        "clearUrl": "api/clear.json"
+    },
+    "homeInfo": {
+        "title": "单元监控主界面",
+        "icon": "fa fa-home",
+        "href": "page/welcome-1.html?mpi=m-p-i-0"
+    },
+    "logoInfo": {
+        "title": "58 wms",
+        "image": "images/24_2.svg",
+        "href": ""
+    },
+    "menuInfo": {
+        "currency": {
+            "title": "常规管理",
+            "icon": "fa fa-address-book",
+            "child": [{
+                    "title": "单元监控界面",
+                    "href": "",
+                    "icon": "fa fa-home",
+                    "target": "_self",
+                    "child": [{
+                            "title": "库位可视化监控",
+                            "href": "page/KWKH.html",
+                            "icon": "fa fa-line-chart",
+                            "target": "_self"
+
+                        }
+
+                    ]
+                },
+                {
+                    "title": "物料信息管理",
+                    "href": "page/11.html",
+                    "icon": "fa fa-cube",
+                    "target": "_self",
+                    "child": [{
+                        "title": "物料基础信息",
+                        "href": "page/wl.html",
+                        "icon": "fa fa-cube",
+                        "target": "_self"
+                    }]
+                },
+                {
+                    "title": "备料计划",
+                    "href": "page/11.html",
+                    "icon": "fa fa-edit",
+                    "target": "_self",
+                    "child": [{
+                            "title": "备料计划",
+                            "href": "page/schedule.html",
+                            "icon": "fa fa-edit",
+                            "target": "_self"
+                        },
+                        {
+                            "title": "箱码绑定",
+                            "href": "page/XMBD.html",
+                            "icon": "fa fa-edit",
+                            "target": "_self"
+                        }
+
+                    ]
+                },
+                {
+                    "title": "库位管理",
+                    "href": "page/moni.html",
+                    "icon": "fa fa-cube",
+                    "target": "_self",
+                    "child": [{
+                        "title": "库存信息",
+                        "href": "page/moni.html",
+                        "icon": "fa fa-cube",
+                        "target": "_self"
+                    }, {
+                        "title": "库位规划",
+                        "href": "page/moni.html",
+                        "icon": "fa fa-cube",
+                        "target": "_self"
+                    }]
+                },
+                {
+                    "title": "日志",
+                    "href": "page/11.html",
+                    "icon": "fa fa-file-text",
+                    "target": "_self",
+                    "child": [{
+                            "title": "出库日志",
+                            "href": "page/table_1.html",
+                            "icon": "fa fa-file-text",
+                            "target": "_self"
+                        },
+                        {
+                            "title": "入库日志",
+                            "href": "page/table_1.html",
+                            "icon": "fa fa-file-text",
+                            "target": "_self"
+                        },
+                        {
+                            "title": "报警日志",
+                            "href": "page/table_1.html",
+                            "icon": "fa fa-file-text",
+                            "target": "_self"
+                        }
+                    ]
+                }
+            ]
+        },
+        "component": {
+            "title": "系统管理",
+            "icon": "fa fa-lemon-o",
+            "child": [{
+                "title": "用户管理",
+                "href": "page/userlist.html",
+                "icon": "fa fa-dot-circle-o",
+                "target": "_self"
+            }]
+        }
+    }
+}

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+</head>
+<style>
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #power option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">日期选择</label>
+
+                                <div class="layui-input-inline">
+                                    <input type="text" name="date" autocomplete="off" id="date" class="layui-input"
+                                        placeholder="开始日期">
+                                </div>
+
+                            </div>
+                            <div class="layui-inline">
+
+                                <label class="layui-form-label">型号</label>
+                                <div class="layui-input-inline">
+                                    <!-- <select id="ItemID" name="ItemID">
+                                        <option value="" selected=""></option>
+                                    </select> -->
+                                    <div id="ItemID"></div>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+
+
+                                <label class="layui-form-label">出入库类型</label>
+                                <div class="layui-input-inline">
+
+                                    <div id="OrderType"></div>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <label class="layui-form-label" style="width: 120px;">显示单位</label>
+                                <div class="layui-input-inline" style="width: 90px;">
+                                    <select id="GroupIDType" name="GroupIDType">
+                                        <option value="d">天</option>
+                                        <option value="m">月</option>                               
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12 layui-col-md12">
+                    <div id="echarts-records"
+                        style="background-color:#ffffff;  min-height:650px;padding: 10px  0px 10px 0px"></div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../lib/XM-select/xm-select.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script src="../js/jquery-2.0.3.min.js"></script>
+    <script src="../js/jquery.table2excel.js"></script>
+    <script>
+        layui.use(['layer', 'echarts', 'form', "laydate", "selectInput"], function () {
+            var $ = layui.jquery,
+                layer = layui.layer,
+                echarts = layui.echarts,
+                laydate = layui.laydate,
+                form = layui.form,
+                table = layui.table,
+                selectInput = layui.selectInput;
+
+            function getRecentDay(day) {
+                var today = new Date();
+                var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+                today.setTime(targetday_milliseconds);
+                var tYear = today.getFullYear();
+                var tMonth = today.getMonth();
+                var tDate = today.getDate();
+                var tHours = today.getHours();
+                var tMinutes = today.getMinutes();
+                var tSeconds = today.getSeconds();
+                tMonth = doHandleMonth(tMonth + 1);
+                tDate = doHandleMonth(tDate);
+                tHours = doHandleMonth(tHours);
+                tMinutes = doHandleMonth(tMinutes);
+                tSeconds = doHandleMonth(tSeconds);
+
+                return tYear + "-" + tMonth + "-" + tDate
+            }
+
+            function doHandleMonth(month) {
+                var m = month;
+                if (month.toString().length == 1) {
+                    m = "0" + month;
+                }
+                return m;
+            }
+
+            laydate.render({
+                elem: '#date',
+                type: 'date',
+                range: '~' //或 range: '~' 来自定义分割字符
+                ,
+                value: getRecentDay(-30) + ' ~ ' + getRecentDay(-1),
+                // value: "2021-12-06 ~ 2021-12-31",
+
+            });
+
+            //select 可编辑 可模糊
+            readyselect()
+            function readyselect() {
+
+                wl()
+                yy()
+
+            }
+
+            var OrderType = xmSelect.render({
+                el: '#OrderType',
+                language: 'zn',
+                data: []
+            })
+            var ItemID = xmSelect.render({
+                el: '#ItemID',
+                language: 'zn',
+                data: []
+            })
+
+            // ================       // =========================
+            function wl(key) {
+
+                // let data2 = { "ItemID": "" }
+                $.ajax({
+                    url: http1 + "GetItemInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    // data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        let result = res.data
+                        let arr = []
+                        $.each(result, function (index, item) {
+
+                            arr.push({ ItemID: item.ItemID, name: item.ItemID, value: index });
+
+                        });
+
+                        ItemID.update({
+                            data: arr,
+                            // autoRow: true,
+                        })
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+            // ================       // =========================
+            function yy(key) {
+
+                // let data2 = { "DataListKey": "零件来源区域" }
+                $.ajax({
+                    url: http1 + "GetOrderTypeInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    // data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        let result = res.data
+                        let arr = []
+                        $.each(result, function (index, item) {
+
+                            arr.push({ OrderType: item.OrderType, name: item.OrderType, value: index });
+
+                        });
+
+                        OrderType.update({
+                            data: arr,
+                            // autoRow: true,
+                        })
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+
+
+
+            laydate.render({
+                elem: '#date',
+                type: 'date',
+                range: '~' //或 range: '~' 来自定义分割字符
+                ,
+                value: getRecentDay(-30) + ' ~ ' + getRecentDay(-1),
+                // value: "2021-12-06 ~ 2021-12-31",
+
+            });
+
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function (data) {
+                var result = JSON.stringify(data.field);
+                var result = data.field;
+
+                let cans1 = (result.date).split(" ")[0]
+                cans1 = cans1.replace(/^\s*/g, '')
+                let cans2 = (result.date).split(" ")[2]
+                cans2 = cans2.replace(/^\s*/g, '')
+                console.log(result)
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // DateFrom日期从2022 - 11 - 01
+                // DateTo日期到2022 - 11 - 12
+                // MAENumber机床号GH
+                // GroupIDType分组形式d / m
+
+                let data1 = {
+                    "DateFrom": cans1,
+                    "DateTo": cans2,
+                    "GroupIDType": result.GroupIDType,
+                    "ItemInfoList": ItemID.getValue(),
+                    "OrderTypeInfoList": OrderType.getValue(),
+                }
+                console.log(result)
+
+
+
+                $.ajax({
+
+                    url: http1 + "VisualGetOrderTypeTotalInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data1),
+
+                    success: function (result) {
+                        console.log(result.data)
+                        // alert("接口成功/返回数据为:" + JSON.stringify(result), )
+                        if (result.code == "200") {
+
+                            let dataz = result.data
+
+
+                            console.log(dataz)
+                            Tub(dataz)
+
+                        } else {
+
+                        }
+                    },
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+                return false;
+            });
+
+
+            var getRandomColor = function () {
+                return '#' +
+                    (function (color) {
+                        return (color += '0123401234abcabc'[Math.floor(Math.random() * 16)]) &&
+                            (color.length == 6) ? color : arguments.callee(color);
+                    })('');
+            }
+            function getRandomColor1() {
+                var letters = '0123456789ABCDEF'.split(''),
+                    color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            function AddDigitToColor(limit) {
+                let color = '',
+                    letters = '0123456789ABCDEF'.split('')
+                color += letters[Math.round(Math.random() * limit)]
+                return color;
+            }
+            function getRandomColor2() {
+                let color = '#'
+                color += AddDigitToColor(5)
+                for (var i = 0; i < 5; i++) {
+                    color += AddDigitToColor(15)
+                }
+                return color
+            }
+
+
+            function getRandomColor3() {
+                var col = "#";
+                for (var i = 0; i < 6; i++) col += parseInt(Math.random() * 12).toString(16);
+                return col;
+            }
+
+
+            function getRandomColor4() {
+                return '#' + Random.integer(180, 255).toString(16) +
+                    Random.integer(140, 255).toString(16) +
+                    Random.integer(120, 220).toString(16)
+            }
+
+            var getRandomColor5 = function () {
+                return '#' +
+                    (function (color) {
+                        return (color += '5678956789defdef'[Math.floor(Math.random() * 16)]) &&
+                            (color.length == 6) ? color : arguments.callee(color);
+                    })('');
+            }
+            function Tub(res) {
+
+                console.log(res)
+                var myChart = echarts.init(document.getElementById('echarts-records'));
+                // "SourceNo\":\"6\",\"SensorCode\":\"lll\",\"SourceNoCount\":2
+                var DateTimez = function () {
+                    var data = [];
+                    for (var i = 0; i < res.length; i++) {
+                        if (res[i].VisualOrderTypeTotalLineInfoList.length != 0) {
+                            for (var j = 0; j < res[i].VisualOrderTypeTotalLineInfoList.length; j++) {
+                                // +"/"+res[i].VisualOrderTypeTotalLineInfoList[j].BlockContent
+                                data.push({ "日期": res[i].GroupID, "操作类型": res[i].VisualOrderTypeTotalLineInfoList[j].OrderType, "物料总数量": res[i].VisualOrderTypeTotalLineInfoList[j].TotaOrderlItemQty, "操作次数": res[i].VisualOrderTypeTotalLineInfoList[j].TotaOrderlPalletQty });
+                            }
+                        } else {
+                            data.push({ "日期": res[i].GroupID, "操作类型": "", "物料总数量": "", "操作次数": "" });
+                        }
+
+
+                    }
+                    return data;
+                }();
+                console.log(DateTimez)
+
+                // console.log(data)
+                let date = []; //x轴日期
+
+                let lenged = []; //series的个数
+
+                let s = [];
+
+                DateTimez.map((item) => {
+
+                    date.push(item["日期"]);
+
+                    if (item["操作类型"] != "") {
+
+                        lenged.push(item["操作类型"])
+                        // lenged.push({"型号":item["型号"],"原因": item["原因"]});
+                    }
+
+
+                });
+
+                date = [...new Set(date)]; //去重
+
+                lenged = [...new Set(lenged)];
+
+                // lenged= lenged.sort(function (a, b) { return parseInt(a.split("-")[1])  - parseInt(b.split("-")[1])  });//排序
+
+                console.log(date, lenged)
+
+                let series = [];
+
+                lenged.map((item) => { //生成  series
+                    let obj = {
+                        name: item,
+                        type: "bar",
+                        stack: "As",
+                        emphasis: {
+                            focus: 'series'
+                        },
+                        "itemStyle": {
+                            "normal": {
+                                "color": getRandomColor5(),
+                                "label": {
+                                    "show": true,
+                                    "textStyle": {
+                                        "color": "#fff"
+                                    },
+                                    "position": "inside",
+                                    formatter: function (p) {
+                                        return p.value > 0 ? (p.value) : '';
+                                    }
+                                }
+                            }
+                        },
+                        data: []
+                    };
+                    series.push(obj);
+                });
+                console.log(series)
+
+                series.map((item1) => {
+
+                    DateTimez.map((item) => {//对series 的data进行处理
+
+                        if (item1.name == item["操作类型"] && date.indexOf(item["日期"]) > -1) {
+
+                            item1.data[date.indexOf(item["日期"])] = item["操作次数"]
+
+                        }
+                    })
+                })
+
+                option = {
+                    "tooltip": {
+                        // "trigger": "axis",
+                        "axisPointer": {
+                            "type": "shadow",
+                            textStyle: {
+                                color: "#fff"
+                            }
+
+                        },
+                        show: true,
+                        // backgroundColor: '#fff',
+                        // borderColor: '#ddd',
+                        // borderWidth: 1,
+                        // textStyle: {
+                        //     color: '#3c3c3c',
+                        //     fontSize: 16
+                        // },
+                        formatter: function (p) {
+                            console.log(p);
+                            return "操作类型:" + p.seriesName + '-操作次数:' + p.value;
+                        },
+                    },
+                    legend: {},
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    dataZoom: [{
+                        "show": true,
+                        "height": 30,
+                        "xAxisIndex": [
+                            0
+                        ],
+                        bottom: 30,
+                        // "start": 10,
+                        // "end": 80,
+                        handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
+                        handleSize: '110%',
+                        handleStyle: {
+                            color: "#d3dee5",
+
+                        },
+                        textStyle: {
+                            color: "#fff"
+                        },
+                        borderColor: "#90979c"
+
+
+                    }, {
+                        "type": "inside",
+                        "show": true,
+                        "height": 0,
+                        "start": 1,
+                        "end": 35
+                    }],
+                    xAxis: [
+                        {
+                            "type": "category",
+                            "axisLine": {
+                                lineStyle: {
+                                    color: '#90979c'
+                                }
+                            },
+                            "splitLine": {
+                                "show": false
+                            },
+                            "axisTick": {
+                                "show": false
+                            },
+                            "splitArea": {
+                                "show": false
+                            },
+                            "axisLabel": {
+                                "interval": 0,
+                                "rotate": 38
+                            },
+                            data: date
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: series
+                };
+
+
+                myChart.setOption(option, true);
+
+                // echarts 窗口缩放自适应
+                window.onresize = function () {
+                    myChart.resize();
+                }
+
+            }
+
+        });
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

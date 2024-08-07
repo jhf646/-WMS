@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="Highcharts/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../page/layui-soul-table/soulTable.css" media="all">
+</head>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                    <button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-disabled" style="font-weight:bold;color: #524545;">备料计划单号：<span id="pcjh">1</span>
+                </button>
+                    <!-- <button class="layui-btn layui-btn-sm" lay-event="bc"> 保存计划 </button> -->
+                    <button class="layui-btn layui-btn-sm" lay-event="zr"> 载入备料计划 </button>
+                    <!-- <button class="layui-btn layui-btn-sm" lay-event="sx"> 计划上线 </button> -->
+                    <button class="layui-btn layui-btn-sm" lay-event="xz"> 上报备料计划 </button>
+                    <!-- <button class="layui-btn  layui-btn-danger layui-btn-sm" lay-event="cj"> 计划插件 </button> -->
+                </div>
+            </script>
+            <div>
+                <table class="layui-hide" id="tableId" lay-filter="currentTableFilter"></table>
+                <script type="text/html" id="currentTableBar">
+                    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">计划删除</a>
+                </script>
+            </div>
+
+            <div id="container" style="width:100%; height:400px;"></div>
+        </div>
+    </div>
+    <div id="PZM" class="layui-form layuimini-form"
+        style="padding: 22px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;display: none;">
+        <div class="layui-form-item">
+            <label class="layui-form-label required" style="text-align: center;">输入配置名：</label>
+            <div class="layui-input-block">
+                <input id="sum" type="text" name="loopNum" lay-verify="required" lay-reqtext="输入配置名"
+                    placeholder="请输入配置名" class="layui-input">
+            </div>
+        </div>
+        <!-- <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div> -->
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="Highcharts/js/highcharts-gantt.js"></script>
+    <script src="Highcharts/js/highcharts.js"></script>
+    <script src="Highcharts/js/draggable-points.js"></script>
+    <script src="Highcharts/js/exporting.js"></script>
+    <script src="Highcharts/js/xrange.js"></script>
+    <script src="soulTable.js" charset="utf-8"></script>
+    <script src="soulTable.slim.js"></script>
+    <script src="tableChild.js"></script>
+    <script src="tableMerge.js"></script>
+    <script src="tableFilter.js"></script>
+    <script src="excel.js"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+
+    <script>
+        layui.use(['form', 'table', 'laydate', 'soulTable', 'element'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+            soulTable = layui.soulTable;
+            element = layui.element;
+
+            update("空")
+            function update(key) {
+                table.render({
+                    elem: '#tableId',
+                    method: "post",
+                    overflow: 'tips',
+                    toolbar: '#toolbarDemo',
+                    // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    url: http1 + "wms/querytaskreadyprogress",
+                    where: { "taskReadyId": key },
+                    contentType: 'application/json,charset=utf-8',
+                    parseData: function (res) { //res 即为原始返回的数据
+                        console.log(res)
+                        $("#pcjh").text("")
+                        $("#pcjh").text(key)
+                        layer.closeAll();
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": 0,
+                            "data": res.data.length == 0 ? "" : res.data
+                        }
+
+                    },
+                    defaultToolbar: ['filter', 'exports', 'print', {
+                        title: '提示',
+                        layEvent: 'LAYTABLE_TIPS',
+                        icon: 'layui-icon-tips'
+                    }],
+                    cols: [[
+                        //         "taskReadyId": "BR202305271298",
+                        // "taskReadyLineStatus": "新建",
+                        // "materialTypeId": "KDAKF10A-ZYZ",
+                        // "needSeatNum": 50,
+                        // "storageNumberTotal": 3
+                        // { type: "checkbox", width: 40, fixed: "left" },
+                        { field: 'taskReadyId', width: 180, title: '备料计划单号' },
+                        { field: 'materialTypeId', width: 180, title: '零部件类型' },
+                        { field: 'needSeatNum', width: 150, title: '备料数量' },
+                        { field: 'storageNumberTotal', width: 150, title: '库存数量' },
+                        {
+                            field: 'orderStatus', minWidth: 90, title: '备料进度', templet: function (d) {
+                                //***重点***：判断颜色
+                                let ys = '';
+                                let percent;
+                                if (d.storageNumberTotal < d.needSeatNum) {
+                                    percent = Math.trunc((d.storageNumberTotal) / (d.needSeatNum) * 100)
+                                } else (
+                                    percent = 100
+                                )
+                                if (30 < percent && percent < 100) {
+                                    ys = 'layui-bg-orange'
+                                } else if (0 < percent && percent <= 30) {
+                                    ys = 'layui-bg-red'
+                                } else {
+                                    ys = 'layui-bg-green'
+                                }
+                                //***重点***：拼接进度条
+                                return '<div class="layui-progress layui-progress-big" lay-showpercent="true"><div class="layui-progress-bar ' + ys + '" lay-percent="' + percent + '%"></div></div><br>'
+
+                            }
+                        },
+
+                        // { title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center" }
+                    ]],
+                    done: function (res, currentCount) {
+                        soulTable.render(this)
+                        //***重点***：table渲染完成后渲染element进度条
+                        element.render()
+                    },
+
+                    // limits: [10, 15, 20, 25, 50, 100],
+                    // limit: 10,
+                    page: false
+                });
+            }
+
+
+            // 监听导入操作
+            var _tools = {
+                //动态加载托盘
+
+                reload: function (key) {
+
+                    // alert(key)
+                    // let jh = key
+                    // $("#pcjh").val(jh)
+
+                    update(key)
+
+                }
+
+            }
+
+            window.tools = _tools;
+
+
+            var reqdata = ""
+            table.on('toolbar(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'zr') {
+                    layer.open({
+                        type: 2 //此处以iframe举例
+                        ,
+                        title: '备料计划列表',
+                        closeBtn: false,
+                        area: ['80%', '80%'],
+                        // shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                        btn: ['关闭'],
+                        btnAlign: 'c',
+                        offset: 'auto'
+                        // , moveType: 1 //拖拽模式，0或者1
+                        ,
+                        content: '/page/PZ.html',
+                    });
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+                    return false;
+                } else if (obj.event === 'xz') {
+
+                    let sFG = $("#pcjh").text()
+
+                    layer.confirm('是否上报 ' + sFG + ' 备料计划进度？', function (index) {
+                        let data1 = {
+                            taskReadyId: sFG
+                        }
+
+                        $.ajax({
+                            url: http1 + "wms/posttaskready",
+
+                            type: "post",
+
+                            // dataType: 'json',
+
+                            data: JSON.stringify(data1),
+
+                            success: function (res) {
+
+                                if (res.code == "200") {
+                                    layer.msg(res.msg, function () { });
+                                }
+
+                            },
+
+
+                            error: function () {
+                                layer.msg("服务器连接失败！", function () { });
+                            }
+                        })
+
+                        layer.close(index);
+
+                    });
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+                }
+
+
+            });
+
+            function f1(key) {
+
+                table.render({
+                    elem: '#tableId'
+                    // , id: 'table_update'
+                    // , url: '../api/ce.json'
+
+                    ,
+                    url: http1 + '?interface=getSchedulePlanList',
+                    parseData: function (res) { //res 即为原始返回的数据
+                        console.log(res[0])
+                        for (var i = 0; i < res.length; i++) {
+
+                            if (res[i].planName == key) {
+                                $("#pcjh").text(key)
+                                return {
+                                    "code": 0,
+                                    "msg": "",
+                                    "count": 1,
+                                    "data": res[i].palletList //解析数据列表
+                                };
+                            }
+                        }
+
+
+                    }
+                    //急速
+                    ,
+                    height: 'full-70',
+                    page: false,
+                    height: 350,
+                    toolbar: '#toolbarDemo',
+                    defaultToolbar: ['filter', 'exports', 'print', {
+                        title: '提示',
+                        layEvent: 'LAYTABLE_TIPS',
+                        icon: 'layui-icon-tips'
+                    }],
+                    rowDrag: { /*trigger: 'row',*/
+                        done: function (obj) {
+                            // 完成时（松开时）触发
+                            // 如果拖动前和拖动后无变化，则不会触发此方法
+                            console.log(obj.row) // 当前行数据
+                            console.log(obj.cache) // 改动后全表数据
+                            console.log(obj.oldIndex) // 原来的数据索引
+                            console.log(obj.newIndex) // 改动后数据索引
+                        }
+                    },
+                    cols: [
+                        [{
+                            type: 'checkbox'
+                        }, {
+                            field: 'palletID',
+                            title: '托盘号',
+                            width: 80
+                        }, {
+                            field: 'processID',
+                            title: '托盘计划',
+                            minwidth: 200
+                        }, {
+                            field: 'loopNum',
+                            title: '工件数',
+                            width: 160
+                        }, {
+                            field: 'loadID',
+                            title: '装载站',
+                            width: 160,
+                            templet: function (row) {
+                                return '<select lay-ignore>' +
+
+                                    '<option ' + (row.loadID === '1' ? 'selected' : '') + '>L/UL1</option>' +
+                                    '<option ' + (row.loadID === '2' ? 'selected' : '') + '>L/UL2</option>' +
+                                    '</select>'
+                            }
+                        }, {
+                            field: 'machineID',
+                            title: '加工站',
+                            width: 160,
+                            templet: function (row) {
+                                return '<select lay-ignore>' +
+
+                                    '<option ' + (row.machineID === 'A' ? 'selected' : '') + '>MC1</option>' +
+                                    '<option ' + (row.machineID === 'B' ? 'selected' : '') + '>MC2</option>' +
+                                    '<option ' + (row.machineID === 'C' ? 'selected' : '') + '>MC3</option>' +
+                                    '</select>'
+                            }
+                        }, {
+                            field: 'unloadID',
+                            title: '装载站',
+                            width: 160,
+                            templet: function (row) {
+                                return '<select lay-ignore>' +
+
+                                    '<option ' + (row.unloadID === '1' ? 'selected' : '') + '>L/UL1</option>' +
+                                    '<option ' + (row.unloadID === '2' ? 'selected' : '') + '>L/UL2</option>' +
+                                    '</select>'
+                            }
+                        }, {
+                            field: 'state',
+                            title: '状态',
+                            width: 200
+                        }, {
+                            title: '操作',
+                            minWidth: 50,
+                            templet: '#currentTableBar',
+                            fixed: "right",
+                            align: "center"
+                        }]
+                    ],
+                    done: function (res, currentCount) {
+                        soulTable.render(this)
+                        //***重点***：table渲染完成后渲染element进度条
+                        element.render()
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>

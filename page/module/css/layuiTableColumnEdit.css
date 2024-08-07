@@ -1,0 +1,73 @@
+.layui-table-select-div{
+    margin:0;
+    background-color: #fff;
+    font: 14px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    border: 1px solid #d2d2d2;
+    max-height: 320px;
+}
+
+.div-style{
+    background-color: #93f3ff;
+    padding: 5px 0;
+    overflow-y: auto;
+}
+
+.layui-table-select-dd{
+    padding: 0 10px;
+    line-height: 36px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.layui-table-select-div dd:hover {
+    background-color: #44aedb;
+    -webkit-transition: .5s all;
+    transition: .5s all;
+}
+
+.layui-table-select-edge{
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    margin-top: -15px;
+    cursor: pointer;
+    border-width: 6px;
+    border-top-color: #c2c2c2;
+    border-top-style: solid;
+    -webkit-transition: all .3s;
+    border-style: dashed;
+    border-color: transparent;
+}
+
+.layui-table-select-input{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 14px 1px;
+    border-radius: 0;
+    box-shadow: 1px 1px 20px rgba(0,0,0,.15)
+}
+
+.layui-table-select-input:focus{
+    border-color: #5FB878!important;
+}
+/* 复选框 */
+.define-edit-checkbox{position: relative;display: inline-block;vertical-align: middle;height: 30px;line-height: 30px;padding-left: 5px;cursor: pointer;font-size: 0;-webkit-transition: .1s linear;transition: .1s linear;box-sizing: border-box;min-width: 100%;}
+.define-edit-checkbox:hover{}
+.define-edit-checkbox *{display: inline-block;vertical-align: middle;}
+.define-edit-checkbox span{padding: 0 10px;height: 100%;font-size: 14px;border-radius: 2px 0 0 2px;background-color: #d2d2d2;color: #fff;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.define-edit-checkbox:hover span{background-color: #44aedb;}
+.define-edit-checkbox i{position: absolute; right: 0; top: 0; width: 30px; height: 28px; border: 1px solid #d2d2d2; border-left: none; border-radius: 0 2px 2px 0; color: #fff; font-size: 20px; text-align: center;}
+.define-edit-checkbox:hover i{border-color: #c2c2c2; color: #c2c2c2;}
+.define-edit-checkbox[lay-skin="primary"]{height: auto!important; line-height: normal!important; min-width: 18px; min-height: 18px; border: none!important; margin-right: 0; padding-left: 28px; padding-right: 0; background: none;}
+.define-edit-checkbox[lay-skin="primary"] span{padding-left: 0; padding-right: 15px; line-height: 18px; background: none; color: #666;}
+.define-edit-checkbox[lay-skin="primary"] i{right: auto; left: 0; width: 16px; height: 16px; line-height: 16px; border: 1px solid #d2d2d2; font-size: 12px; border-radius: 2px; background-color: #fff; -webkit-transition: .1s linear; transition: .1s linear;}
+.define-edit-checkbox[lay-skin="primary"]:hover i{border-color: #5FB878; color: #fff;}
+.ul-edit-data{overflow: auto;}
+.ul-edit-data li{height: 32px; line-height: 32px;}
+.ul-edit-data li:hover{background-color: #44aedb; transition: .5s all;}
+
+

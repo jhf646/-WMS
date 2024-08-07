@@ -1,0 +1,114 @@
+{
+  "_from": "layui-soul-table",
+  "_id": "layui-soul-table@1.5.8",
+  "_inBundle": false,
+  "_integrity": "sha512-oS9xALZob3pSCink5suCxP571Zn8zxAC0+rV81XA8x692k4gc1N3dNQyHemex8MRU1T2tYJ2iXsUT3OYPGOoNA==",
+  "_location": "/layui-soul-table",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "layui-soul-table",
+    "name": "layui-soul-table",
+    "escapedName": "layui-soul-table",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/layui-soul-table/-/layui-soul-table-1.5.8.tgz",
+  "_shasum": "31275071f8eadb479756f7aaee7dc5a40a2d7de5",
+  "_spec": "layui-soul-table",
+  "_where": "D:\\zhongshaofa-layuimini-master\\德慧正式版本",
+  "author": {
+    "name": "Yujie Yang",
+    "email": "yelog@qq.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yelog/layui-soul-table/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "@vue/component-compiler-utils": "^3.0.0",
+    "algoliasearch": "^3.33.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-polyfill": "^6.26.0",
+    "copy-webpack-plugin": "^5.0.3",
+    "cross-env": "^5.2.0",
+    "css-loader": "^3.0.0",
+    "element-ui": "^2.10.1",
+    "file-loader": "^4.0.0",
+    "gulp": "^4.0.2",
+    "gulp-uglify": "^3.0.2",
+    "highlight.js": "^9.15.8",
+    "html-webpack-plugin": "^3.2.0",
+    "markdown-it": "^9.0.1",
+    "markdown-it-anchor": "^5.2.4",
+    "markdown-it-chain": "^1.3.0",
+    "markdown-it-container": "^2.0.0",
+    "node-sass": "^4.12.0",
+    "progress-bar-webpack-plugin": "^1.12.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "transliteration": "^2.1.4",
+    "uglifyjs-webpack-plugin": "^2.1.3",
+    "url-loader": "^2.0.1",
+    "vue": "^2.6.10",
+    "vue-i18n": "^8.12.0",
+    "vue-loader": "^15.7.0",
+    "vue-router": "^3.0.7",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.7.2",
+    "xlsx": "^0.14.3"
+  },
+  "deprecated": false,
+  "description": "当前layui版本 `v2.5.6`",
+  "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.2.0"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "files": [
+    "ext",
+    "soulTable.css",
+    "docs/soulTable.css",
+    "docs",
+    "font",
+    "img"
+  ],
+  "homepage": "https://saodiyang.gitee.io/layui-soul-table",
+  "jsdelivr": "docs/ext/soulTable.slim.js",
+  "keywords": [
+    "layui",
+    "table",
+    "soul-table",
+    "soul"
+  ],
+  "license": "MIT",
+  "main": "docs/ext/vue-soul-ui.js",
+  "name": "layui-soul-table",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yelog/layui-soul-table.git"
+  },
+  "scripts": {
+    "build_all": "gulp build_js && cross-env NODE_ENV=product webpack --config build/webpack.docs.js",
+    "build_js": "gulp build_js",
+    "docs": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.docs.js"
+  },
+  "style": "docs/soulTable.css",
+  "unpkg": "docs/ext/soulTable.slim.js",
+  "version": "1.5.8"
+}

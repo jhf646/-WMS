@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="../lib/layui-soul-table/soulTable.css" media="all">
+</head>
+
+<style>
+    .laytable-cell-checkbox .layui-disabled.layui-form-checked i {
+        background: #fff !important;
+    }
+
+    .layui-table-cell {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <!-- "LocationID": "1-01-01",
+                            "ItemID": "",
+                            "ItemLotNo": "", -->
+
+
+
+                            <div class="layui-inline">
+                                <label class="layui-form-label">物料号</label>
+                                <div class="layui-input-inline">
+                                    <div id="ItemID"></div>
+                                    <!-- <input type="text" name="ItemID" autocomplete="off" class="layui-input"> -->
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">炉号</label>
+                                <div class="layui-input-inline">
+                                    <div id="FurnaceID"></div>
+                                    <!-- <input type="text" name="FurnaceID" autocomplete="off" class="layui-input"> -->
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">批次</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="ItemLotNo" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工单号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="WorkID" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <!-- <button class="layui-btn layui-btn-sm" lay-event="CK">批量出库</button> -->
+                <!-- <button class="layui-btn layui-btn-sm data-add-btn"> 批量出库 </button> -->
+            </div>
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+            <script type="text/html" id="currentTableBar">
+                <!-- <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">出库</a> -->
+            <!-- <a class="layui-btn layui-btn-xs data-count-edit" lay-event="out">出库</a> -->
+            <!-- <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a> -->
+            </script>
+        </div>
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="soulTable.js" charset="utf-8"></script>
+    <script src="soulTable.slim.js"></script>
+    <script src="tableChild.js"></script>
+    <script src="tableMerge.js"></script>
+    <script src="tableFilter.js"></script>
+    <script src="excel.js"></script>
+    <script src="../lib/XM-select/xm-select.js" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', 'laydate', 'soulTable', 'element'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+            soulTable = layui.soulTable;
+            tableChild = layui.tableChild;
+            element = layui.element;
+
+            laydate.render({
+                elem: '#date1'
+                , type: 'datetime'
+                , range: '~' //或 range: '~' 来自定义分割字符
+            });
+
+
+            load()
+            function load() {
+      
+                wl()//物料
+                yy()//炉号
+            }
+
+            var FurnaceID = xmSelect.render({
+                el: '#FurnaceID',
+                radio: true,//单选
+                language: 'zn',
+                data: []
+            })
+            var ItemID = xmSelect.render({
+                el: '#ItemID',
+                radio: true,//单选
+                language: 'zn',
+                on: function (data) {
+
+                    // var arr = data.arr;
+             
+                    var arr = {
+                        
+                        "ItemID":data.arr[0].ItemID
+
+                    }
+                    $.ajax({
+                        url: http1 + "GetItemInfoWithFurnaceIDListForOut",
+
+                        type: "post",
+
+                        // dataType: 'json',
+
+                        data: JSON.stringify(arr),
+
+                        success: function (res) {
+                            let result = res.data
+                            let arr = []
+                            $.each(result, function (index, item) {
+
+                                arr.push({ FurnaceID: item.FurnaceID, name: item.FurnaceID, value: index });
+
+                            });
+
+                            FurnaceID.update({
+                                data: arr,
+                                // autoRow: true,
+                            })
+                        },
+
+                        error: function () {
+
+                            alert("服务器连接失败！")
+
+                        }
+                    })
+                }
+            })
+
+            // ================       // =========================
+            function wl(key) {
+
+                // let data2 = { "ItemID": "" }
+                $.ajax({
+                    url: http1 + "GetItemInfoListForOut",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    // data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        let result = res.data
+                        let arr = []
+                        $.each(result, function (index, item) {
+
+                            arr.push({ ItemID: item.ItemID, name: item.ItemID, value: index });
+
+                        });
+
+                        ItemID.update({
+                            data: arr,
+                            // autoRow: true,
+                        })
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+            // ================       // =========================
+            function yy(key) {
+
+                // let data2 = { "DataListKey": "零件来源区域" }
+                $.ajax({
+                    url: http1 + "GetItemInfoWithFurnaceIDListForOut",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    // data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        let result = res.data
+                        let arr = []
+                        $.each(result, function (index, item) {
+
+                            arr.push({ FurnaceID: item.FurnaceID, name: item.FurnaceID, value: index });
+
+                        });
+
+                        FurnaceID.update({
+                            data: arr,
+                            // autoRow: true,
+                        })
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+
+            table.render({
+                elem: '#currentTableId',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                url: http1 + "GetStockInfoDetailFuzzyForOut",
+
+                contentType: 'application/json,charset=utf-8',
+                parseData: function (res) { //res 即为原始返回的数据
+                    console.log(res)
+                    // "data": res.listcount == "0" ? "" : JSON.parse(res.content)  判断有没有数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": res.count,
+                        "data": res.data
+                    }
+
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+
+                cols: [[
+                    //     "LocationID": "1", 库位编码
+                    // "locationName": "1排1列1层", 库位位置 
+                    // "workStatus": "空闲", 任务状态
+
+
+                    { field: 'LocationID', width: 120, title: '库位编号' },
+                    { field: 'LocationName', width: 120, title: '库位位置' },
+                    { field: 'StockStatus', width: 120, title: '存储状态' },
+                    { field: 'ItemID', width: 120, title: '物料号' },
+                    { field: 'ItemQty', width: 120, title: '数量' },
+                    { field: 'CurrentPalletID', width: 140, title: '托盘号' },
+                    { field: 'WorkStatus', width: 140, title: '任务状态' },
+                    {
+                        field: '', width: 140, title: '托盘物料种类',
+                        templet: function (d) {
+
+                            let TBS = ""
+
+                            TBS = d.StorageLineOunt > 1 ? "多料拼托" : "单料整托"
+
+                            return TBS
+
+                        }
+                    },
+                    { field: 'WorkOrderID', width: 120, title: '任务单号' },
+                    { field: 'WorkOrderType', width: 120, title: '入库类型' },
+                    { field: 'InDate', title: '入库时间', minWidth: 100 },
+                    {
+                        title: '操作',
+                        minWidth: 50,
+                        templet: '#currentTableBar',
+                        fixed: "right",
+                        align: "center",
+
+                        templet: function (d) {
+
+                            return '<a class="layui-btn layui-btn-xs data-count-edit" lay-event="out">出库</a>'
+
+                        }
+                    }
+                ]],
+                done: function (res, currentCount) {
+                    // soulTable.render(this)
+                    tableChild.render(this)
+                },
+
+                limit: 10
+                , page: true
+            });
+
+
+
+
+
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function (data) {
+                var result = JSON.stringify(data.field);
+
+
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: {
+                        "FurnaceID": FurnaceID.getValue().length>0?FurnaceID.getValue()[0].FurnaceID:"",
+                        "ItemID": ItemID.getValue().length>0?ItemID.getValue()[0].ItemID:"",
+                        "WorkID": $("#WorkID").val(),
+                        "ItemLotNo": $("#ItemLotNo").val(),}
+                }, 'data');
+
+                return false;
+            });
+
+
+
+            // 监听删除操作
+            $(".data-delete-btn").on("click", function () {
+
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(currentTableFilter)', function (obj) {
+                console.log(obj)
+                var checkStatus = table.checkStatus('tableId')
+                    , dataz = checkStatus.data;
+                layer.alert(JSON.stringify(dataz));
+            });
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'out') {
+
+                    let TBS = ""
+
+                    TBS = data.StorageLineOunt > 1 ? "多料拼托" : "单料整托"
+
+                    layer.confirm('当前库位托盘为' + TBS + ',是否确认' + data.LocationID + '库位出库?', function (index) {
+
+                        console.log(data.UserID)
+                        console.log(index)
+                        let data1 = {
+                            "Creator": sessionStorage.getItem("UserID"),
+                            "PalletID": data.PalletID,
+                            "LocationID": data.LocationID
+                        }
+                        $.ajax({
+                            url: http1 + "SubmitPrepareOutOrderInfo",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(data1),
+                            success: function (data) {
+
+                                if (data.code == 200) {
+
+                                    layer.msg(data.msg, function () { });
+
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+
+                                        }
+                                    }, 'data');
+                                } else {
+
+                                    layer.msg(data.msg, function () { });
+
+                                }
+                            },
+                            error: function () {
+
+                                layer.msg("提交失败", function () { });
+
+                            }
+                        })
+                    });
+
+
+
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

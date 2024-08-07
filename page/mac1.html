@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>首页二</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-card {
+            border: 1px solid #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .icon {
+            margin-right: 10px;
+            color: #1aa094;
+        }
+
+        .icon-cray {
+            color: #ffb800 !important;
+        }
+
+        .icon-blue {
+            color: #1e9fff !important;
+        }
+
+        .icon-tip {
+            color: #ff5722 !important;
+        }
+
+        .layuimini-qiuck-module {
+            text-align: center;
+            margin-top: 10px
+        }
+
+        .layuimini-qiuck-module i {
+            display: inline-block;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 2px;
+            font-size: 30px;
+            background-color: #F8F8F8;
+            color: #333;
+            transition: all .3s;
+            -webkit-transition: all .3s;
+            background-repeat: no-repeat;
+            background-size: 100% 60px;
+        }
+
+        .layuimini-qiuck-module cite {
+            position: relative;
+            top: 2px;
+            display: block;
+            color: #666;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .welcome-module {
+            width: 100%;
+            height: 210px;
+        }
+
+        .panel {
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05)
+        }
+
+        .panel-body {
+            padding: 10px
+        }
+
+        .panel-title {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 12px;
+            color: inherit
+        }
+
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25em;
+            margin-top: .3em;
+        }
+
+        .layui-red {
+            color: red
+        }
+
+        .main_btn>p {
+            height: 40px;
+        }
+
+        .layui-bg-number {
+            background-color: #F8F8F8;
+        }
+
+        .layuimini-notice:hover {
+            background: #f6f6f6;
+        }
+
+        .layuimini-notice {
+            padding: 7px 16px;
+            clear: both;
+            font-size: 12px !important;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s ease-in-out;
+        }
+
+        .layuimini-notice-title,
+        .layuimini-notice-label {
+            padding-right: 70px !important;
+            text-overflow: ellipsis !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+        }
+
+        .layuimini-notice-title {
+            line-height: 28px;
+            font-size: 14px;
+        }
+
+        .layuimini-notice-extra {
+            position: absolute;
+            top: 50%;
+            margin-top: -8px;
+            right: 16px;
+            display: inline-block;
+            height: 16px;
+            color: #999;
+        }
+
+        .btn-sz {
+            position: absolute;
+            right: 15px;
+            /* color: #01AAED; */
+        }
+
+        #GD {
+            position: absolute;
+            top: 46%;
+            width: 76%;
+            left: 115px;
+        }
+
+        #ROB {
+            height: 110px;
+            width: 8%;
+            position: absolute;
+            top: 34%;
+            /* left: 115px;
+    margin-left: 1px; */
+        }
+
+        .MC {
+            width: 100px;
+            height: 100px;
+        }
+
+        .KW1 {
+            height: 170px;
+        }
+
+        .KW2 {
+            width: 79%;
+            margin-top: 20px;
+            /* margin-left: 100px; */
+        }
+
+        .pz3 {
+            /* margin-left: 100px */
+        }
+
+        .SPT {
+            display: inline-block;
+            width: 12%;
+            font-size: 2em;
+        }
+
+        .pz2,
+        .pz3,
+        .pz4 {
+            display: inline-block;
+        }
+
+        .pz2 {
+            width: 12%;
+            display: inline-block;
+        }
+
+        #LU1 {
+            position: absolute;
+            left: 756px;
+            top: 37%;
+            width: 85px;
+            height: 101px;
+        }
+
+        .jj1 {
+            position: absolute;
+            top: 56px;
+            left: 135px;
+            width: 6.5%;
+        }
+
+        .jj2 {
+            position: absolute;
+            top: 56px;
+            left: 318px;
+            width: 6.5%;
+        }
+
+        .jj3 {
+            position: absolute;
+            top: 56px;
+            left: 561px;
+            width: 6.5%;
+        }
+
+        #ztt {
+            position: absolute;
+            right: 150px;
+        }
+
+        #ztnr {
+            color: #1985b8;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .LU2 {
+            position: absolute;
+            left: 756px;
+            top: 64%;
+            width: 85px;
+            height: 101px;
+        }
+
+        #text1 {
+            position: absolute;
+            left: 34px;
+            top: -37%;
+            /* width: 85px; */
+            /* height: 101px; */
+            transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        #text2 {
+            position: absolute;
+            left: 34px;
+            top: 89%;
+            /* width: 85px; */
+            /* height: 101px; */
+            transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .layui-form-mid1 {
+            /* float: left; */
+            display: inline-block;
+            line-height: 20px;
+            margin-right: 10px;
+            padding: 9px 0px !important;
+        }
+
+        #ann>div:nth-child(1) i {
+            background-image: url(../images/24_1.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        #ann>div:nth-child(2) i {
+            background-image: url(../images/lx_1.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        #ann>div:nth-child(3) i {
+            background-image: url(../images/stop.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        #ann>div:nth-child(4) i {
+            background-image: url(../images/24_2.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        #ann>div:nth-child(5) i {
+            background-image: url(../images/lx_2.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        #ann>div:nth-child(6) i {
+            background-image: url(../images/stop.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        #ann>div:nth-child(7) i {
+            background-image: url(../images/24_3.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        #ann>div:nth-child(8) i {
+            background-image: url(../images/lx_3.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        #ann>div:nth-child(9) i {
+            background-image: url(../images/stop.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+
+        .zdyx {
+            height: 50px;
+            background-color: #40ef55;
+        }
+        .text_1{
+            font-size: 1.5em;
+            line-height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md4">
+                    <div class="layui-row layui-col-space15">
+
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header">
+                                    <i class="fa fa-line-chart icon"></i>
+                                    <!-- 德慧DFMS智能制造系统 -->
+                                    MC1机床监控界面
+                                    <!-- <span id="ztt">ROB状态: <span id="ztnr"></span></span> -->
+                                </div>
+                                <div class="layui-card-body" style="text-align: center;">
+                                    <div id="echarts-records" style="width: 100%;">
+                                        <div class="zdyx"> <span class="text_1">
+                                                自动运行状态
+                                            </span>
+                                        </div>
+                                        <div><img style="width:60%; height: 400px;" src="../images/jc.jpg" alt=""
+                                                srcset=""> </div>
+                                        <div> </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa icon "></i>运行数据</div>
+                                <div class="layui-card-body" style="width: 100%;">
+
+                                    <div class="layui-row layui-col-space10 layuimini-qiuck">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-row layui-col-space15">
+
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header">
+                                    <i class="fa fa-line-chart icon"></i>
+                                    <!-- 德慧DFMS智能制造系统 -->
+                                    操作按钮
+                                    <!-- <span id="ztt">ROB状态: <span id="ztnr"></span></span> -->
+                                </div>
+                                <div class="layui-card-body">
+                                    <div id="echarts-records" style="width: 100%;">
+                                        <div id="ann" class="layui-row layui-col-space10 layuimini-qiuck">
+                                            <div id="zd" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/menu.html">
+                                                    <i></i>
+                                                    <cite>自动运行</cite>
+                                                </a>
+                                            </div>
+                                            <div id="lx" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/setting.html">
+                                                    <i></i>
+                                                    <cite>离线模式</cite>
+                                                </a>
+                                            </div>
+                                            <div id="tz" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/table.html">
+                                                    <i></i>
+                                                    <cite>停止运行</cite>
+                                                </a>
+                                            </div>
+                                            <div id="zd" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/menu.html">
+                                                    <i></i>
+                                                    <cite>自动运行</cite>
+                                                </a>
+                                            </div>
+                                            <div id="lx" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/setting.html">
+                                                    <i></i>
+                                                    <cite>离线模式</cite>
+                                                </a>
+                                            </div>
+                                            <div id="tz" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/table.html">
+                                                    <i></i>
+                                                    <cite>停止运行</cite>
+                                                </a>
+                                            </div>
+                                            <div id="zd" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/menu.html">
+                                                    <i></i>
+                                                    <cite>自动运行</cite>
+                                                </a>
+                                            </div>
+                                            <div id="lx" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/setting.html">
+                                                    <i></i>
+                                                    <cite>离线模式</cite>
+                                                </a>
+                                            </div>
+                                            <div id="tz" class="layui-col-xs4 layuimini-qiuck-module">
+                                                <a href="javascript:;" data-iframe-tab="page/table.html">
+                                                    <i></i>
+                                                    <cite>停止运行</cite>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+
+                                <div class="layui-card-header">运行状态信息</div>
+                                <div class="layui-card-body layadmin-takerates">
+                                    <div>主轴扭矩:</div>
+                                    <div class="layui-progress layui-progress-big" lay-showpercent="true">
+                                        <div class="layui-progress-bar" lay-percent="40%">
+                                        </div>
+                                    </div>
+                                    <div>X轴扭矩:</div>
+                                    <div class="layui-progress layui-progress-big" lay-showpercent="true">
+                                        <div class="layui-progress-bar" lay-percent="20%"></div>
+                                    </div>
+                                    <div>Y轴扭矩:</div>
+                                    <div class="layui-progress layui-progress-big" lay-showpercent="true">
+                                        <div class="layui-progress-bar" lay-percent="50%"></div>
+                                    </div>
+                                    <div>Z轴扭矩:</div>
+                                    <div class="layui-progress layui-progress-big" lay-showpercent="true">
+                                        <div class="layui-progress-bar" lay-percent="45%"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-warning icon icon-tip"></i>任务列表</div>
+                                <div class="layui-card-body" style="width: 100%;">
+
+                                    <div class="layui-row layui-col-space10 layuimini-qiuck">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa icon "></i>报警信息</div>
+                                <div class="layui-card-body" style="width: 100%;">
+
+                                    <div class="layui-row layui-col-space10 layuimini-qiuck">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="setTop" style="display: none; padding: 10px;">
+        <table id="LAY-index-topSearch"></table>
+        <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-1" lay-id="LAY-index-topSearch"
+            style=" ">
+            <div class="layui-table-box cc_cursor">
+                <div class="layui-table-header cc_cursor">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-skin="line">
+                        <thead>
+                            <tr>
+                                <th data-field="0" data-key="1-0-0" data-unresize="true"
+                                    class=" layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        <span></span></div>
+                                </th>
+                                <th data-field="keywords" data-key="1-0-1" data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <span>排产单号</span></div>
+                                </th>
+                                <th data-field="frequency" data-key="1-0-2" data-minwidth="120" class=" layui-unselect">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        <span>夹具</span></div>
+                                </th>
+                                <th data-field="userNums" data-key="1-0-3" class=" layui-unselect">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        <span>任务机床</span></div>
+                                </th>
+                                <th data-field="userNums" data-key="1-0-4" class=" layui-unselect">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        <span>预计时间</span></div>
+                                </th>
+                                <th data-field="state" data-key="1-0-5" class=" layui-unselect">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <span>状态</span></div>
+                                </th>
+                                <!-- <th data-field="userNums" data-key="1-0-4"
+                                    class=" layui-unselect">
+                                    <div
+                                        class="layui-table-cell laytable-cell-1-0-4">
+                                        <span>状态</span></div>
+                                </th> -->
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="layui-table-body layui-table-main">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-skin="line">
+                        <tbody>
+                            <tr data-index="0">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12000335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        15:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FFB800;">进行中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-index="1">
+                                <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                        1</div>
+                                </td>
+                                <td data-field="keywords" data-key="1-0-1" data-content="12000335544"
+                                    data-minwidth="300" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-1">
+                                        <a href="" target="_blank" class="layui-table-link">12111335544</a>
+                                    </div>
+                                </td>
+                                <td data-field="frequency" data-key="1-0-2" data-minwidth="120" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        夹具1</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        MC2</div>
+                                </td>
+                                <td data-field="userNums" data-key="1-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-4">
+                                        18:00</div>
+                                </td>
+                                <td data-field="state" data-key="1-0-5" class="">
+                                    <div class="layui-table-cell laytable-cell-1-0-5">
+                                        <SPAn style="color: #FF5722;">等待中</SPAn>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-table-fixed layui-table-fixed-l">
+                    <div class="layui-table-header">
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-skin="line">
+                            <thead>
+                                <tr>
+                                    <th data-field="0" data-key="1-0-0" data-unresize="true"
+                                        class=" layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            <span></span></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="layui-table-body" style="height: 384px;">
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-skin="line">
+                            <tbody>
+                                <tr data-index="0">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            1</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="1" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            2</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="2" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            3</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="3" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            4</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="4" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            5</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="5" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            6</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="6" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            7</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="7" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            8</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="8" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            9</div>
+                                    </td>
+                                </tr>
+                                <tr data-index="9" class="">
+                                    <td data-field="0" data-key="1-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-numbers">
+                                            10</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-table-page">
+                <div id="layui-table-page1">
+                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1"><a
+                            href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0"><i
+                                class="layui-icon"></i></a><span class="layui-laypage-curr"><em
+                                class="layui-laypage-em"></em><em>1</em></span><a href="javascript:;"
+                            data-page="2">2</a><a href="javascript:;" data-page="3">3</a><a href="javascript:;"
+                            class="layui-laypage-last" title="尾页" data-page="4">4</a><a href="javascript:;"
+                            class="layui-laypage-next" data-page="2"><i class="layui-icon"></i></a><span
+                            class="layui-laypage-skip">到第<input type="text" min="1" value="1"
+                                class="layui-input">页<button type="button"
+                                class="layui-laypage-btn">确定</button></span><span class="layui-laypage-count">共 38
+                            条</span><span class="layui-laypage-limits"><select lay-ignore="">
+                                <option value="10" selected="">10 条/页</option>
+                            </select></span></div>
+                </div>
+            </div>
+            <style>
+                .laytable-cell-1-0-0 {
+                    width: 40px;
+                }
+
+                .laytable-cell-1-0-1 {
+                    width: 150px;
+                }
+
+                .laytable-cell-1-0-2 {
+                    width: 150px;
+                }
+
+                .laytable-cell-1-0-3 {
+                    width: 150px;
+                }
+
+                .laytable-cell-1-0-4 {
+                    width: 150px;
+                }
+
+                .laytable-cell-1-0-5 {
+                    width: 170px;
+                }
+            </style>
+        </div>
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['layer', 'layuimini', 'echarts'], function () {
+            var $ = layui.jquery,
+                layer = layui.layer,
+                layuimini = layui.layuimini,
+                echarts = layui.echarts;
+
+            /**
+             * 查看公告信息
+             **/
+            $('body').on('click', '.layuimini-notice', function () {
+                var title = $(this).children('.layuimini-notice-title').text(),
+                    noticeTime = $(this).children('.layuimini-notice-extra').text(),
+                    content = $(this).children('.layuimini-notice-content').html();
+                var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
+                    '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
+                    '<div style="font-size: 12px">' + content + '</div>\n' +
+                    '</div>\n';
+                parent.layer.open({
+                    type: 1,
+                    title: '系统公告' + '<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">' + noticeTime + '</span>',
+                    area: '300px;',
+                    shade: 0.8,
+                    id: 'layuimini-notice',
+                    btn: ['查看', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1,
+                    content: html,
+                    success: function (layero) {
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').attr({
+                            href: 'https://gitee.com/zhongshaofa/layuimini',
+                            target: '_blank'
+                        });
+                    }
+                });
+            });
+
+
+        });
+    </script>
+</body>
+
+</html>

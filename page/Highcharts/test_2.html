@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Highcharts简易甘特图</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- 图表容器 DOM -->
+    <div class="main-container">
+        <div id="container"></div>
+    </div>
+    <!-- 引入 highcharts.js -->
+    <script src="js/highcharts-gantt.js"></script>
+    <script src="js/draggable-points.js"></script>
+    <script src="js/exporting.js"></script>
+    <script src="js/xrange.js"></script>
+    <script>
+
+        var today = new Date(),
+            day = 1000 * 60 * 60 * 24,
+            min = 1000 * 60,
+            each = Highcharts.each,
+            reduce = Highcharts.reduce,
+            btnShowDialog = document.getElementById('btnShowDialog'),
+            btnRemoveTask = document.getElementById('btnRemoveSelected'),
+            btnAddTask = document.getElementById('btnAddTask'),
+            btnCancelAddTask = document.getElementById('btnCancelAddTask'),
+            addTaskDialog = document.getElementById('addTaskDialog'),
+            inputName = document.getElementById('inputName'),
+            selectDepartment = document.getElementById('selectDepartment'),
+            selectDependency = document.getElementById('selectDependency'),
+            chkMilestone = document.getElementById('chkMilestone'),
+            isAddingTask = false;
+        // Set to 00:00:00:000 today
+        today.setUTCHours(0);
+        today.setUTCMinutes(0);
+        today.setUTCSeconds(0);
+        today.setUTCMilliseconds(0);
+        today = today.getTime();
+        console.log(today + day * 2.5)
+        // today = 1000 * 60
+        // Update disabled status of the remove button, depending on whether or not we
+        // have any selected points.
+        var data1 = [{
+            name: 'Project 1',
+            data: [{
+                start: today + 1 * day,
+                end: today + day * 2,
+                name: '托盘任务1',
+                id: 'prototype1-1',
+                y: 0
+            }, {
+                start: today + day * 2.5,
+                end: today + day * 4,
+                // dependency: 'prototype1-1',
+                id: 'prototype1-2',
+                name: '托盘任务1',
+                y: 2
+            }, {
+                start: today + day * 4.5,
+                end: today + day * 5,
+                // dependency: 'prototype1-2',
+                name: '托盘任务1',
+                y: 1
+            }]
+        }, {
+            name: 'Project 2',
+            data: [{
+                start: today + 3 * day,
+                end: today + day * 4,
+                name: '托盘任务2',
+                id: 'prototype2',
+                y: 0
+            }, {
+                start: today + day * 5,
+                end: today + day * 8,
+                name: '托盘任务2',
+                // dependency: 'prototype2',
+                id: 'prototype2-2',
+                y: 3
+            }, {
+                start: today + day * 8,
+                end: today + day * 10,
+                // dependency: 'prototype2-2',
+                id: 'prototype2-3汉子',
+                name: '托盘任务2',
+                y: 4
+            }, {
+                start: today + day * 11,
+                end: today + day * 12,
+                // dependency: 'prototype2-3',
+                name: '托盘任务2',
+                y: 1
+            }]
+        }]
+        function f1() {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+
+                if (xhr.readyState === 4 && xhr.status === 200) {
+
+                    var input = xhr.responseText;
+
+                    var obj = JSON.parse(input);
+
+                    console.log(obj)
+                    let arr = []
+                    // endTime: 15
+                    // palletID: "P001"
+                    // startTime: 5
+                    // stationID: "A"
+                    for (var i = 0; i < obj.length; i++) {
+                        arr.push({
+                            x: day * (obj[i].startTime / 5),
+                            x2: day * (obj[i].endTime / 5),
+                            y: (obj[i].stationID == "1" ? 0 : obj[i].stationID == "2" ? 1 : obj[i].stationID == "A" ? 2 : obj[i].stationID == "B" ? 3 : 4),
+                            name: obj[i].palletID,
+                            id: obj[i].palletID,
+                            dependency: obj[i].palletID
+                        })
+                        console.log(arr)
+                    }
+                    console.log(arr)
+                    obj = [{
+                        name: '数据显示',
+                        borderColor: 'gray',
+
+                        data: arr,
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }]
+
+
+                    function updateRemoveButtonStatus() {
+                        var chart = this.series.chart;
+                        // Run in a timeout to allow the select to update
+                        setTimeout(function () {
+                            btnRemoveTask.disabled = !chart.getSelectedPoints().length ||
+                                isAddingTask;
+                        }, 10);
+                    }
+                    // Create the chart
+                    var chart = Highcharts.ganttChart('container', {
+                        chart: {
+                            spacingLeft: 1
+                            // type : 'xrange'
+                        },
+                        title: {
+                            text: '排产任务甘特图'
+                        },
+                        subtitle: {
+                            text: '德慧排产任务甘特图版本1'
+                        },
+                        plotOptions: {
+                            series: {
+                                animation: false, // Do not animate dependency connectors
+                                dragDrop: {
+                                    draggableX: true,
+                                    draggableY: true,
+                                    dragMinY: 0,
+                                    dragMaxY: 2,
+                                    dragPrecisionX: day / 3 // Snap to eight hours
+                                },
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.name}',
+                                    style: {
+                                        cursor: 'default',
+                                        pointerEvents: 'none'
+                                    }
+                                },
+                                allowPointSelect: true,
+                                point: {
+                                    events: {
+                                        select: updateRemoveButtonStatus,
+                                        unselect: updateRemoveButtonStatus,
+                                        remove: updateRemoveButtonStatus
+                                    }
+                                }
+                            }
+                        },
+                        // yAxis: {
+                        //     type: 'category',
+                        //     categories: ['L/UL1', 'L/UL2', 'MC1', 'MC2', 'MC3'],
+                        //     reversed: true
+                        // },
+                        // // xAxis: [{
+                        // //     currentDateIndicator: true,
+                        // //     labels: {
+                        // //         format: '第 {value:%W} 周'
+                        // //     },
+                        // //     min: today - 3 * day,
+                        // //     max: today + 18 * day
+                        // // }],
+                        // // xAxis: {
+                        // //     currentDateIndicator: true
+                        // // },
+                        // tooltip: {
+                        //     dateTimeLabelFormats: {
+                        //         day: ' %H%M'
+                        //     }
+                        // },
+                        xAxis: [{
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                day: '%d',
+                            },
+                        }, {
+                            visible: false
+                        }],
+                        // xAxis: {
+                        //     type: 'datetime',
+                        //     dateTimeLabelFormats: {
+                        //         week: '%Y/%m/%d'
+                        //     }
+                        // },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            },
+                            categories: ['L/UL1', 'L/UL2', 'MC1', 'MC2', 'MC3'],
+                            reversed: true
+                        },
+                        tooltip: {
+                            dateTimeLabelFormats: {
+                                day: '%d',
+                            }
+                        },
+                        // xAxis: {
+                        //     type: 'datetime',
+                        //     dateTimeLabelFormats: {
+                        //         week: '%Y/%m/%d %H%M'
+                        //     }
+                        // },
+                        series: obj
+
+                    });
+                    /* Add button handlers for add/remove tasks */
+                    btnRemoveTask.onclick = function () {
+                        var points = chart.getSelectedPoints();
+                        each(points, function (point) {
+                            point.remove();
+                        });
+                    };
+                    btnShowDialog.onclick = function () {
+                        // Update dependency list
+                        var depInnerHTML = '<option value=""></option>';
+                        each(chart.series[0].points, function (point) {
+                            depInnerHTML += '<option value="' + point.id + '">' + point.name +
+                                ' </option>';
+                        });
+                        selectDependency.innerHTML = depInnerHTML;
+                        // Show dialog by removing "hidden" class
+                        addTaskDialog.className = 'overlay';
+                        isAddingTask = true;
+                        // Focus name field
+                        inputName.value = '';
+                        inputName.focus();
+                    };
+                    btnAddTask.onclick = function () {
+                        // Get values from dialog
+                        var series = chart.series[0],
+                            name = inputName.value,
+                            undef,
+                            dependency = chart.get(
+                                selectDependency.options[selectDependency.selectedIndex].value
+                            ),
+                            y = parseInt(
+                                selectDepartment.options[selectDepartment.selectedIndex].value,
+                                10
+                            ),
+                            maxEnd = reduce(series.points, function (acc, point) {
+                                return point.y === y && point.end ? Math.max(acc, point.end) : acc;
+                            }, 0),
+                            milestone = chkMilestone.checked || undef;
+                        // Empty category
+                        if (maxEnd === 0) {
+                            maxEnd = today;
+                        }
+                        // Add the point
+                        series.addPoint({
+                            start: maxEnd + (milestone ? day : 0),
+                            end: milestone ? undef : maxEnd + day,
+                            y: y,
+                            name: name,
+                            dependency: dependency ? dependency.id : undef,
+                            milestone: milestone
+                        });
+                        // Hide dialog
+                        addTaskDialog.className += ' hidden';
+                        isAddingTask = false;
+                    };
+                    btnCancelAddTask.onclick = function () {
+                        // Hide dialog
+                        addTaskDialog.className += ' hidden';
+                        isAddingTask = false;
+                    };
+
+
+
+
+                }
+            };
+
+            xhr.open("GET", "http://192.168.0.113:8080/?interface=getGantt", true);
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.send();
+        }
+        f1()
+        /*
+     Simple demo showing some interactivity options of Highcharts Gantt. More
+     custom behavior can be added using event handlers and API calls. See
+     http://api.highcharts.com/gantt.
+ */
+
+
+
+    </script>
+</body>
+
+</html>

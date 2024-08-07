@@ -1,0 +1,10 @@
+[{
+        "lampAddress": "0005",
+        "ipAddress": "192.168.0.250",
+        "ipPort": "5000"
+    }, {
+        "lampAddress": "0002",
+        "ipAddress": "192.168.0.250",
+        "ipPort": "5000"
+    }
+]

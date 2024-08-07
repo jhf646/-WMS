@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+</head>
+<style>
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #PowerKey option {
+        color: #000;
+    }
+
+    input[name="isFire"],
+    input[name="isBatch"],
+    input[name="fireStorageTime"] {
+        color: darkgrey;
+    }
+
+    .isCss {
+        color: #0cc0ec !important;
+        font-weight: bold !important;
+    }
+
+    .layui-elem-quote {
+        padding: 7px !important;
+    }
+
+    .layui-form-item {
+        margin-bottom: 13px !important;
+    }
+
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #PowerKey option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>添加废料信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label required">毛坯流水号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="InPreformID" name="InPreformID" readonly
+                                        lay-verify="required" lay-reqtext="请输入毛坯流水号" autocomplete="off"
+                                        class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label required">废料原因</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="WasteReason" lay-verify="required" lay-reqtext="请输入废料原因"
+                                        autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label required">废料数量</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="WasteQty" lay-verify="required" lay-reqtext="请输入废料数量"
+                                        autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <!-- <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button> -->
+                                <button type="submit" class="layui-btn " lay-submit
+                                    lay-filter="data-search-btn">添加废料</button>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <script type="text/html" id="toolbarDemo">
+
+                <div class="layui-btn-container">
+               
+                </div>
+          
+
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+            <!-- <script type="text/html" id="currentTableBar">
+                <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            </script> -->
+
+        </div>
+    </div>
+
+    <script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../../js/xlsx.full.min.js"></script>
+    <script src="../../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', 'upload',], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                upload = layui.upload,
+                layuimini = layui.layuimini;
+
+
+            $("#InPreformID").val(sessionStorage.getItem("InPreformID"))
+
+            table.render({
+                elem: '#currentTableId',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                // url: '../api/table.json',
+                where: {
+                    "DateFrom": "1900-01-01",
+                    "DateTo": "3900-01-01",
+                    "InPreformID": sessionStorage.getItem("InPreformID"),
+                    "WasteReason": ""
+                },
+                url: http1 + "GetWastePreformInfoList",
+                contentType: 'application/json,charset=utf-8',
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": res.count,
+                        "data": res.data
+                    };
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+
+                cols: [
+                    //             "PreformID": "4567",
+                    // "FurnaceID": "LH98238666",
+                    // "PreformMaterial": "C3R3",
+                    // "Creator": "1000",
+                    // "InDate": "2403-01-01 00:00:00",
+                    // "InQty": 40000,
+                    // "CodeNo":"SSE12321321", 
+
+
+                    [{ field: 'WastePreformID', width: 140, title: '毛坯废料流水号' },
+                        { field: 'InPreformID', width: 140, title: '毛坯流水号' },
+                        { field: 'PreformID', width: 140, title: '毛坯型号' },
+                        { field: 'FurnaceID', width: 140, title: '炉号' },
+                        { field: 'PreformMaterial', width: 140, title: '材质' },
+                        { field: 'WasteReason', width: 140, title: '废料原因' },
+                        { field: 'WasteQty', minwidth: 140, title: '废料数量' },
+                        //         <!-- ItemType//属性类别 外购，委外加工，自制物料等
+                        // ItemSize//规格
+                        // SafeQty//安全库存数
+                        // ItemUnit//计量单位
+                        // Vendor//供应商
+                        // Project//项目 -->
+                        { field: 'CreateDate', minwidth: 140, title: '废料添加时间' },
+                        { field: 'Creator', minwidth: 140, title: '操作人' },
+                        {
+                            title: '操作',
+                            minWidth: 300,
+                            templet: '#currentTableBar',
+                            fixed: "right",
+                            align: "center",
+                            templet: function (d) {
+                                //***重点***：判断颜色
+                                // var ys = d.Currsent_tep
+                                // //***重点***：拼接进度条
+                                // let power = sessionStorage.getItem("PowerKey");
+
+
+                                // if (power == "3" ||power == "4") {
+                                //     return '<span>无操作权限</span>'
+                                // } else if (power == "1" || power == "2") {
+
+                                return `
+                            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>`
+                                // }
+
+
+
+
+                            }
+                        }]
+                ],
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 15,
+                // page: true
+            });
+
+            // 添加废料操作
+            form.on('submit(data-search-btn)', function (data) {
+
+        
+
+                let sj = data.field
+                sj.Creator =sessionStorage.getItem("UserID")
+                $.ajax({
+
+                    url: http1 + "AddWastePreformInfo",
+                    type: "post",
+                    // dataType: 'json',
+                    data: JSON.stringify(sj),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg(data.msg, function () { });
+                            // // alert("提交成功：" + data)
+                            // layer.closeAll()
+
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+                    },
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+                return false;
+            });
+
+            //毛坯入库添加
+            form.on('submit(demo1)', function (data) {
+
+
+
+                let sj = data.field
+                sj.Creator = sessionStorage.getItem("UserID")
+                // sj.boxIndex = parseFloat(olddata.length) + 1
+
+
+
+                $.ajax({
+
+                    url: http1 + "AddInPreformInfo",
+                    type: "post",
+                    // dataType: 'json',
+                    data: JSON.stringify(sj),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg(data.msg, function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+                    },
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+                return false;
+            });
+
+            //编辑
+            form.on('submit(demo2)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+
+                $.ajax({
+                    // AddItemInfo  UpdateItemInfo    DeleteItemInfo
+                    url: http1 + "UpdateItemInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data.field),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg('修改成功！', function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+
+                return false;
+            });
+
+            $('body').on('click', '.data-add-btn', function () {
+
+                var index = layer.open({
+                    type: 1,
+                    title: "添加毛坯入库信息" //不显示标题栏
+                    ,
+                    // closeBtn: false,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,
+                    // btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                    ,
+                    content: $("#PZM"),
+                    success: function (layero) { },
+                    yes: function (layero, index) {
+
+                        //ItemID//型号 唯一
+                        // ItemName//物料名称 物料 可能重复
+                        //LocationIMaxQty//一个库位最大存放数量
+                        let data1 = {
+
+                            //         { field: 'ItemID', width: 260, title: '物料号' },
+                            // { field: 'ItemName', width: 260, title: '物料名称' },
+                            // { field: 'ItemModel', width: 260, title: '物料类型' },
+                            // { field: 'SourceType', minwidth: 160, title: '来源' }, 
+                            "ItemID": $("#ItemID").val(),
+                            "ItemName": $("#ItemName").val(),
+                            "ItemModel": $("#ItemModel").val(),
+                            "SourceType": $("#SourceType").val(),
+                        }
+
+                    }
+                });
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+                return false;
+            });
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'waste') {
+
+
+
+                    // <button class="layui-btn  layui-btn-sm data-count-waste" lay-event="waste">废料</button>
+                    //         <button class="layui-btn layui-btn-sm  data-count-wastepro" lay-event="wastepro">废品</button>
+
+                    var index = layer.open({
+                        type: 1,
+                        title: "废料添加" //不显示标题栏
+                        ,
+                        // closeBtn: false,
+                        area: '500px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                        // btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                        ,
+                        content: 'waste.html',
+                        success: function (layero) { },
+                        yes: function (layero, index) {
+
+
+                        }
+                    });
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+
+                } else if (obj.event === 'delete') {
+
+                    layer.confirm('是否删除' + data.WastePreformID + '废料吗?', function (index) {
+
+                        console.log(data.UserID)
+                        console.log(index)
+
+                        let data1 = {
+                            "WastePreformID": data.WastePreformID
+                        }
+
+                        $.ajax({
+                            url: http1 + "DeleteWastePreformInfo",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(data1),
+                            success: function (data) {
+
+                                if (data.code == "200") {
+                                    layer.msg(data.msg, function () { });
+                                    // alert("提交成功：" + data)
+                                    obj.del();
+                        
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                    
+                                    }, 'data');
+                                } else {
+                                    layer.msg(data.msg, function () { });
+                                }
+                            },
+                            error: function () {
+                                alert("提交失败")
+                            }
+                        })
+                    });
+
+                }
+            });
+
+        });
+    </script>
+    <script>
+    </script>
+
+</body>
+
+</html>

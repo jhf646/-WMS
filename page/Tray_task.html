@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="../lib/layui-soul-table/soulTable.css" media="all">
+</head>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container demoTable">
+                <button class="layui-btn layui-btn-sm data-add-btn" data-type="getCheckData"> 创建托盘任务 </button>
+            </div>
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+            <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            </script>
+        </div>
+    </div>
+    <div id="PZM" class="layui-form layuimini-form"
+        style="padding: 22px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;display: none;">
+        <div class="layui-form-item">
+            <label class="layui-form-label required" style="text-align: center;">输入任务名：</label>
+            <div class="layui-input-block">
+                <input id="sum" type="text" name="loopNum" lay-verify="required" lay-reqtext="输入任务名"
+                    placeholder="请输入任务名" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="soulTable.js" charset="utf-8"></script>
+    <script src="soulTable.slim.js"></script>
+    <script src="tableChild.js"></script>
+    <script src="tableMerge.js"></script>
+    <script src="tableFilter.js"></script>
+    <script src="excel.js"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', 'laydate', 'soulTable', 'element'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+            soulTable = layui.soulTable;
+
+            element = layui.element;
+
+            laydate.render({
+                elem: '#date1'
+                , type: 'datetime'
+                , range: '~' //或 range: '~' 来自定义分割字符
+            });
+            table.render({
+                elem: '#currentTableId',
+                // url: '../api/ce.json',
+                url: http1 + '?interface=getPalletInfoList',
+                toolbar: '#toolbarDemo',
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": 1,
+                        "data": res.infoList //解析数据列表
+                    };
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }]
+                // toolbar: true
+                , cellMinWidth: 80
+                // , height: 500
+                , rowDrag: {/*trigger: 'row',*/ done: function (obj) {
+                    // 完成时（松开时）触发
+                    // 如果拖动前和拖动后无变化，则不会触发此方法
+                    console.log(obj.row) // 当前行数据
+                    console.log(obj.cache) // 改动后全表数据
+                    console.log(obj.oldIndex) // 原来的数据索引
+                    console.log(obj.newIndex) // 改动后数据索引
+                }
+                },
+                cols: [[
+                    { type: 'checkbox' }
+                    , { field: 'palletID', title: '托盘号', width: 80 }
+                    , { field: 'processID', title: '托盘任务', minwidth: 200 }
+                    , { field: 'loopNum', title: '工件数', width: 160 }
+                    , {
+                        field: 'loadID', title: '装载站', width: 160, templet: function (d) {
+                            return d.loadID == '1' ? "L\UL1" : "L\UL2";
+                        }
+                    }
+                    , {
+                        field: 'machineID', title: '加工站', width: 160, templet: function (d) {
+                            return d.machineID == 'A' ? "MC1" : d.machineID == 'B' ? "MC2" : "MC3";
+                        }
+                    }
+                    , {
+                        field: 'unloadID', title: '卸载站', width: 160, templet: function (d) {
+                            return d.unloadID == '1' ? "L\UL1" : "L\UL2";
+                        }
+                    }
+                    , { field: 'state', title: '状态', width: 200 }
+                    , { title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center" }
+                ]],
+                done: function (res, currentCount) {
+                    // soulTable.render(this)
+                    //***重点***：table渲染完成后渲染element进度条
+                    element.render()
+                }
+
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 10,
+                // page: true
+            });
+
+
+            var active = {
+                getCheckData: function () { //获取选中数据,并保存数据类型
+                    var checkStatus = table.checkStatus('currentTableId')
+                        , data = checkStatus.data;
+                    // layer.alert(JSON.stringify(data));
+                    var that = this;
+                    //多窗口模式，层叠置顶
+                    layer.open({
+                        type: 1
+                        , title: "托盘任务" //不显示标题栏
+                        , closeBtn: false
+                        , area: '500px;'
+                        , shade: 0.8
+                        , id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        , btn: ['确定', '取消']
+                        , btnAlign: 'c'
+                        , moveType: 1 //拖拽模式，0或者1
+                        , content: $("#PZM")
+                        , success: function (layero) {
+                        }
+                        , yes: function (layero, index) {
+
+                            console.log($("#sum").val())
+            
+                            let TP = ""
+                            console.log(data)
+                            console.log(data.length)
+                            for (var i = 0; i < data.length; i++) {
+
+
+                                TP += data[i].palletID
+
+                                if (i + 1 < data.length) {
+
+                                    TP += "-"
+
+                                }
+
+                            }
+
+                           
+                            console.log(TP)
+                            
+
+                            if ($("#sum").val() == "") {
+                                layer.open({
+                                    type: 1
+                                    , title: "错误提示"
+                                    , id: 'layerDemo'//防止重复弹出
+                                    , content: '<p style="padding:5px;text-align:center">任务名不能为空！</p>'
+                                    , btn: '关闭'
+                                    , area: '200px;'
+                                    , btnAlign: 'c' //按钮居中
+                                    , shade: 0.5 //不显示遮罩
+                                    // , yes: function () {
+                                    // var index = layer.open();
+                                    // layer.close(layer.index);
+                                    // }
+                                });
+                            } else {
+                                $.ajax({
+
+                                    url: http1 + "?interface=addSchedulePlan&planName=" + $("#sum").val() + "&palletList=" + TP,
+
+                                    type: "get",
+
+                                    dataType: 'json',
+
+                                    // data: JSON.stringify(data1),
+
+                                    success: function (data) {
+
+                                        alert("提交成功：" + data)
+                                        layer.closeAll()
+                                    },
+
+                                    error: function () {
+
+                                        alert("服务器连接失败！")
+
+                                    }
+                                })
+                            }
+                        }
+                    });
+                }
+
+
+
+
+                
+            };
+
+
+
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+            //监听表格复选框选择
+            table.on('checkbox(currentTableFilter)', function (obj) {
+                console.log(obj)
+            });
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') {
+                } else if (obj.event === 'gantt') {
+                } else if (obj.event === 'delete') {
+                    layer.confirm('真的删除行么', function (index) {
+                        console.log(index)
+                        obj.del();
+                        layer.close(index);
+                    });
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="Highcharts/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                    <button class="layui-btn layui-btn-sm data-add-btn"> 保存任务 </button>
+                    <button class="layui-btn layui-btn-sm data-add-btn"> 载入任务 </button>
+                </div>
+            </script>
+            <div>
+                <table class="layui-hide" id="tableId" lay-filter="tableEvent"></table>
+                <!-- <script type="text/html" id="currentTableBar">
+                    <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">呼叫</a>
+                </script> -->
+            </div>
+
+            <div id="container" style="width:100%; height:400px;"></div>
+        </div>
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="Highcharts/js/highcharts.js"></script>
+    <script src="Highcharts/js/draggable-points.js"></script>
+    <script src="Highcharts/js/exporting.js"></script>
+    <script src="Highcharts/js/xrange.js"></script>
+    <script>
+        // 图表配置
+        var options = {
+            chart: {
+                type: 'xrange'
+            },
+            title: {
+                text: '排产计划表'
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    week: '%Y/%m/%d'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                categories: ['MC1', 'MC2', 'MC3'],
+                reversed: true
+            },
+            tooltip: {
+                dateTimeLabelFormats: {
+                    day: '%Y/%m/%d'
+                }
+            },
+            series: [{
+                name: '数据显示',
+                // pointPadding: 0,
+                // groupPadding: 0,
+                borderColor: 'gray',
+                pointWidth: 20,
+                // credits:
+                // {
+                //     enabled: false,
+
+                // },
+                data: [ {
+                    x: Date.UTC(2014, 11, 8),
+                    x2: Date.UTC(2014, 11, 9),
+                    y: 0
+                },  {
+                    x: Date.UTC(2014, 11, 10),
+                    x2: Date.UTC(2014, 11, 23),
+                    y: 0
+                }, {
+                    x: Date.UTC(2014, 11, 8),
+                    x2: Date.UTC(2014, 11, 9),
+                    y: 1
+                }, {
+                    x: Date.UTC(2014, 11, 9),
+                    x2: Date.UTC(2014, 11, 19),
+                    y: 2
+                }, {
+                    x: Date.UTC(2014, 11, 10),
+                    x2: Date.UTC(2014, 11, 23),
+                    y: 1
+                }],
+                dataLabels: {
+                    enabled: true
+                },
+
+                // exporting: {
+                //     enabled: false
+                // },
+            }]
+        };
+        // 图表初始化函数
+        var chart = Highcharts.chart('container', options);
+
+
+    </script>
+    <script>
+        layui.use(['form', 'table', 'laydate'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+
+            laydate.render({
+                elem: '#date1'
+                , type: 'datetime'
+                , range: '~' //或 range: '~' 来自定义分割字符
+            });
+            table.render({
+                elem: '#currentTableId',
+                url: '../api/moni.json',
+                // url: 'http://192.168.0.107:8080/?interface=getOrderList',
+                toolbar: '#toolbarDemo',
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+                cols: [[
+                    //             "orderID": "O0001",
+                    //             "materialID": "M0001",
+                    //             "materialID": "T1",
+                    //             "totalWorkpieceNum": "20",
+                    //             "orderStatus": "0",
+                    //             "createTime": "2020/2/26 17:03:03",
+                    //             "endTime": "2020/2/26 17:03:03",
+                    //             "creator": "manager"
+                    { type: "checkbox", width: 40, fixed: "left" },
+                    { field: 'orderID', width: 120, title: 'ERP单号' },
+                    { field: 'orderID', width: 120, title: '托盘' },
+                    { field: 'materialID', width: 100, title: '物料号' },
+                    { field: 'workTechnology', width: 85, title: '工艺' },
+                    { field: 'workTechnology', width: 85, title: '上料' },
+                    { field: 'workTechnology', width: 85, title: '加工' },
+                    { field: 'workTechnology', width: 85, title: '下料' },
+                    { field: 'totalWorkpieceNum', width: 85, title: '工件总数' },
+                    { field: 'createTime', width: 160, title: '上料开始时间', edit: 'text' },
+                    { field: 'endTime', width: 160, title: '上料结束时间' },
+                    { field: 'createTime', width: 160, title: '加工开始时间' },
+                    { field: 'endTime', width: 160, title: '加工结束时间' },
+                    { field: 'createTime', width: 160, title: '下料开始时间' },
+                    { field: 'endTime', width: 160, title: '下料结束时间' },
+                    { field: 'creator', width: 80, title: '创建员' },
+                    { field: 'orderStatus', width: 90, title: '任务状态' },
+                    { field: 'sign', title: '备注', Width: 100 },
+                    { title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center" }
+                ]],
+                limits: [10, 15, 20, 25, 50, 100],
+                limit: 10,
+                page: true
+            });
+
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function (data) {
+                var result = JSON.stringify(data.field);
+                layer.alert(result, {
+                    title: '最终的搜索信息'
+                });
+
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: {
+                        searchParams: result
+                    }
+                }, 'data');
+
+                return false;
+            });
+
+            // 监听添加操作
+            // $(".data-add-btn").on("click", function () {
+
+            //     var index = layer.open({
+            //         title: '订单托盘任务表',
+            //         type: 2,
+            //         shade: 0.2,
+            //         maxmin: true,
+            //         shadeClose: true,
+            //         area: ['100%', '100%'],
+            //         content: '/page/table/moni.html',
+            //     });
+            //     $(window).on("resize", function () {
+            //         layer.full(index);
+            //     });
+
+            //     return false;
+            // });
+
+            // 监听删除操作
+            $(".data-delete-btn").on("click", function () {
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(currentTableFilter)', function (obj) {
+                console.log(obj)
+            });
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') {
+                    var index = layer.open({
+                        title: '任务单号:' + data.orderID + "    订单总数:" + data.totalWorkpieceNum,
+                        type: 2,
+                        shade: 0.2,
+                        maxmin: true,
+                        shadeClose: true,
+                        area: ['100%', '100%'],
+                        content: '/page/table/moni.html',
+                        success: function (layero, index) {
+                            var body = layer.getChildFrame('body', index);//建立关系
+                            // body.find("input").val()
+                            console.log(window[layero.find("ifarme")[0]("id")])
+                            console.log(layero);
+                            console.log(index)
+                        }
+                    });
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+                    return false;
+                } else if (obj.event === 'gantt') {
+
+                    var index = layer.open({
+                        title: '任务单号:' + data.orderID,
+                        type: 2,
+                        shade: 0.2,
+                        maxmin: true,
+                        shadeClose: true,
+                        area: ['100%', '100%'],
+                        content: '/page/Highcharts/test_2.html',
+                    });
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+                    return false;
+                } else if (obj.event === 'delete') {
+                    layer.confirm('真的删除行么', function (index) {
+                        console.log(index)
+                        obj.del();
+                        layer.close(index);
+                    });
+                }
+            });
+
+        });
+    </script>
+    <script>
+        layui.config({
+            base: 'module/'
+        }).extend({
+            layuiTableColumnEdit: 'js/layuiTableColumnEdit'
+        }).use(['table', 'layuiTableColumnEdit', 'layer'], function () {
+            var table = layui.table, layer = layui.layer;
+            var layuiTableColumnEdit = layui.layuiTableColumnEdit;
+            var $ = layui.$;
+            table.render({
+                elem: '#tableId'
+                , id: 'table_update'
+                , url: '../api/Pallet_bind.json'
+
+                // , url: 'http://192.168.0.107:8080/?interface=getSchedule'
+                // , parseData: function (res) { //res 即为原始返回的数据
+                //     return {
+                //         "code": 0,
+                //         "msg": "",
+                //         "count": 1,
+                //         "data": res //解析数据列表
+                //     };
+                // }
+                //急速
+                , height: 'full-70'
+                , page: false
+                , height: 350
+                , toolbar: '#toolbarDemo'
+                // , defaultToolbar: ['filter', 'exports', 'print', {
+                //     title: '提示',
+                //     layEvent: 'LAYTABLE_TIPS',
+                //     icon: 'layui-icon-tips'
+                // }]
+                , cols: [[
+                    //                 {
+                    //         "palletID": "P001",
+                    //         "processID": "O001#01#OP10",
+                    //         "loopNum": 1,
+                    //         "stationID": "1",
+                    //         "startTime": "0001-01-01T00:00:00",
+                    //         "endTime": "0001-01-01T00:00:00"
+                    //         "state": "1" 
+                    //     },
+
+                    { type: 'checkbox' }
+                    , { field: 'palletID', title: '托盘号', width: 160 }
+                    , { field: 'processID', title: '托盘任务', minwidth: 180 }
+                    , { field: 'loopNum', title: '工件数', width: 160 }
+                    , { field: 'stationID', title: '加工站', width: 160 }
+                    , { field: 'startTime', title: '开始时间', width: 200, event: 'startTime' }
+                    , { field: 'endTime', title: '结束时间', width: 200, event: 'endTime' }
+                    , { field: 'state', title: '状态', width: 200 }
+                    // , { title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center" }
+                ]],
+                done: function (e) {
+                }
+            });
+
+            table.on('tool(tableEvent)', function (obj) {
+                if (obj.event === 'startTime') {
+                    var startTimeTd = $(obj.tr).find("td[data-field='startTime']")[0];
+                    layuiTableColumnEdit.createDate({
+                        dateType: 'datetime',
+                        element: startTimeTd,
+                        callback: function (obj1) {
+                            console.log(obj1.value); //时间值
+                            console.log(obj1.td); //当前单元格（td）DOM元素
+                            //把时间更新到行数据中
+                            obj.update({ startTime: obj1.value });
+                        }
+                    });
+                } else if (obj.event === 'endTime') {
+                    var endTimeTd = $(obj.tr).find("td[data-field='endTime']")[0];
+                    layuiTableColumnEdit.createDate({
+                        type: 'date',
+                        dateType: 'datetime',
+                        element: endTimeTd,
+                        callback: function (obj1) {
+                            console.log(obj1.value); //时间值
+                            console.log(obj1.td); //当前单元格（td）DOM元素
+                            //把时间更新到行数据中
+                            obj.update({ endTime: obj1.value });
+                        }
+                    });
+                }
+            });
+            $(".data-add-btn").on("click", function () {
+
+                $.ajax({
+                    url: "http://192.168.0.107:8080/createScheduleTime",
+                    type: "post",
+                    dataType: 'json',
+                    data: JSON.stringify(layui.table.cache["table_update"]),
+                    success: function (data) {
+                        // if(data=="1"){
+
+                        // }
+                        alert("提交成功：" + data)
+                    },
+                    error: function () {
+                        alert("提交失败")
+                    }
+                })
+                // console.log(layui.table.cache["table_update"])
+            });
+
+        });
+    </script>
+</body>
+
+</html>

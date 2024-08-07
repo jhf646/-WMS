@@ -1,0 +1,2377 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>首页二</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .JJSD div {
+            padding: 2.5px;
+        }
+        
+        .lz label {
+            text-align: center;
+        }
+        
+        .layui-card {
+            border: 1px solid #f2f2f2;
+            border-radius: 5px;
+        }
+        
+        .icon {
+            margin-right: 10px;
+            color: #1aa094;
+        }
+        
+        .icon-cray {
+            color: #ffb800 !important;
+        }
+        
+        .icon-blue {
+            color: #1e9fff !important;
+        }
+        
+        .icon-tip {
+            color: #ff5722 !important;
+        }
+        
+        .layuimini-qiuck-module {
+            text-align: center;
+            margin-top: 10px
+        }
+        
+        .layuimini-qiuck-module i {
+            display: inline-block;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 2px;
+            font-size: 30px;
+            background-color: #F8F8F8;
+            color: #333;
+            transition: all .3s;
+            -webkit-transition: all .3s;
+            background-repeat: no-repeat;
+            background-size: 100% 60px;
+        }
+        
+        .layuimini-qiuck-module cite {
+            position: relative;
+            top: 2px;
+            display: block;
+            color: #666;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .welcome-module {
+            width: 100%;
+            height: 210px;
+        }
+        
+        .panel {
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05)
+        }
+        
+        .panel-body {
+            padding: 10px
+        }
+        
+        .panel-title {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 12px;
+            color: inherit
+        }
+        
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25em;
+            margin-top: .3em;
+        }
+        
+        .layui-red {
+            color: red
+        }
+        
+        .main_btn>p {
+            height: 40px;
+        }
+        
+        .layui-bg-number {
+            background-color: #F8F8F8;
+        }
+        
+        .layuimini-notice:hover {
+            background: #f6f6f6;
+        }
+        
+        .layuimini-notice {
+            padding: 7px 16px;
+            clear: both;
+            font-size: 12px !important;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s ease-in-out;
+        }
+        
+        .layuimini-notice-title,
+        .layuimini-notice-label {
+            padding-right: 70px !important;
+            text-overflow: ellipsis !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+        }
+        
+        .layuimini-notice-title {
+            line-height: 28px;
+            font-size: 14px;
+        }
+        
+        .layuimini-notice-extra {
+            position: absolute;
+            top: 50%;
+            margin-top: -8px;
+            right: 16px;
+            display: inline-block;
+            height: 16px;
+            color: #999;
+        }
+        
+        .btn-sz {
+            position: absolute;
+            right: 15px;
+            /* color: #01AAED; */
+        }
+        
+        #GD {
+            position: absolute;
+            top: 46%;
+            width: 76%;
+            left: 115px;
+        }
+        
+        #ROB {
+            height: 110px;
+            width: 8%;
+            position: absolute;
+            top: 34%;
+            /* left: 115px;
+    margin-left: 1px; */
+        }
+        
+        .MC {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .KW1 {
+            height: 170px;
+        }
+        
+        .KW2 {
+            width: 79%;
+            margin-top: 20px;
+            /* margin-left: 100px; */
+        }
+        
+        .pz3 {
+            /* margin-left: 100px */
+        }
+        
+        .SPT {
+            display: inline-block;
+            width: 12%;
+            font-size: 2em;
+        }
+        
+        .pz2,
+        .pz3,
+        .pz4 {
+            display: inline-block;
+        }
+        
+        .pz2 {
+            width: 12%;
+            display: inline-block;
+        }
+        
+        #LU1 {
+            position: absolute;
+            left: 756px;
+            top: 37%;
+            width: 85px;
+            height: 101px;
+        }
+        
+        .jj1 {
+            position: absolute;
+            top: 56px;
+            left: 135px;
+            width: 6.5%;
+        }
+        
+        .jj2 {
+            position: absolute;
+            top: 56px;
+            left: 318px;
+            width: 6.5%;
+        }
+        
+        .jj3 {
+            position: absolute;
+            top: 56px;
+            left: 561px;
+            width: 6.5%;
+        }
+        
+        #ztt {
+            position: absolute;
+            right: 150px;
+        }
+        
+        #dqjh {
+            position: absolute;
+            right: 400px;
+        }
+        
+        #ztnr {
+            color: #1985b8;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .LU2 {
+            position: absolute;
+            left: 756px;
+            top: 64%;
+            width: 85px;
+            height: 101px;
+        }
+        
+        #text1 {
+            position: absolute;
+            left: 34px;
+            top: -37%;
+            /* width: 85px; */
+            /* height: 101px; */
+            transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+        
+        #text2 {
+            position: absolute;
+            left: 34px;
+            top: 89%;
+            /* width: 85px; */
+            /* height: 101px; */
+            transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+        
+        .layui-form-mid1 {
+            /* float: left; */
+            display: inline-block;
+            line-height: 20px;
+            margin-right: 10px;
+            padding: 9px 0px !important;
+        }
+        
+        .fd {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .P001,
+        .P002,
+        .P003,
+        .P004,
+        .P005,
+        .P006,
+        .P007,
+        .P008,
+        .P009,
+        .P010 {
+            position: absolute;
+            top: 56px;
+            width: 6.5%;
+        }
+        
+        .P001 {
+            left: 135px;
+        }
+        
+        .P002 {
+            left: 197px;
+        }
+        
+        .P003 {
+            left: 257px;
+        }
+        
+        .P004 {
+            left: 318px;
+        }
+        
+        .P005 {
+            left: 378px;
+        }
+        
+        .P006 {
+            left: 438px;
+        }
+        
+        .P007 {
+            left: 499px;
+        }
+        
+        .P008 {
+            left: 561px;
+        }
+        
+        .P009 {
+            left: 622px;
+        }
+        
+        .P010 {
+            left: 683px;
+        }
+        
+        .margin_A {
+            height: 136px;
+        }
+        
+        .margin_B {
+            margin-top: 32px;
+        }
+        
+        #PZM {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md8">
+                    <div class="layui-row layui-col-space15">
+
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header  fd">
+                                    <i class="fa fa-line-chart icon"></i> 58WMS任务监控
+                                    <!-- 比益特FMS智能制造系统 -->
+                                    <span id="dqjh">当前任务计划: <span id="dqjhr"></span></span>
+                                </div>
+                                <div class="layui-card-body">
+                                    <div id="echarts-records" style="width: 100%;min-height:455px">
+                                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-table icon"></i>任务队列
+                                    <!-- <button data-method="setTop" class="layui-btn btn-sz">详细列表</button> -->
+                                </div>
+                                <div class="layui-card-body">
+                                    <div style="width: 100%;height:140px">
+                                        <div class="layui-row layui-col-space10">
+                                            <div class="layui-tab-item layui-show">
+                                                <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md4">
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-warning icon icon-tip"></i>故障信息处理</div>
+                                <div class="layui-card-body">
+                                    <div class="welcome-module">
+                                        <div class="layui-row layui-col-space10 layuimini-qiuck">
+
+                                 
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-exchange icon "></i>当前模式</div>
+                                <div class="layui-card-body">
+                                    <div class="margin_A">
+                                        <form class="layui-form layui-form-pane margin_B" action="">
+
+                                            <div class="layui-form-item" pane="">
+                                                <label class="layui-form-label">当前模式</label>
+                                                <div class="layui-input-block">
+                                                    <!-- <input type="radio" name="sex" value="手动模式" title="手动模式" checked=""> -->
+                                                    <input lay-filter="test" type="radio" name="sex" value="手动模式" title="手动模式" checked="">
+                                                    <br>
+                                                    <input lay-filter="test" type="radio" name="sex" value="自动模式" title="自动模式">
+        
+                                                </div>
+                                            </div>
+                                            <!-- <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">当前路径</label>
+                                                    <div class="layui-input-inline" style="width: 100px;">
+                                                        <input type="text" name="price_min" value="L/UL1"
+                                                            autocomplete="off" class="layui-input">
+                                                    </div>
+                                                    <div class="layui-form-mid">→</div>
+                                                    <div class="layui-input-inline" style="width: 100px;">
+                                                        <input type="text" name="price_max" value="PST1"
+                                                            autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- </form>
+                                        <button id="dhmn" class="layui-btn">动画模拟</button>
+                                        <button id="robkx" class="layui-btn">设置ROB空闲</button>
+                                        <button id="tpkx" class="layui-btn">设置托盘空闲</button>
+                                        <form class="layui-form layui-form-pane" action="">
+
+                                            <div class="layui-form-item" pane="" style="
+                                            border-style: none;
+                                        ">
+
+                                            </div>
+                                        </form>
+                                        <button id="jckx" class="layui-btn">设置机床空闲</button>
+                                        <button id="zzwb" class="layui-btn">装载完毕</button>
+                                        <button id="xzwb" class="layui-btn">卸载完毕</button>
+                                        <form class="layui-form layui-form-pane" action="">
+
+                                            <div class="layui-form-item" pane="" style="
+                                            border-style: none;
+                                        ">
+
+                                            </div>
+                                        </form>
+                                        <button id="jcwc" class="layui-btn">机床加工完成</button>
+                                        <button id="jchj" class="layui-btn">机床呼叫</button>
+                                        <button id="tphj" class="layui-btn">托盘呼叫</button> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="layui-col-md12">
+                            <!-- <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-table icon "></i>装载机任务列表</div>
+                                <div class="layui-card-body">
+                                    <div class="welcome-module">
+                                        <div class="layui-row layui-col-space10 layuimini-qiuck">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="layui-tab layui-tab-brief layadmin-latestData" style="    border: 1px solid #f2f2f2;
+                                border-radius: 5px;">
+                                <ul class="layui-tab-title">
+                                    <li class="layui-this">设备状态1</li>
+                                    <li>设备状态2</li>】
+                                    <li>设备状态3</li>
+                                </ul>
+                                <div class="layui-tab-content">
+
+                                    <div class="layui-tab-item layui-show">
+                                        <table class="layui-hide" id="ZZJ" lay-filter=""></table>
+                                    </div>
+
+                                    <div class="layui-tab-item">
+                                        <table class="layui-hide" id="XZJ" lay-filter=""></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- <div id="SLTP" class="layui-card top-panel">
+        <div class="layui-card-header">优先级</div>
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="100">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>托盘号</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>托盘任务</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>循环次数</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>上料站</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>加工站</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>卸料站</td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div> -->
+    <div id="dh" class="layui-form layuimini-form" style="padding: 22px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;display: none;">
+        <div class="layui-form-item">
+            <label class="layui-form-label required" style="text-align: center;">输入动画序列：</label>
+            <div class="layui-input-block">
+                <input id="sum" type="text" name="loopNum" lay-verify="required" lay-reqtext="输入动画序列" placeholder="请输入动画序列" value="01" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: center;">输入目的地：</label>
+            <div class="layui-input-block">
+                <input id="location" type="text" name="loopNum" lay-verify="required" lay-reqtext="目的地" placeholder="目的地" value="P001" class="layui-input">
+            </div>
+
+        </div>
+    </div>
+    <div id="tp" class="layui-form layuimini-form" style="padding: 22px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;display: none;">
+        <div class="layui-form-item">
+            <label class="layui-form-label required" style="text-align: center;">输入托盘：</label>
+            <div class="layui-input-block">
+                <input id="sum" type="text" name="loopNum" lay-verify="required" lay-reqtext="输入托盘" placeholder="请输入托盘" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div id="jc" class="layui-form layuimini-form" style="padding: 22px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;display: none;">
+        <div class="layui-form-item">
+            <label class="layui-form-label required" style="text-align: center;">输入机床：</label>
+            <div class="layui-input-block">
+                <input id="sum" type="text" name="loopNum" lay-verify="required" lay-reqtext="输入机床" placeholder="请输入机床" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['layer', 'layuimini', "laydate", 'echarts'], function() {
+            var $ = layui.jquery,
+                layer = layui.layer,
+                laydate = layui.laydate;
+            layuimini = layui.layuimini,
+                echarts = layui.echarts;
+
+
+
+
+
+            //装载呼叫信息提示框函数
+            function SLCE() {
+                layer.open({
+                    type: 1,
+                    title: "托盘信息" //不显示标题栏
+                        // , closeBtn: false
+                        ,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                    btn: ["确定呼叫", "取消呼叫"],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                        ,
+                    shadeClose: true
+                        //                             currentNum: 0
+                        // loadID: "1"
+                        // machineID: "A"
+                        // palletID: "P001"
+                        // processID: "O001#P001#OP10"
+                        // unloadID: "2"
+                        ,
+                    content: `  <div id="SLTP" class="layui-card top-panel">
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="100">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>托盘号</td>
+                        <td>${str.palletID}</td>
+                    </tr>
+                    <tr>
+                        <td>托盘任务</td>
+                        <td>${str.processID}</td>
+                    </tr>
+                    <tr>
+                        <td>循环次数</td>
+                        <td>${str.currentNum}</td>
+                    </tr>
+                    <tr>
+                        <td>上料站</td>
+                        <td>${str.loadID == "2" ? "L/UL2" : str.loadID == "1" ? "L/UL1" : ""}</td>
+                    </tr>
+                    <tr>
+                        <td>加工站</td>
+                        <td>${str.machineID == "A" ? "MC1" : str.machineID == "B" ? "MC2" : str.machineID == "C" ? "MC3" : ""}</td>
+                    </tr>
+                    <tr>
+                        <td>卸料站</td>
+                        <td>${str.unloadID == "2" ? "L/UL2" : str.loadID == "1" ? "L/UL1" : ""}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>`,
+                    success: function(layero) {},
+                    yes: function(layero) {
+                        // 测试
+                        layer.closeAll();
+                        $.ajax({
+                            url: http1 + '?interface=btnLoadCallPallet&LoadID=1&creator=焦恒飞',
+                            type: "get",
+                            dataType: 'json',
+                            // data: JSON.stringify(data1),
+                            success: function(data) {
+                                layer.closeAll();
+                                alert("呼叫成功")
+                            },
+                            error: function() {
+                                alert("呼叫失败")
+                            }
+                        })
+
+
+                    }
+                });
+            }
+            //上料装载——呼叫托盘模拟测试
+            // $("#echarts-records").on('click', "#call_1", function() {
+            //         layer.confirm('上料装载——呼叫托盘模拟测试？', function(index) {
+
+            //             layer.close(index);
+            //             SLCE()
+            //         });
+
+            //     })
+            //卸载呼叫信息提示框函数
+            function XLCE() {
+                $.get(http1, {
+                    interface: "getNextUnloadPalletInfo",
+                    LoadID: "2"
+                }, function(str) {
+                    console.log(str)
+                    layer.open({
+                        type: 1,
+                        title: "托盘信息" //不显示标题栏
+                            ,
+                        closeBtn: false,
+                        area: '500px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                            ,
+                        btn: ['确定呼叫', '取消呼叫'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                            ,
+                        content: `  <div id="SLTP" class="layui-card top-panel">
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="100">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>托盘号</td>
+                        <td>${str.palletID}</td>
+                    </tr>
+                    <tr> 
+                        <td>托盘任务</td>
+                        <td>${str.processID}</td>
+                    </tr>
+                    <tr>
+                        <td>循环次数</td>
+                        <td>${str.currentNum}</td>
+                    </tr>
+                    <tr>
+                        <td>上料站</td>
+                        <td>${str.loadID == "2" ? "L/UL2" : str.loadID == "1" ? "L/UL1" : ""}</td>
+                    </tr>
+                    <tr>
+                        <td>加工站</td>
+                        <td>${str.machineID == "A" ? "MC1" : str.machineID == "B" ? "MC2" : str.machineID == "C" ? "MC3" : ""}</td>
+                    </tr>
+                    <tr>
+                        <td>卸料站</td>
+                        <td>${str.unloadID == "2" ? "L/UL2" : str.loadID == "1" ? "L/UL1" : ""}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>`,
+                        success: function(layero) {},
+                        yes: function(layero) {
+
+                            $.ajax({
+                                url: http1 + '?interface=btnUnloadCallPallet&UnloadID=2&creator=焦工',
+                                type: "get",
+                                dataType: 'json',
+                                // data: JSON.stringify(data1),
+                                success: function(data) {
+                                    layer.closeAll();
+                                    alert("呼叫成功")
+                                },
+                                error: function() {
+                                    alert("呼叫失败")
+                                }
+                            })
+
+
+                        }
+                    });
+                });
+            }
+            //卸料装载——呼叫托盘模拟测试
+            // $("#echarts-records").on('click', "#call_2", function() {
+
+            //     layer.confirm('卸料装载——呼叫托盘模拟测试？', function(index) {
+
+            //         layer.close(index);
+            //         XLCE()
+
+            //         obj.del();
+            //     });
+            // })
+
+            $("#Pallet img").on('click', function() {
+
+
+            }).each(function() {
+
+                $(this).click(function() {
+                    console.log(this)
+                    console.log($(this).attr('class'))
+                    $("#TP_M").html("")
+                    $("#TP_M").html($(this).attr('class'))
+                    let tp1 = $(this).attr('class')
+                    if ($(this).attr('src') == "../res/1.png") {
+
+                        layer.msg("发送服务器失败！", {
+                            icon: 2,
+                            offset: "auto",
+                            time: 2000
+                        });
+                    } else {
+                        layer.open({
+                            type: 1,
+                            title: "托盘号：" + $(this).attr('class') + " 设置" //不显示标题栏
+                                ,
+                            closeBtn: false,
+                            area: ['45%', '68%'],
+                            shade: 0.8,
+                            id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                                ,
+                            btn: ['确定', '取消'],
+                            btnAlign: 'c',
+                            moveType: 1 //拖拽模式，0或者1
+                                ,
+                            zIndex: 1000,
+                            content: $("#PZM"),
+                            success: function(layero) {
+                                $.ajax({
+
+                                    url: http1 + "?interface=getPalletInfo&palletID=" + tp1,
+
+                                    type: "get",
+
+                                    dataType: 'json',
+
+                                    // data: JSON.stringify(data1),
+
+                                    success: function(data) {
+                                        $("#TP_P").html("")
+                                        $("#TP_P").html(data.processID)
+                                    },
+
+                                    error: function() {
+
+                                        layer.msg("发送服务器失败！", {
+                                            icon: 2,
+                                            offset: "auto",
+                                            time: 2000
+                                        });
+
+                                    }
+                                })
+                            },
+
+                        });
+                    }
+
+                })
+            })
+
+            // $("#Pallet img")
+
+            //抽检
+
+            $("#CJ").on('click', function() {
+
+                    layer.open({
+                        type: 1,
+                        title: "托盘抽检路径" //不显示标题栏
+                            ,
+                        closeBtn: false,
+                        area: ['36%', '30%'],
+                        shade: 0.8,
+                        id: 'LAY_layuipro_1' //设定一个id，防止重复弹出
+                            ,
+                        btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                            ,
+                        content: $("#PZM_1"),
+                        zIndex: 1001,
+                        success: function(layero) {},
+                        yes: function(layero, index) {
+
+                            $.ajax({
+
+                                url: http1 + "?interface=addOutTemp&palletID=" + $("#TP_M").html(),
+
+                                type: "get",
+
+                                dataType: 'json',
+
+                                // data: JSON.stringify(data1),
+
+                                success: function(data) {
+
+                                    layer.msg("成功！", {
+                                        icon: 1,
+                                        offset: "auto",
+                                        time: 2000
+                                    });
+                                    layer.closeAll()
+                                },
+
+                                error: function() {
+
+                                    layer.msg("发送服务器失败！", {
+                                        icon: 2,
+                                        offset: "auto",
+                                        time: 2000
+                                    });
+
+                                }
+                            })
+
+                        }
+                    });
+                })
+                //呼叫
+
+            $("#TD").on('click', function() {
+
+                layer.open({
+                    type: 1,
+                    title: "托盘呼叫路径" //不显示标题栏
+                        ,
+                    closeBtn: false,
+                    area: ['36%', '30%'],
+                    shade: 0.8,
+                    id: 'LAY_layuipro_1' //设定一个id，防止重复弹出
+                        ,
+                    btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                        ,
+                    content: $("#PZM_2"),
+                    zIndex: 1001,
+                    success: function(layero) {},
+                    yes: function(layero, index) {
+
+                        $.ajax({
+
+                            url: http1 + "?interface=addTempPalletOrder&palletID=" + $("#TP_M").html(),
+
+                            type: "get",
+
+                            dataType: 'json',
+
+                            // data: JSON.stringify(data1),
+
+                            success: function(data) {
+
+                                alert("提交成功：" + data)
+                                layer.closeAll()
+                            },
+
+                            error: function() {
+
+                                alert("呼叫发送失败，服务器连接错误")
+
+                            }
+                        })
+
+                    }
+                });
+            })
+
+
+
+
+        });
+    </script>
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function() {
+            var form = layui.form,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                laydate = layui.laydate;
+
+            //日期
+            laydate.render({
+                elem: '#date'
+            });
+            laydate.render({
+                elem: '#date1'
+            });
+
+            //创建一个编辑器
+            var editIndex = layedit.build('LAY_demo_editor');
+
+            //自定义验证规则
+            form.verify({
+                title: function(value) {
+                    if (value.length < 5) {
+                        return '标题至少得5个字符啊';
+                    }
+                },
+                pass: [
+                    /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'
+                ],
+                content: function(value) {
+                    layedit.sync(editIndex);
+                }
+            });
+
+            //监听指定开关
+            form.on('switch(switchTest)', function(data) {
+                layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                    offset: '6px'
+                });
+                layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+            });
+
+            //监听提交
+            form.on('submit(demo1)', function(data) {
+                layer.alert(JSON.stringify(data.field), {
+                    title: '最终的提交信息'
+                })
+                return false;
+            });
+            //切换有人值守无人值守
+            form.on('radio(test)', function(data) {
+                console.log(data.elem); //得到radio原始DOM对象
+                console.log(data.value); //被点击的radio的value值
+                alert(data.value)
+                let MS = data.value
+                $.ajax({
+                    url: http1 + "?interface=" + (MS == "有人值守" ? "setManualMode" : MS == "无人值守" ? "setAutoMode" : "setReadyMode") + "&creator=manager",
+                    type: "get",
+                    dataType: 'json',
+                    // data: JSON.stringify(data1),
+                    success: function(data) {
+                        alert("切换成功")
+                    },
+                    error: function() {
+                        // alert("提交失败")
+                    }
+                })
+            });
+
+        });
+    </script>
+    <script>
+        layui.use(['layer', 'table'], function() { //独立版的layer无需执行这一句
+            var $ = layui.jquery,
+                layer = layui.layer //独立版的layer无需执行这一句
+                ,
+                table = layui.table; //表格
+            //触发事件
+            var active = {
+                setTop: function() {
+                    var that = this;
+                    //多窗口模式，层叠置顶
+                    layer.open({
+                        type: 2 //此处以iframe举例
+                            ,
+                        title: 'MC机床任务详细列表',
+                        closeBtn: false,
+                        area: ['60%', '80%'],
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                            ,
+                        btn: ['关闭'],
+                        btnAlign: 'c',
+                        offset: 'auto'
+                            // , moveType: 1 //拖拽模式，0或者1
+                            ,
+                        content: '/page/jc.html',
+
+                    });
+                }
+
+            };
+
+            $('.layui-btn').on('click', function() {
+                var othis = $(this),
+                    method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+            let i = 0
+            // var int = self.setInterval(DSSX, 5000)
+                // DSSX()
+                //定时刷新函数
+            function DSSX() {
+                i++
+                console.log("刷新第" + i + "次")
+                JH()
+
+                //机床加载信息
+                table.render({
+                    elem: '#currentTableId',
+                    // url: '../api/moni.json',
+                    url: http1 + '?interface=getMachineTaskList',
+                    parseData: function(res) { //res 即为原始返回的数据
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": 1,
+                            "data": res //解析数据列表
+                        };
+                    },
+                    // toolbar: '#toolbarDemo',
+                    height: 120
+                        // toolbar: true
+                        ,
+                    cellMinWidth: 80
+                        // , height: 500
+                        ,
+                    rowDrag: { /*trigger: 'row',*/
+                        done: function(obj) {
+                            // 完成时（松开时）触发
+                            // 如果拖动前和拖动后无变化，则不会触发此方法
+                            console.log(obj.row) // 当前行数据
+                            console.log(obj.cache) // 改动后全表数据
+                            console.log(obj.oldIndex) // 原来的数据索引
+                            console.log(obj.newIndex) // 改动后数据索引
+                        }
+                    },
+                    cols: [
+                        [
+                            //             "orderID": "O0001",
+                            //             "materialID": "M0001",
+                            //             "materialID": "T1",
+                            //             "totalWorkpieceNum": "20",
+                            //             "orderStatus": "0",
+                            //             "createTime": "2020/2/26 17:03:03",
+                            //             "endTime": "2020/2/26 17:03:03",
+                            //             "creator": "manager"
+                            {
+                                type: "checkbox",
+                                width: 40,
+                                fixed: "left"
+                            }, , {
+                                field: 'palletID',
+                                title: '托盘号',
+                                width: 80
+                            }, {
+                                field: 'processID',
+                                title: '托盘任务',
+                                minwidth: 200
+                            }, {
+                                field: 'loopNum',
+                                title: '工件数',
+                                width: 160
+                            }, {
+                                field: 'loadID',
+                                title: '装载站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.loadID == '2' ? "L\UL2" : "L\UL1";
+                                }
+                            }, {
+                                field: 'machineID',
+                                title: '加工站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.machineID == 'A' ? "MC1" : d.machineID == 'B' ? "MC2" : "MC3";
+                                }
+                            }, {
+                                field: 'unloadID',
+                                title: '卸载站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.unloadID == '1' ? "L\UL1" : "L\UL2";
+                                }
+                            }
+
+                        ]
+                    ],
+                    done: function(res, currentCount) {
+                        // soulTable.render(this)
+                        //***重点***：table渲染完成后渲染element进度条
+                        // element.render()
+                    }
+
+                    // limits: [10, 15, 20, 25, 50, 100],
+                    // limit: 10,
+                    // page: true
+                });
+                //UL1装载站
+                table.render({
+                    elem: '#ZZJ',
+                    // url: '../api/moni.json',
+
+                    url: http1 + '?interface=getLUTaskList&LUID=1',
+                    parseData: function(res) { //res 即为原始返回的数据
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": 1,
+                            "data": res //解析数据列表
+                        };
+                    },
+                    // toolbar: '#toolbarDemo',
+                    height: 120
+                        // toolbar: true
+                        ,
+                    cellMinWidth: 80
+                        // , height: 500
+                        ,
+                    rowDrag: { /*trigger: 'row',*/
+                        done: function(obj) {
+                            // 完成时（松开时）触发
+                            // 如果拖动前和拖动后无变化，则不会触发此方法
+                            console.log(obj.row) // 当前行数据
+                            console.log(obj.cache) // 改动后全表数据
+                            console.log(obj.oldIndex) // 原来的数据索引
+                            console.log(obj.newIndex) // 改动后数据索引
+                        }
+                    },
+                    cols: [
+                        [
+                            //             "orderID": "O0001",
+                            //             "materialID": "M0001",
+                            //             "materialID": "T1",
+                            //             "totalWorkpieceNum": "20",
+                            //             "orderStatus": "0",
+                            //             "createTime": "2020/2/26 17:03:03",
+                            //             "endTime": "2020/2/26 17:03:03",
+                            //             "creator": "manager"
+                            {
+                                type: "checkbox",
+                                width: 40,
+                                fixed: "left"
+                            }, , {
+                                field: 'palletID',
+                                title: '托盘号',
+                                width: 80
+                            }, {
+                                field: 'processID',
+                                title: '托盘任务',
+                                minwidth: 200
+                            }, {
+                                field: 'loopNum',
+                                title: '工件数',
+                                width: 160
+                            }, {
+                                field: 'loadID',
+                                title: '装载站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.loadID == '2' ? "L\UL2" : "L\UL1";
+                                }
+                            }, {
+                                field: 'machineID',
+                                title: '加工站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.machineID == 'C' ? "MC3" : d.machineID == 'B' ? "MC2" : "MC1";
+                                }
+                            }, {
+                                field: 'unloadID',
+                                title: '卸载站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.unloadID == '2' ? "L\UL2" : "L\UL1";
+                                }
+                            }
+                        ]
+                    ],
+                    done: function(res, currentCount) {
+                        // soulTable.render(this)
+                        //***重点***：table渲染完成后渲染element进度条
+                        // element.render()
+                    }
+
+                    // limits: [10, 15, 20, 25, 50, 100],
+                    // limit: 10,
+                    // page: true
+                });
+                //UL2卸载站
+                table.render({
+                    elem: '#XZJ',
+                    // url: '../api/moni.json',
+                    url: http1 + '?interface=getLUTaskList&LUID=2',
+                    parseData: function(res) { //res 即为原始返回的数据
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": 1,
+                            "data": res //解析数据列表
+                        };
+                    },
+                    // toolbar: '#toolbarDemo',
+                    height: 120
+                        // toolbar: true
+                        ,
+                    cellMinWidth: 80
+                        // , height: 500
+                        ,
+                    rowDrag: { /*trigger: 'row',*/
+                        done: function(obj) {
+                            // 完成时（松开时）触发
+                            // 如果拖动前和拖动后无变化，则不会触发此方法
+                            console.log(obj.row) // 当前行数据
+                            console.log(obj.cache) // 改动后全表数据
+                            console.log(obj.oldIndex) // 原来的数据索引
+                            console.log(obj.newIndex) // 改动后数据索引
+                        }
+                    },
+                    cols: [
+                        [
+                            //             "orderID": "O0001",
+                            //             "materialID": "M0001",
+                            //             "materialID": "T1",
+                            //             "totalWorkpieceNum": "20",
+                            //             "orderStatus": "0",
+                            //             "createTime": "2020/2/26 17:03:03",
+                            //             "endTime": "2020/2/26 17:03:03",
+                            //             "creator": "manager"
+                            {
+                                type: "checkbox",
+                                width: 40,
+                                fixed: "left"
+                            }, , {
+                                field: 'palletID',
+                                title: '托盘号',
+                                width: 80
+                            }, {
+                                field: 'processID',
+                                title: '托盘任务',
+                                minwidth: 200
+                            }, {
+                                field: 'loopNum',
+                                title: '工件数',
+                                width: 160
+                            }, {
+                                field: 'loadID',
+                                title: '装载站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.loadID == '1' ? "L\UL1" : "L\UL2";
+                                }
+                            }, {
+                                field: 'machineID',
+                                title: '加工站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.machineID == 'A' ? "MC1" : d.machineID == 'B' ? "MC2" : "MC3";
+                                }
+                            }, {
+                                field: 'unloadID',
+                                title: '卸载站',
+                                width: 160,
+                                templet: function(d) {
+                                    return d.unloadID == '1' ? "L\UL1" : "L\UL2";
+                                }
+                            }
+
+                        ]
+                    ],
+                    done: function(res, currentCount) {
+                        // soulTable.render(this)
+                        //***重点***：table渲染完成后渲染element进度条
+                        // element.render()
+                    }
+
+                    // limits: [10, 15, 20, 25, 50, 100],
+                    // limit: 10,
+                    // page: true
+                });
+            }
+
+            function JH() {
+
+                $.ajax({
+                    url: http1 + '?interface=loadCurrentPlan',
+                    type: "get",
+                    dataType: 'json',
+                    // data: JSON.stringify(data1),
+                    success: function(data) {
+                        $("#dqjhr").html(data.planName)
+                    },
+                    error: function() {
+                        $("#dqjhr").html("暂无排产计划")
+                        $("#dqjhr").html("暂无排产计划")
+                    }
+                })
+            }
+
+
+        });
+    </script>
+    <script>
+        f1()
+            //获取库位托盘
+        function f1() {
+            let html = ""
+            $("#Pallet").html("")
+                // $("#pallet").html("")
+            $.ajax({
+                url: http1 + "?interface=getPalletInfoList",
+                // url: '../api/ce.json',
+                type: "get",
+                dataType: 'json',
+                // data: JSON.stringify(data1),
+                success: function(data) {
+                    console.log(data)
+                        // console.log($.parseJSON(data))
+                        // if(data=="1"){
+                        // for (var i = 0; i < data.infoList.length; i++) {
+                    for (var i = 0; i < 10; i++) {
+                        html = `<img id="jj" class="${data.infoList[i].palletID}" src="../res/freerack.png">`
+                        $("#Pallet").append(html);
+                        //把html 添加到父级元素下 
+                        html = ""
+                    }
+                    // }
+                    // alert("提交成功：" + data)
+                },
+                error: function() {
+                    // alert("提交失败")
+                }
+            })
+
+        }
+        //装载呼叫信息提示框函数
+        function SLCE() {
+
+            $.get(http1, {
+                interface: "getNextLoadPalletInfo",
+                LoadID: "1"
+            }, function(str) {
+                layer.open({
+                    type: 1,
+                    title: "托盘信息" //不显示标题栏
+                        // , closeBtn: false
+                        ,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                    btn: ["取消呼叫"],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                        ,
+                    shadeClose: true
+                        //                             currentNum: 0
+                        // loadID: "1"
+                        // machineID: "A"
+                        // palletID: "P001"
+                        // processID: "O001#P001#OP10"
+                        // unloadID: "2"
+                        ,
+                    content: `  <div id="SLTP" class="layui-card top-panel">
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="100">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>排产计划</td>
+                        <td>${str.planName}</td>
+                    </tr>
+                    <tr>
+                        <td>托盘号</td>
+                        <td>${str.palletID}</td>
+                    </tr>
+                    <tr>
+                        <td>托盘任务</td>
+                        <td>${str.processID}</td>
+                    </tr>
+                    <tr>
+                        <td>循环次数</td>
+                        <td>${str.currentNum}</td>
+                    </tr>
+                    <tr>
+                        <td>上料站</td>
+                        <td>${str.loadID == "2" ? "L/UL2" : str.loadID == "1" ? "L/UL1" : ""}</td>
+                    </tr>
+                    <tr>
+                        <td>加工站</td>
+                        <td>${str.machineID == "A" ? "MC1" : str.machineID == "B" ? "MC2" : str.machineID == "C" ? "MC3" : ""}</td>
+                    </tr>
+                    <tr>
+                        <td>卸料站</td>
+                        <td>${str.unloadID == "2" ? "L/UL2" : str.loadID == "1" ? "L/UL1" : ""}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>`,
+                    success: function(layero) {},
+                    yes: function(layero) {
+                        // 测试
+                        layer.closeAll();
+                        $.ajax({
+                            url: http1 + '?interface=btnLoadCallPallet&LoadID=1&creator=焦恒飞',
+                            type: "get",
+                            dataType: 'json',
+                            // data: JSON.stringify(data1),
+                            success: function(data) {
+                                layer.closeAll();
+                                alert("呼叫成功")
+                            },
+                            error: function() {
+                                alert("呼叫失败")
+                            }
+                        })
+
+
+                    }
+                });
+            });
+
+        }
+        //卸载呼叫信息提示框函数
+        function XLCE() {
+            $.get(http1, {
+                interface: "getNextUnloadPalletInfo",
+                LoadID: "2"
+            }, function(str) {
+                console.log(str)
+                layer.open({
+                    type: 1,
+                    title: "托盘信息" //不显示标题栏
+                        ,
+                    closeBtn: false,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                    btn: ['取消呼叫'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                        ,
+                    content: `  <div id="SLTP" class="layui-card top-panel">
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="100">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>排产计划</td>
+                        <td>${str.planName}</td>
+                    </tr>
+                    <tr>
+                        <td>托盘号</td>
+                        <td>${str.palletID}</td>
+                    </tr>
+                    <tr>
+                        <td>托盘任务</td>
+                        <td>${str.processID}</td>
+                    </tr>
+                    <tr>
+                        <td>循环次数</td>
+                        <td>${str.currentNum}</td>
+                    </tr>
+                    <tr>
+                        <td>上料站</td>
+                        <td>${str.loadID == "2" ? "L/UL2" : str.loadID == "1" ? "L/UL1" : ""}</td>
+                    </tr>
+                    <tr>
+                        <td>加工站</td>
+                        <td>${str.machineID == "A" ? "MC1" : str.machineID == "B" ? "MC2" : str.machineID == "C" ? "MC3" : ""}</td>
+                    </tr>
+                    <tr>
+                        <td>卸料站</td>
+                        <td>${str.unloadID == "2" ? "L/UL2" : str.loadID == "1" ? "L/UL1" : ""}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>`,
+                    success: function(layero) {},
+                    yes: function(layero) {
+
+                        $.ajax({
+                            url: http1 + '?interface=btnUnloadCallPallet&UnloadID=2&creator=焦工',
+                            type: "get",
+                            dataType: 'json',
+                            // data: JSON.stringify(data1),
+                            success: function(data) {
+                                layer.closeAll();
+                                alert("呼叫成功")
+                            },
+                            error: function() {
+                                alert("呼叫失败")
+                            }
+                        })
+
+
+                    }
+                });
+            });
+        }
+
+
+
+        var i = 9999,
+            j = 9999,
+            clc = null,
+            flage;
+        var images = document.getElementById('ROB');
+
+        // var oGoUp = document.getElementById('goUp');
+        // var oGoDown = document.getElementById('goDown');
+        // var oGoLeft = document.getElementById('goLeft');
+        // var oGoRight = document.getElementById('goRight');
+        // var oLeftUp = document.getElementById('leftUp');
+        // var oLeftDown = document.getElementById('leftDown');
+        // var oRightUp = document.getElementById('rightUp');
+        // var oRightDown = document.getElementById('rightDown');
+        // var oStop = document.getElementById('stop');
+
+        // images.style.top = '300px';
+        // images.style.left = '500px';
+
+        //向右
+
+        // 排产流程  
+
+        // Type	ROB动作	说明
+        // 01	ROB前往夹具库	01,F001
+        // 02	ROB取夹具完成	02,F001
+        // 03	ROB前往装载机	03,1(L/UL1)
+        // 04	ROB前往机床	04,A(MC1)
+        // 05	ROB取已加工物料完成	05,A(MC1)
+        // 06	ROB夹具库放入代加工夹具	06,F001
+        // 07	装载物料完成	07,1(L/UL1)
+        // 08	卸载物料完成	08,1(L/UL1)
+        // 09	机床正在加工	09,A(MC1)
+        // 10	机床加工完成	10,A(MC1)
+
+        var state, typeName
+
+        // var noticeSocketLink = new WebSocket(ws1);
+
+
+        // function conn() {
+
+        //     //var host = 'noticeSocketLink://192.168.85.128:8085/api/noticeSocketLinkChat?user='+$("#user").val();
+        //     //var host = "noticeSocketLink://192.168.85.128:8085/api/noticeSocketLinkChat";
+        //     //webSocket = new WebSocket(host);
+
+        //     // $('#msg').append('<p>正在连接——' + showtime() + '</p>');
+
+        //     noticeSocketLink.onopen = function() {
+        //         // $('#msg').append('<p>已经连接——' + showtime() + '</p>');
+        //         console.log('已经连接')
+        //     }
+        //     noticeSocketLink.onmessage = function(evt) {
+
+        //         var data2 = evt.data
+        //         console.log("WebSocket信息：" + data2)
+        //         data1 = data2.split(',')
+
+        //         // if(parseInt(data1[0])<10){
+
+        //         // }else{
+
+        //         // }
+        //         //  parseInt(data1[0])
+        //         // type01 (parseInt(images.style.left),data1[1])
+        //         console.log(data1)
+        //             //更新FMS状态
+        //         if (data1[0] == "state") {
+        //             stateFun(data1)
+        //         }
+        //         //动画
+        //         if (parseInt(data1[0]) == 1 || parseInt(data1[0]) == 7) {
+        //             type01(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 2 || parseInt(data1[0]) == 8) {
+        //             type02(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 3 || parseInt(data1[0]) == 9) {
+        //             type03(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 4) {
+        //             type04(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 5) {
+        //             type05(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 6) {
+        //             type06(parseInt(images.style.left), data1[1])
+        //         }
+        //         // if (parseInt(data1[0]) == 7) {
+        //         //     type07(parseInt(images.style.left), data1[1])
+        //         // }
+        //         // if (parseInt(data1[0]) == 8) {
+        //         //     type08(parseInt(images.style.left), data1[1])
+        //         // }
+        //         // if (parseInt(data1[0]) == 9) {
+        //         //     type09(parseInt(images.style.left), data1[1])
+        //         // }
+        //         if (parseInt(data1[0]) == 10) {
+        //             type10(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 11) {
+        //             type11(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 12) {
+        //             type12(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 13) {
+        //             type13(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 14) {
+        //             type14(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 15) {
+        //             type15(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 16) {
+        //             type16(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 17) {
+        //             type17(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 18) {
+        //             type18(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 19) {
+        //             type19(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (parseInt(data1[0]) == 20) {
+        //             type20(parseInt(images.style.left), data1[1])
+        //         }
+        //         if (data2 == "getNextLoadPalletInfo") {
+        //             SLCE()
+        //         }
+        //         if (data2 == "getNextUnloadPalletInfo") {
+        //             XLCE()
+        //         }
+
+        //         // $('#msg').append('<p>' + evt.data + '——' + showtime() + '</p>');
+        //     }
+        //     noticeSocketLink.onerror = function(evt) {
+        //         // $('#msg').append('<p>' + JSON.stringify(evt) + '——' + showtime() + '</p>');
+        //     }
+        //     noticeSocketLink.onclose = function() {
+        //         // $('#msg').append('<p>已经关闭——' + showtime() + '</p>');
+        //     }
+        // }
+        // conn()
+
+
+
+
+        var lockReconnect = false; //避免ws重复连接
+        var ws = null; // 判断当前浏览器是否支持WebSocket
+        var wsUrl = ws1;
+        // createWebSocket(wsUrl); //连接ws
+
+        function createWebSocket(url) {
+            try {
+                if ('WebSocket' in window) {
+                    ws = new WebSocket(url);
+                }
+                initEventHandle();
+            } catch (e) {
+                reconnect(url);
+                console.log(e);
+            }
+        }
+
+        function initEventHandle() {
+            ws.onclose = function() {
+                reconnect(wsUrl);
+                console.log("llws连接关闭!" + new Date().toLocaleString());
+            };
+            ws.onerror = function() {
+                reconnect(wsUrl);
+                console.log("llws连接错误!");
+            };
+            ws.onopen = function() {
+                heartCheck.reset().start(); //心跳检测重置
+                console.log("llws连接成功!" + new Date().toLocaleString());
+            };
+            ws.onmessage = function(event) { //如果获取到消息，心跳检测重置
+                heartCheck.reset().start(); //拿到任何消息都说明当前连接是正常的
+                console.log("llws收到消息啦:" + event.data);
+
+                var data2 = event.data
+                console.log("WebSocket信息：" + data2)
+                data1 = data2.split(',')
+
+                // if(parseInt(data1[0])<10){
+
+                // }else{
+
+                // }
+                //  parseInt(data1[0])
+                // type01 (parseInt(images.style.left),data1[1])
+                console.log(data1)
+                    //更新FMS状态
+                if (data1[0] == "state") {
+                    stateFun(data1)
+                }
+                //动画
+                if (parseInt(data1[0]) == 1 || parseInt(data1[0]) == 7) {
+                    type01(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 2 || parseInt(data1[0]) == 8) {
+                    type02(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 3 || parseInt(data1[0]) == 9) {
+                    type03(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 4) {
+                    type04(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 5) {
+                    type05(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 6) {
+                    type06(parseInt(images.style.left), data1[1])
+                }
+                // if (parseInt(data1[0]) == 7) {
+                //     type07(parseInt(images.style.left), data1[1])
+                // }
+                // if (parseInt(data1[0]) == 8) {
+                //     type08(parseInt(images.style.left), data1[1])
+                // }
+                // if (parseInt(data1[0]) == 9) {
+                //     type09(parseInt(images.style.left), data1[1])
+                // }
+                if (parseInt(data1[0]) == 10) {
+                    type10(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 11) {
+                    type11(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 12) {
+                    type12(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 13) {
+                    type13(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 14) {
+                    type14(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 15) {
+                    type15(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 16) {
+                    type16(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 17) {
+                    type17(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 18) {
+                    type18(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 19) {
+                    type19(parseInt(images.style.left), data1[1])
+                }
+                if (parseInt(data1[0]) == 20) {
+                    type20(parseInt(images.style.left), data1[1])
+                }
+                if (data2 == "getNextLoadPalletInfo") {
+                    SLCE()
+                }
+                if (data2 == "getNextUnloadPalletInfo") {
+                    XLCE()
+                }
+            };
+        }
+        // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+        window.onbeforeunload = function() {
+            ws.close();
+        }
+
+        function reconnect(url) {
+            if (lockReconnect) return;
+            lockReconnect = true;
+            setTimeout(function() { //没连接上会一直重连，设置延迟避免请求过多
+                createWebSocket(url);
+                lockReconnect = false;
+            }, 1000);
+        }
+
+        //心跳检测
+        var heartCheck = {
+            timeout: 5000, //1分钟发一次心跳
+            timeoutObj: null,
+            serverTimeoutObj: null,
+            reset: function() {
+                clearTimeout(this.timeoutObj);
+                clearTimeout(this.serverTimeoutObj);
+                return this;
+            },
+            start: function() {
+                var self = this;
+                this.timeoutObj = setTimeout(function() {
+                    //这里发送一个心跳，后端收到后，返回一个心跳消息，
+                    //onmessage拿到返回的心跳就说明连接正常
+                    ws.send("ping");
+                    console.log("ping!" + new Date().toLocaleString())
+                    self.serverTimeoutObj = setTimeout(function() { //如果超过一定时间还没重置，说明后端主动断开了
+                        console.log(self.timeout + "-self.timeout/" + new Date().toLocaleString())
+                        ws.close(); //如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
+                    }, self.timeout)
+                    console.log(this.timeout + "-this.timeout/" + new Date().toLocaleString())
+                }, this.timeout)
+            }
+        }
+
+        //更新FMS
+        function stateFun(arr2) {
+            let arr1 = arr2
+            for (let i = 1; i < 9; i++) {
+                $(".P00" + i).attr('src', "../res/" + arr1[i] + ".png");
+            }
+            $(".P009").attr('src', "../res/1.png");
+            $(".P010").attr('src', "../res/1.png");
+            $("#LU1").attr('src', "../res/" + arr1[9] + ".png");
+            $("#ROB").attr('src', "../res/" + arr1[10] + ".png");
+            $("#MC1").attr('src', "../res/" + arr1[11] + ".png");
+        }
+
+        //    type01(1, "P001")
+
+        // 01	ROB前往夹具库	01,F001
+        function type01(s, sate) {
+
+            if (typeName == "04") {
+                type18(state)
+            } else if (typeName == "05") {
+                type19(state)
+            } else if (typeName == "06") {
+                type20(state)
+            }
+
+            if (!isNaN(sate)) {
+                alert("WebSocket参数错误")
+            } else {
+                $("#ztnr").html("ROB前往料库");
+                var sate = sate.slice(2, 4)
+                sate = parseInt(sate)
+                sate = sate * 61 + 67
+                i = parseInt(s - sate)
+                if (s < sate) {
+                    clearInterval(clc);
+                    clc = setInterval("goY(i++);", 25);
+                } else {
+                    clearInterval(clc);
+                    clc = setInterval("goZ(i--);", 25);
+                }
+            }
+        }
+        // 02	ROB前往装载机	03,1(L/UL1)
+        function type02(s, sate) {
+
+            if (typeName == "04") {
+                type18(state)
+            } else if (typeName == "05") {
+                type19(state)
+            } else if (typeName == "06") {
+                type20(state)
+            }
+            // if (!isNaN(sate)) {
+
+            //     alert("WebSocket参数错误")
+
+            // } else {
+
+            $("#ztnr").html("ROB前往装载机");
+            i = parseInt(s - 690) //固定值690
+            clearInterval(clc);
+            clc = setInterval("goY(i++);", 25);
+
+            // }
+
+        }
+        // 03	ROB前往机床	05,A(MC1)
+        function type03(s, sate) {
+            // MC1=415  MC2=228   MC3=115
+            if (typeName == "04") {
+                type18(state)
+            } else if (typeName == "05") {
+                type19(state)
+            } else if (typeName == "06") {
+                type20(state)
+            }
+
+            if (!isNaN(sate)) {
+                alert("WebSocket参数错误")
+            } else {
+                var a = 2
+                if (sate == "A") {
+                    a = 415
+                    i = parseInt(s - a)
+                } else if (sate == "B") {
+                    a = 228
+                    i = parseInt(s - a)
+                } else if (sate == "C") {
+                    a = 115
+                    i = parseInt(s - a)
+                }
+                if (s < a) {
+                    clearInterval(clc);
+                    clc = setInterval("goY(i++);", 25);
+                } else {
+                    clearInterval(clc);
+                    clc = setInterval("goZ(i--);", 25);
+                }
+                $("#ztnr").html("ROB前往加工机床");
+            }
+
+        }
+        // 04   料库拿货中
+        function type04(s, sate) {
+            // $("#LU" + sate + "").attr('src', "../res/ddzz.png");
+            $("#ztnr").html("ROB料库拿货中");
+            //记录拿货
+            typeName = "04";
+            state = sate
+        }
+        // 05   装卸载拿货中
+        function type05(s, sate) {
+            $("#LU" + sate + "").attr('src', "../res/ddzz.png");
+            $("#ztnr").html("ROB装卸载拿货中");
+            //记录拿货
+            typeName = "05";
+            state = sate
+        }
+        // 06   机床拿货中
+        function type06(s, sate) {
+            // if (sate == "A") {
+            //     $("#MC1").attr('src', "../res/zzwc_MC1.png");
+            // } else if (sate == "B") {
+            //     $("#MC2").attr('src', "../res/zzwc_MC2.png");
+            // } else if (sate == "C") {
+            //     $("#MC3").attr('src', "../res/zzwc_MC3.png");
+            // }
+            $("#ztnr").html("ROB加工完成拿货中");
+            //记录拿货
+            typeName = "06";
+            state = sate
+        }
+        // 10   料库放货中
+        function type10(s, sate) {
+            // $("#LU" + sate + "").attr('src', "../res/ddzz.png");
+            $("#ztnr").html("ROB料库放货中");
+        }
+        // 11   装卸载放货中
+        function type11(s, sate) {
+            // $("#LU" + sate + "").attr('src', "../res/ddzz.png");
+            $("#ztnr").html("ROB装卸载放货中");
+        }
+        // 12  机床放货中
+        function type12(s, sate) {
+            $("#ztnr").html("ROB机床放货中");
+        }
+
+        // 13	料库放料完成	06,A(MC1)
+        function type13(s, sate) {
+            // $("#ROB").attr('src', "../res/robmov.png");
+            // $("." + sate).attr('src', "../res/waitcnc.png");
+            $("#ztnr").html("料库放料完成");
+        }
+
+        // 14	卸载物料完成	10,1(L/UL1)
+        function type14(s, sate) {
+            // $("#ROB").attr('src', "../res/robmov.png");
+            // $("#LU" + sate + "").attr('src', "../res/ddxz.png");
+            $("#ztnr").html("卸载物料完成");
+        }
+        // 15	机床放料完成	06,A(MC1)
+        function type15(s, sate) {
+            // $("#ROB").attr('src', "../res/robmov.png");
+            // if (sate == "A") {
+            //     $("#MC1").attr('src', "../res/zzjg_MC1.png");
+            // } else if (sate == "B") {
+            //     $("#MC2").attr('src', "../res/zzjg_MC2.png");
+            // } else if (sate == "C") {
+            //     $("#MC3").attr('src', "../res/zzjg_MC3.png");
+            // }
+            $("#ztnr").html("机床放料完成");
+        }
+        // 16	机床正在加工	06,A(MC1)
+        function type16(s, sate) {
+            $("#ztnr").html(sate + "机床正在加工");
+        }
+        // 17	机床加工完成	10,A(MC1)
+        function type17(s, sate) {
+            // if (sate == "A") {
+            //     $("#MC1").attr('src', "../res/zzwc_MC1.png");
+            // } else if (sate == "B") {
+            //     $("#MC2").attr('src', "../res/zzwc_MC2.png");
+            // } else if (sate == "C") {
+            //     $("#MC3").attr('src', "../res/zzwc_MC3.png");
+            // }
+            $("#ztnr").html(sate + "机床加工完成");
+        }
+
+        // 18	ROB料库取料完成 	02,F001
+        function type18(sate) {
+            // $("#ztnr").html("ROB料库取料完成 ");
+            // $("." + sate).css({
+            //     "display": "none"
+            // });
+            // $("#ROB").attr('src', "../res/szz.png");
+        }
+        // 19	装载物料完成	04,1(L/UL1)
+        function type19(sate) {
+            // $("#ROB").attr('src', "../res/sjc.png");
+            // $("#LU" + sate + "").attr('src', "../res/uldev.png");
+            // $("#ztnr").html("装载物料完成");
+        }
+        // 20	ROB取机床已加工物料完成	08,A(MC1)
+        function type20(sate) {
+            // $("#ztnr").html("ROB取已加工物料完成");
+            // $("#ROB").attr('src', "../res/ywc.png");
+            // if (sate == "A") {
+            //     $("#MC1").attr('src', "../res/mc1.png");
+            // } else if (sate == "B") {
+            //     $("#MC2").attr('src', "../res/mc2.png");
+            // } else if (sate == "C") {
+            //     $("#MC3").attr('src', "../res/mc3.png");
+            // }
+        }
+
+
+
+
+
+
+        // 	ROB取机床已加工物料完成	08,A(MC1)
+        // function type18(s, sate) {
+        //     $("#ztnr").html("ROB取已加工物料完成");
+        //     $("#ROB").attr('src', "../res/ywc.png");
+        //     if (sate == "A") {
+        //         $("#MC1").attr('src', "../res/mc1.png");
+        //     } else if (sate == "B") {
+        //         $("#MC2").attr('src', "../res/mc2.png");
+        //     } else if (sate == "C") {
+        //         $("#MC3").attr('src', "../res/mc3.png");
+        //     }
+        // }
+        // // 09	ROB前往卸载站卸料	08,A(MC1)
+        // function type09(s, sate) {
+        //     $("#ztnr").html("ROB前往装载机");
+        //     $("#LU" + sate + "").attr('src', "../res/ddzz.png");
+        //     i = parseInt(s - 690)//固定值690
+        //     clearInterval(clc);
+        //     clc = setInterval("goY(i++);", 40);
+        // }
+
+
+
+
+        // // 14	卸载物料完成	10,1(L/UL1)
+        // function type10(s, sate) {
+        //     $("#ROB").attr('src', "../res/robmov.png");
+        //     $("#LU" + sate + "").attr('src', "../res/ddxz.png");
+        //     $("#ztnr").html("卸载物料完成");
+        // }
+        // 13	ROB夹具库放入代加工夹具	11,F001
+
+        // function type11(s, sate) {
+        //     $("#ROB").attr('src', "../res/robmov.png");
+        //     $("." + sate + "").attr('src', "../res/waitcnc.png");
+        //     $("#ztnr").html("待加工托盘入库完成");
+        // }
+        // // 12	待加工托盘取料成功	12,F001
+
+        // function type12(s, sate) {
+        //     $("." + sate).css({ "display": "none" });
+        //     $("#ROB").attr('src', "../res/sjc.png");
+        //     $("#ztnr").html("待加工托盘取料成功");
+        // }
+        // // 04	装载物料完成	04,1(L/UL1)
+        // function type04(s, sate) {
+        //     $("#ROB").attr('src', "../res/sjc.png");
+        //     $("#LU" + sate + "").attr('src', "../res/uldev.png");
+        //     $("#ztnr").html("装载物料完成");
+        // }
+        // // 02	ROB取夹具完成	02,F001
+        // function type02(s, sate) {
+        //     $("#ztnr").html("ROB取夹具完成");
+        //     $("." + sate).css({ "display": "none" });
+        //     $("#ROB").attr('src', "../res/szz.png");
+        // }
+
+
+        // // 02	机床放料完成	02,F001
+        // function type02(s, sate) {
+        //     $("#ztnr").html("ROB机床放料完成");
+        //     $("." + sate).css({ "display": "none" });
+        //     $("#ROB").attr('src', "../res/szz.png");
+        // }
+
+
+
+        // 移动动画调用函数
+        function goY() {
+            // images.style.left=
+            if (i == 0) {
+                clearInterval(clc);
+                // setTimeout("quxiao()", "2000");
+            } else {
+                images.style.left = parseInt(images.style.left) + 1 + 'px';
+            }
+        }
+
+        function goZ() {
+            // images.style.left=
+            if (i == 0) {
+                clearInterval(clc);
+                // setTimeout("quxiao()", "2000");
+            } else {
+                images.style.left = parseInt(images.style.left) - 1 + 'px';
+            }
+        }
+
+
+
+
+
+        // // 进行夹具移动操作 
+        // function f1() {
+
+        //     // images.style.left=
+        //     if (i == 0) {
+        //         clearInterval(clc);
+        //         setTimeout("quxiao()", "2000");
+        //     } else {
+        //         images.style.left = parseInt(images.style.left) + 1 + 'px';
+        //     }
+        // }
+
+        // //ROB移动至装载机位子指令 
+        // function zhuangzai() {
+        //     $("#ztnr").html("ROB前往装卸载机中....");
+        //     clearInterval(clc);
+        //     clc = setInterval("goRight1();", 40);
+        // }
+        // //ROB移动至装载机 动画
+        // function goRight1() {
+        //     // images.style.left=
+        //     if (parseInt(images.style.left) == 690) {
+        //         clearInterval(clc);
+        //         $("#ztnr").html("ROB正在装载中....");
+        //         setTimeout("zhuangzai2()", "2000");
+        //     } else {
+        //         images.style.left = parseInt(images.style.left) + 1 + 'px';
+        //     }
+
+        // }
+        // //等待装载机操作 
+        // function zhuangzai2() {
+        //     $("#ztnr").html("ROB前往加工机床中....");
+        //     $("#ROB").attr('src', "../res/sjc.png");
+        //     $("#LU1").attr('src', "../res/uldev.png");
+        //     clearInterval(clc);
+        //     j = 461
+        //     clc = setInterval("goLeft(j--);", 40);
+        // }
+
+        // function goLeft() {
+        //     // images.style.left=
+        //     if (j == 0) {
+        //         clearInterval(clc);
+        //         $("#ztnr").html("加工机床上料中....");
+        //         setTimeout("jiagong()", "2000");
+        //     } else {
+        //         images.style.left = parseInt(images.style.left) - 1 + 'px';
+        //     }
+
+        // }
+        // function jiagong() {
+        //     $("#ztnr").html("等待加工机床中....");
+        //     $("#ROB").attr('src', "../res/robmov.png");
+        //     $("#MC2").attr('src', "../res/zzjg.png");
+        //     setTimeout("jiagong1()", "2000");
+        // }
+        // function jiagong1() {
+        //     $("#ztnr").html("加工完成，等待ROB抓取");
+        //     $("#MC2").attr('src', "../res/zzwc.png");
+        //     setTimeout("jiagong2()", "2000");
+        // }
+        // function jiagong2() {
+        //     $("#ztnr").html("ROB前往卸载站...");
+        //     $("#ROB").attr('src', "../res/ywc.png");
+        //     $("#MC2").attr('src', "../res/mc1.png");
+        //     clearInterval(clc);
+        //     clc = setInterval("goLeft1();", 40);
+        // }
+        // function goLeft1() {
+        //     // images.style.left=
+        //     if (parseInt(images.style.left) == 690) {
+        //         clearInterval(clc);
+        //         $("#ztnr").html("ROB卸载已完成夹具中...");
+        //         setTimeout("xiezai()", "2000");
+        //     } else {
+        //         images.style.left = parseInt(images.style.left) + 1 + 'px';
+        //     }
+
+        // }
+        // function xiezai() {
+        //     $("#ztnr").html("ROB任务完成，等待下步指令！");
+        //     $("#ROB").attr('src', "../res/robmov.png");
+        //     $("#LU2").attr('src', "../res/ddxz.png");
+        //     // clearInterval(clc);
+        //     // clc = setInterval("goLeft2();", 40);
+        // }
+        // f1()
+
+        // // 02	ROB取夹具完成	02,F001
+        // function type02(s, sate) {
+        //     $("#ztnr").html("ROB取夹具完成");
+        //     $("." + sate).css({ "display": "none" });
+        //     $("#ROB").attr('src', "../res/szz.png");
+        // }
+
+        // // 02	ROB前往装载机	03,1(L/UL1)
+        // function type02(s, sate) {
+
+        //     // if (!isNaN(sate)) {
+
+        //     //     alert("WebSocket参数错误")
+
+        //     // } else {
+
+        //     $("#ztnr").html("ROB前往装载机");
+        //     $("#LU" + sate + "").attr('src', "../res/ddzz.png");
+        //     i = parseInt(s - 690)//固定值690
+        //     clearInterval(clc);
+        //     clc = setInterval("goY(i++);", 40);
+
+        //     // }
+
+        // }
+        // // 04	装载物料完成	04,1(L/UL1)
+        // function type04(s, sate) {
+        //     $("#ROB").attr('src', "../res/sjc.png");
+        //     $("#LU" + sate + "").attr('src', "../res/uldev.png");
+        //     $("#ztnr").html("装载物料完成");
+        // }
+        // // 03	ROB前往机床	05,A(MC1)
+        // function type03(s, sate) {
+        //     // MC1=415  MC2=228   MC3=115
+
+        //     if (!isNaN(sate)) {
+        //         alert("WebSocket参数错误")
+        //     } else {
+        //         var a = 2
+        //         if (sate == "A") {
+        //             a = 415
+        //             i = parseInt(s - a)
+        //         } else if (sate == "B") {
+        //             a = 228
+        //             i = parseInt(s - a)
+        //         } else if (sate == "C") {
+        //             a = 115
+        //             i = parseInt(s - a)
+        //         }
+        //         if (s < a) {
+        //             clearInterval(clc);
+        //             clc = setInterval("goY(i++);", 40);
+        //         } else {
+        //             clearInterval(clc);
+        //             clc = setInterval("goZ(i--);", 40);
+        //         }
+        //         $("#ztnr").html("ROB前往加工机床");
+        //     }
+
+        // }
+    </script>
+</body>
+
+</html>

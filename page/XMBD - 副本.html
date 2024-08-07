@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>箱码绑定</title>
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+</head>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <blockquote class="layui-elem-quote">
+                周转箱/箱码关联绑定
+                <!-- <P style="color: #941010;">注意事项:</P> -->
+                <button class="layui-btn" id="hqxx" lay-submit lay-filter="saveBtn">获取当前扫码信息</button>
+            </blockquote>
+
+            <fieldset class="table-search-fieldset">
+                <legend>周转箱信息</legend>
+                <form class="layui-form layui-form-pane" action="" lay-filter="example">
+
+                    <div class="layui-form-item ">
+
+
+
+                        <label class="layui-form-label">箱码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="boxCode" lay-verify="required" placeholder="请输入" autocomplete="off"
+                                class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">扫码箱码或手动填写</div>
+
+
+
+                        <label class="layui-form-label">产品类别</label>
+                        <div class="layui-input-block">
+                            <select id="productCode" name="productCode" lay-filter="productCode">
+
+                            </select>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux"></div>
+
+                        <label class="layui-form-label">零部件类别</label>
+                        <div class="layui-input-block">
+                            <div class="layui-form">
+                                <select id="materialTypeId" name="materialTypeId" lay-filter="materialTypeId"
+                                    lay-search>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-input-block">
+                            <div class="layui-form">
+                                <select id="boxModel" name="boxModel" lay-search>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">选着零部件,自动带出零部件详细信息</div>
+
+
+
+                    </div>
+
+
+                    <div class="layui-form-item">
+
+                        <label class="layui-form-label">数量/箱</label>
+                        <div class="layui-input-block" style="width: 100px;">
+                            <input type="text" name="boxStorageNumber" placeholder="" autocomplete="off"
+                                class="layui-input">
+                        </div>
+                        <div class="layui-form-mid">/</div>
+                        <div class="layui-input-block" style="width: 100px;">
+                            <input type="text" value="20" name="boxStorageMaxNumber" placeholder="" autocomplete="off"
+                                readonly class="layui-input">
+                        </div>
+
+                        <div class="layui-form-mid layui-word-aux">自动判定不超过最大存储</div>
+
+
+
+                        <label class="layui-form-label">生产批次</label>
+                        <div class="layui-input-block">
+                            <select id="batchNo" name="batchNo" lay-filter="batchNo" lay-search>
+                                <!-- <option value="1" selected="">01-22</option>
+                                <option value="2">02-22</option> -->
+                            </select>
+                        </div>
+                        <label class="layui-form-label">标识/时长</label>
+                        <div class="layui-input-block" style="width: 100px;">
+                            <input type="text" value="1" name="isBatch" placeholder="" autocomplete="off" readonly
+                                class="layui-input">
+                        </div>
+
+                        <div class="layui-input-block" style="width: 100px;">
+                            <input type="text" value="1" name="isFire" placeholder="" autocomplete="off" readonly
+                                class="layui-input">
+                        </div>
+                        <div class="layui-input-block" style="width: 100px;">
+                            <input type="text" value="12" name="fireStorageTime" placeholder="" autocomplete="off"
+                                readonly class="layui-input">
+                        </div>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="like[daze]" title="混" placeholder="" autocomplete="off"
+                                class="layui-input">
+                        </div>
+
+                    </div>
+                    <!-- <button type="button" class="layui-btn layui-btn-normal" id="hq">取值</button> -->
+                </form>
+            </fieldset><br><br>
+            <fieldset class="table-search-fieldset">
+                <legend>零部件详细信息</legend>
+                <div>
+                    <table class="layui-hide" id="tableId" lay-filter="currentTableFilter"></table>
+
+                    <script type="text/html" id="toolbarDemo">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" id="ADD_data">添加数据</button>
+                        </div>
+                    </script>
+                    <script type="text/html" id="currentTableBar">
+                        <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除数据</a>
+                    </script>
+                </div>
+
+            </fieldset>
+            <br>
+            <blockquote class="layui-elem-quote">
+                <button class="layui-btn" id="qrbd" lay-submit lay-filter="saveBtn">确认绑定</button>
+                <!-- <button class="layui-btn" lay-submit lay-filter="saveBtn1">更新表单数据</button> -->
+            </blockquote>
+        </div>
+    </div>
+
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['table', 'form', 'tableSelect', "util"], function () {
+            var $ = layui.jquery,
+                table = layui.table,
+                form = layui.form,
+                tableSelect = layui.tableSelect
+                , util = layui.util;
+
+            //select 可编辑 可模糊
+            readyselect()
+            function readyselect() {
+                // let arr = []
+                // selectrender("ItemID")
+                // selectrender("BlockContent")
+                // pm("")
+                // lbj("")
+                cp("")
+            }
+            //删除行
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'delete') {
+                    layer.confirm('是否删除？', function (index) {
+                        let rowindex = $(obj.tr).attr("data-index")
+                        obj.del();
+                        let oldData = layui.table.cache['tableId'];
+                        oldData.splice(rowindex, 1);
+
+                        layui.table.reload('tableId', {
+                            url: "",
+                            data: oldData,   // 将新数据重新载入表格
+                            limit: 1000
+                        });
+                        layer.close(index);
+                    });
+                }
+            });
+            //添加行
+            $('body').on('click', '#ADD_data', function () {
+
+                console.log("11")
+                // var dataBak = [];   //定义一个空数组,用来存储之前编辑过的数据已经存放新数据
+                // for (var i = 0; i < tableBak.length; i++) {
+                //     dataBak.push(tableBak[i]);      //将之前的数组备份
+                // }
+
+                var olddata = table.cache["tableId"];
+
+                console.log(JSON.stringify(olddata[0]))
+                //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，tableId 为表格的id
+
+                var sj = {
+                    "boxIndex": parseFloat(olddata.length) + 1,
+                    // "storageLineID": "KC500000000001",
+                    // "storageLineStatus": "正常",
+                    // "boxCode": "BX-100001", "boxModel": "1",
+                    // "materialMethod": "", "materialName":
+                    //     "主药柱", "productCode": "KDAKF10A",
+                    // "materialTypeId": "KDAKF10A-ZYZ",
+                    // "sparePartsTypeCode": null, "workMode": "0",
+                    // "isFire": 1, "inDatetime": "2023-05-15T18:21:49",
+                    // "outDatetime": "1900-10-01T00:00:00", "materialTypeCode": "0",
+                    // "fireStorageTime": 0, "isBatch": 0, "batchNo": "05-2023", "storageNumber": 1,
+                    // "reMark": null, "materialID": "55-6666-01", "boxIndex": 1, "materialID1": "55",
+                    // "materialID2": "6666", "materialID3": "01", "materialID4": "", "materialID5": "",
+
+                }
+
+                // 在尾部新增一行空数据，实现增行效果
+                olddata.push(sj);
+                // olddata[parseInt(olddata.length) - 1].LAY_TABLE_INDEX = parseInt(olddata.length)
+                // LAY_TABLE_INDEX
+                // // olddata.push(sj);
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
+                return false
+            });
+            //产品类别
+
+            function cp(key) {
+
+                let data2 = { "productCode": key }
+
+                $.ajax({
+                    url: http1 + "wms/queryproductcodelist",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#productCode");//TypeID为HTML标签ID
+                        select.empty();
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.productCode, item.productCode));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+
+            //零部件类型
+            function lbj(key) {
+                let data2 = { "productCode": key }
+                $.ajax({
+                    url: http1 + "wms/querymaterialinfolist",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#materialTypeId");//TypeID为HTML标签ID
+                        let result = res.data
+                        let LE
+                        select.empty();
+                        //取数据分析
+                        LE= result.splice(2,0)
+
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.materialName, item.materialTypeId));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+            //泡棉种类
+
+            function pm(key) {
+                let data2 = { "materialTypeId": key }
+                $.ajax({
+                    url: http1 + "wms/querymaterialinfolist",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#boxModel");//TypeID为HTML标签ID
+                        select.empty();
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.boxModel, item.boxModel));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+
+            //table 箱子详细信息
+            table.render({
+                elem: '#tableId',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                url: http1 + "wms/queryscanboxinfo",
+                // headers: {"token": "111"},
+                where: {},
+
+                contentType: 'application/json,charset=utf-8',
+
+                parseData: function (res) { //res 即为原始返回的数据
+
+                    console.log(res)
+
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": 0,
+                        "data": res.storagelinelist
+                    }
+
+                },
+
+                cols: [[
+
+                    // {type:'numbers', width: 40, fixed: "left", rowspan: 2 },
+                    // { type: "checkbox", width: 40, fixed: "left", rowspan: 2 },
+                    { type: 'numbers', field: 'boxIndex', width: 400, title: '箱位号', rowspan: 2, align: "center" },
+
+
+                    { field: 'materialID', minwidth: 300, title: '零部件信息码', colspan: 3, align: "center" },
+                    {
+                        field: 'totalWorkpieceNum', width: 400, title: '数量', rowspan: 2, align: "center", edit: 'text'
+                    },
+                    {
+                        field: 'batchNo', width: 400, title: '生成批次', rowspan: 2, align: "center", edit: 'text'
+                    },
+
+
+
+                    { title: '操作', minWidth: 50, templet: '#currentTableBar', rowspan: 2, fixed: "right", align: "center" }
+                ], [
+                    { field: "materialID1", title: "输入框组合1", minwidth: "100", edit: 'text' },
+                    { field: "materialID2", title: "输入框组合2", minwidth: "100", edit: 'text' },
+                    { field: "materialID3", title: "输入框组合3", minwidth: "100", edit: 'text' },
+                ],
+                ],
+                done: function (res, currentCount) {
+
+                }
+
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 10,
+                // page: true
+            });
+
+
+            //单元格编辑
+            table.on('edit(test)', function (obj) {
+                var value = obj.value //得到修改后的值
+                    , data = obj.data //得到所在行所有键值
+                    , field = obj.field; //得到字段
+                layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改值为：' + util.escape(value));
+            });
+
+
+            var $ = layui.$, active = {
+                getCheckData: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('tableId')
+                        , data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                }
+                // , getCheckLength: function () { //获取选中数目
+                //     var checkStatus = table.checkStatus('idTest')
+                //         , data = checkStatus.data;
+                //     layer.msg('选中了：' + data.length + ' 个');
+                // }
+                // , ADD_data: function () { //验证是否全选
+                //     var checkStatus = table.checkStatus('idTest');
+                //     layer.msg(checkStatus.ADD_data ? '全选' : '未全选')
+                // }
+            };
+
+            //根据产品类型，获取零部件信息
+            form.on('select(productCode)', function (data) {
+                console.log(data.value); //得到被选中的值
+                console.log(data.elem); //得到select原始DOM对象
+                console.log(data.othis); //得到美化后的DOM对象
+
+                lbj(data.value)
+                
+            });
+            //根据零部件类型，获取相关信息
+            form.on('select(materialTypeId)', function (data) {
+                console.log(data.value); //得到被选中的值
+                console.log(data.elem); //得到select原始DOM对象
+                console.log(data.othis); //得到美化后的DOM对象
+
+                pm(data.value)
+                let data2 = { "materialTypeId": data.value }
+
+                // var ins1 = selectInput.getInstance("#BlockContent");
+                $.ajax({
+                    url: http1 + "wms/querymaterialinfolist",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        let resdata = res.data[0]
+
+                        var select = $("#batchNo");//TypeID为HTML标签ID
+
+                        select.empty();
+                        //             "beforeBatchNo": "02-01",
+                        // "nowBatchNo": "02-02",
+                        select.append(new Option(resdata.beforeBatchNo, resdata.beforeBatchNo));// 下拉菜单里添加元素
+                        select.append(new Option(resdata.nowBatchNo, resdata.nowBatchNo));
+                        layui.form.render("select");
+
+
+                        form.val("example", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                            "boxStorageMaxNumber": resdata.boxStorageMaxNumber
+                            , "isFire": resdata.isFire
+                            , "isBatch": resdata.isBatch
+                            , "fireStorageTime": resdata.fireStorageTime
+                        });
+
+                        // ins1.emptyValue();
+                        // if (res.listcount != '0') {
+                        //     let aj = JSON.parse(res.content)
+                        //     let aj1 = []
+                        //     aj.map(function (item) {
+                        //         console.log(item)
+                        //         return aj1.push({ value: item.BlockContent, name: item.BlockContent });
+                        //     });
+
+                        //     ins1.addSelect(aj1)
+                        // } else {
+                        //     let aj1 = []
+                        //     aj1.push({ value: "该区域无标准化责任原因,可手动填入", name: "该区域无标准化责任原因,可手动填入" });
+                        //     ins1.addSelect(aj1)
+                        // }
+
+                    },
+
+                    error: function (res) {
+
+                        layer.msg(res.msg, function () { });
+
+                    }
+                })
+            });
+            //获取当前扫码信息
+            $("#hqxx").on("click", function () {
+
+                $.ajax({
+                    url: http1 + "wms/queryscanboxinfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    // data: data,
+
+                    success: function (res) {
+                        console.log(res)
+                        //表单获取
+                        form.val('example', res)
+                        //表格重载
+                        table.reload('tableId', {
+                            page: {
+                                curr: 1
+                            }
+                            , where: {
+
+                            }
+                        }, 'data');
+                    },
+
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+            });
+            //确认绑定
+            $("#qrbd").on("click", function () {
+                let dataz = layui.table.cache['tableId'];
+                // var checkStatus = table.checkStatus('tableId')
+                //     , dataz = checkStatus.data;
+                // layer.alert(JSON.stringify(dataz));
+
+                var data = form.val('example')
+                console.log(data)
+
+                if (parseInt(data.boxStorageNumber) != dataz.length) {
+
+                    layer.msg("箱子数量与详细信息条目不符！", function () { });
+
+                    return false
+
+                }
+
+                let ce = "storagelinelist"
+                let value = dataz
+                data[ce] = value
+
+                console.log(data)
+                data = JSON.stringify(data)
+                console.log(data)
+                // data.push({"ce":JSON.stringify(dataz)})
+                // layer.alert(data);
+
+
+                $.ajax({
+                    url: http1 + "wms/addboxstorageinfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: data,
+
+                    success: function (res) {
+
+                        if (res.code == 200) {
+
+                            layer.msg(res.msg, function () { });
+                        }
+                    },
+
+                    error: function (res) {
+
+                        layer.msg(res.msg, function () { });
+
+                    }
+                })
+            });
+
+
+        });
+    </script>
+</body>
+
+</html>

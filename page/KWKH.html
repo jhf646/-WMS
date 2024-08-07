@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="../lib/layui-soul-table/soulTable.css" media="all">
+    <style>
+        .box {
+            /* width: 192px; */
+            height: 50px;
+            margin: 0 auto;
+            /* margin-top: 100px;
+            border: 1px solid red; */
+        }
+
+        #left,
+        #center,
+        #right {
+            float: left;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: #eee;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #left {
+            width: 25%;
+        }
+
+        #center {
+            width: 50%;
+            background: #fff;
+            cursor: auto;
+        }
+
+        #right {
+            width: 25%;
+            float: right;
+            cursor: pointer;
+        }
+
+        /* 1111111 */
+
+        #CCS1 {
+            margin-right: 1rem;
+        }
+
+        /* #CCS1 label {
+            margin-top: 0.02rem
+        } */
+
+        #CCS1>div {
+            margin-top: 0.8rem
+        }
+
+        /* ////////// */
+
+        /* .layui-tab-item thead {
+            padding: 2px;
+            background-color: #83b8b4;
+            font-size: 0.2rem;
+            color: #070808;
+        }
+
+        .layui-tab-item tr {
+            padding: 2px;
+            background-color: #83b8b4;
+            font-size: 0.2rem;
+            color: #070808;
+        }
+
+        .layui-tab-item th {
+            padding: 2px;
+        }
+
+        .layui-tab-item td {
+            padding: 2px;
+        }
+
+        td {
+            border: 1px solid #CCCCCC;
+        }
+
+        th {
+            border: 1px solid #CCCCCC;
+        }
+
+        table {
+            border-collapse: collapse;
+        } */
+
+        #QY li {
+            width: 22.5%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <!-- <blockquote class="layui-elem-quote">
+                当前区域:&nbsp;
+                <p style="     color: #1aa094;
+                font-weight: bold;display: inline-block;" id="xinx">OP20 </p>
+            </blockquote> -->
+
+            <div class="layui-tab layui-tab-brief" lay-filter="test1">
+                <ul id="QY" class="layui-tab-title">
+                    <li class="layui-this" lay-id="1">1排货架</li>
+                    <li lay-id="2">2排货架</li>
+                    <li lay-id="3">3排货架</li>
+                    <li lay-id="4">4排货架</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <!-- OP10 -->
+                    <div id="1" class="layui-tab-item layui-show">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-xs12 layui-col-md12">
+                                <div id="echarts-records_1"
+                                    style="background-color:#ffffff;min-height:560px;padding: 10px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- OP20 -->
+                    <div id="2" class="layui-tab-item ">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-xs12 layui-col-md12">
+                                <div id="echarts-records_2"
+                                    style="background-color:#ffffff;min-height:560px;padding: 10px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- OP30 -->
+                    <div id="3" class="layui-tab-item">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-xs12 layui-col-md12">
+                                <div id="echarts-records_3"
+                                    style="background-color:#ffffff;min-height:560px;padding: 10px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="4" class="layui-tab-item">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-xs12 layui-col-md12">
+                                <div id="echarts-records_4"
+                                    style="background-color:#ffffff;min-height:560px;padding: 10px"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['element', "layer", "echarts"], function () {
+            var $ = layui.jquery,
+                element = layui.element;
+            layer = layui.layer;
+            echarts = layui.echarts;
+
+            //
+            // let key = sessionStorage.getItem("key");
+            // element.tabChange('test1', key);
+            HttpKey("area", 1, "VisualGetRankInfoWithLocationDetail")
+
+            element.on('tab(test1)', function (data) {
+
+                console.log(this); //当前Tab标题所在的原始DOM元素
+
+                console.log(data.index); //得到当前Tab的所在下标
+
+                console.log(data.elem); //得到当前的Tab大容器
+
+                // element.tabChange('test1', '1');
+                // element.tabChange('test1', '2');  
+
+                let value_area = (data.index + 1) + ""
+
+                HttpKey("area", value_area, "VisualGetRankInfoWithLocationDetail")
+
+            });
+
+            function HttpKey(key, val, serverName) {
+
+                // let data1 = { [key]: val, "page": 1, "limit": 100000 }
+                let data1 = { "RackID": "" }
+                $.ajax({
+                    url: http1 + serverName,
+                    type: "POST",
+                    data: JSON.stringify(data1),
+                    success: function (res) {
+
+                        if (res.code == "200") {
+
+                            // layer.msg(data.remark, function () { });
+                            let data2 = res.data[parseInt(val) - 1]
+
+                            console.log(data2)
+
+                            echartKey(data2, val)
+
+                            layer.msg(res.msg, function () { });
+
+                        } else {
+
+                            layer.msg(res.msg, function () { });
+
+                        }
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+
+                    }
+                })
+            }
+
+            function status(key1) {
+
+                // let arr = ["", "", "空箱", "非满箱", "满箱"]
+                let arr = ["", "空闲", "空盘", "有货"]
+
+                for (var i in arr) {
+                    if (arr[i] == key1) return parseInt(i)
+                }
+
+            }
+
+            function echartKey(res, index_any) {
+
+                console.log(res)
+                //col 列
+                var hours1 = [];
+                for (var i = 1; i <= res.ColumnNumber; i++) {
+                    hours1.push(i);
+                }
+                //row 行
+                var days = [];
+                for (var i = 1; i <= res.RowNumber; i++) {
+                    days.push(i);
+                }
+                console.log(days, hours1)
+                var data1 = [];
+                let kw, rw, wl
+
+
+                // curBoxCode
+                // :
+                // "BX-000001"
+                // inDatetime
+                // :
+                // "2023-06-06T17:32:30"
+                // isFire
+                // :
+                // 1
+                // locationID
+                // :
+                // "9"
+                // locationName
+                // :
+                // "1排1列2层"
+                // materialName
+                // :
+                // "主药柱"
+                // materialTypeId
+                // :
+                // "KDAKF10A-ZYZ"a
+                let resa = res.LocationInfoInfoList
+                for (var i = 0; i < resa.length; i++) {
+                    // let selectVal = res
+                    //,res.LocationInfoList[i].CurTicketID,ItemID //0-1-库位-任务单号-物料编号-库位数量 ,res.LocationInfoList[i].BlockInQty
+                    //0-1-2-3箱码-4零部件类型-5泡棉-6产品类别
+                    data1.push([(resa[i].ColumnNumber - 1), (resa[i].RowNumber - 1), status(resa[i].StockStatus), resa[i].ItemID, resa[i].LocationID]);
+                }
+
+
+
+                //列，行
+                // data1 = data1.map(function (item) {
+                //     return [item[0], item[1], item[2]  || '-'];
+                // });
+
+                console.log(data1)
+                var option_A = {
+                    title: {
+                        text: res.ColumnNumber + 'x' + res.RowNumber + '库位'
+                    },
+                    dataZoom: [
+                        {
+                            id: 'dataZoomY',
+                            type: 'slider',
+                            yAxisIndex: [0],
+                            startValue: 0,
+                            endValue: (days.length) - 1,
+                            filterMode: 'empty'
+                        },
+                        {
+                            id: 'dataZoomX',
+                            type: 'slider',
+                            xAxisIndex: [0],
+                            startValue: 0,
+                            endValue: (hours1.length) - 1,
+                            filterMode: 'empty'
+                        }
+                    ],
+
+                    tooltip: {
+                        position: 'top',
+                        formatter: function (params) {
+                            console.log(params)
+                            //0-1-2-3箱码-4零部件类型-5泡棉-6产品类别
+                            // return '物料号：' + params.data[3] + '<br/>'+ '库位编号：' + params.data[4];
+                            return `物料号：${params.data[3]}<br/>库位编号：${params.data[4]}`;
+                        }
+                    },
+                    animation: false,
+                    grid: {
+                        left: '3%',
+                        right: '8%',
+                        bottom: '8%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: hours1,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#000'
+                            }
+                        },
+                        // axisLabel: {
+                        //     interval: 0,
+                        //     rotate: 40
+
+                        // },
+                        splitArea: {
+                            show: true
+                        },
+                        name: '列'
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: days,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#000'
+                            }
+                        },
+                        // axisLabel: {
+                        //     interval: 0,
+                        //     rotate: 40
+                        // },
+                        splitArea: {
+                            show: true
+                        },
+                        name: ''
+                    },
+                    visualMap: {
+                        calculable: false,
+                        // calculable: true,
+                        type: 'piecewise',
+                        categories: [1, 2, 3],
+                        inRange: {
+                            color:
+                            {
+                                '1': '#f0f0f0',
+                                '2': '#3994e0',
+                                '3': '#33c640'
+                              
+                            },
+                        },
+                        orient: 'horizontal',
+                        left: '60%',
+                        bottom: '92%',
+                        dimension: 2,
+                        formatter: function (value) {  //标签的格式化工具。  // 范围标签显示内容。
+                            // var value = 1 + Math.round(Math.random() * 2)
+                            console.log(value)
+                            if (value == 1) {
+                                return '空闲'
+                            }  else if (value == 3) {
+                                return '有货'
+                            } else if (value == 2) {
+                                return '空箱'
+                            }
+                        },
+                        textStyle: {
+                            color: "#000"
+                        }
+                    },
+
+                    series: [{
+
+                        name: 'Punch Card',
+                        type: 'heatmap',
+                        data: data1,
+                        label: {
+                            normal: {
+                                show: true,
+                                color: "#000",
+                                formatter: function (params) {
+                                    // alert(JSON.stringify(params.data))
+                                    //0-1-2-3库位-4任务单号-5物料编号-6库位数量
+                                    if (params.data[2] == 1) {
+                                        return "空闲";
+                                    } else {
+                                        // return '物料号：' + params.data[3]  + '<br/>'+  '库位编号：' + params.data[4];
+                                        return `物料号：${params.data[3]}\n库位编号：${params.data[4]}`;
+                                    }
+
+                                },
+                            },
+                        },
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowColor: 'rgba(120, 0, 0, 0.5)'
+                            }
+                        }
+
+                    }],
+                    itemStyle: {
+                        // color: function (o) {
+                        //     if (o.value[6] !== null) {
+                        //         return "#50a3ba";
+                        //     } else {
+                        //         return "#fff";
+                        //     }
+                        // },
+                        borderColor: "#000",
+                        borderWidth: 1,
+                        // emphasis: {
+                        //     shadowBlur: 10,
+                        //     shadowColor: "rgba(0, 0, 0, 0.5)"
+                        // }
+                    }
+                };
+
+
+
+                //    ("echarts-records_"+{index_any});
+                let myChart_A = echarts.init(document.getElementById('echarts-records_' + index_any), 'walden')
+                myChart_A.setOption(option_A);
+                // echarts 窗口缩放自适应
+                window.onresize = function () {
+                    myChart_A.resize();
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

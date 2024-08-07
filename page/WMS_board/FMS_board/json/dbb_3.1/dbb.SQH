@@ -1,0 +1,11 @@
+select distinct YOUHBM,YOUHMC from 优惠编码
+select distinct YOUHBM from 优惠编码
+select distinct YOUHMC from 全地区赠机号码清单
+select * from 全地区赠机号码清单 where JG_DAY<20060131
+select * from 全地区赠机号码清单 where JG_DAY<=20060131
+select count(*) from 全地区赠机号码清单 where JG_DAY<20060131
+select YYQ,YOUHMC,count(*) from 全地区赠机号码清单 group by YYQ,YOUHMC
+select YOUHBM,count(*) from 全地区赠机号码清单 group by YOUHBM
+select count(*) from 全地区赠机号码清单 group by YOUHBM
+select  DISTINCT JBHTH from 宁波合家欢全家福数据0924
+select  DISTINCT JBHTH from 全家福

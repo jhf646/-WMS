@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+</head>
+<style>
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #PowerKey option {
+        color: #000;
+    }
+
+    .layui-panel {
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 2px;
+        background-color: #fff;
+        color: #666;
+        border-color: #eee;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>权限设置</legend>
+            </fieldset>
+
+            <div class="layui-bg-gray" style="padding: 10px;">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md6">
+                        <div class="layui-panel">
+                            <div style="padding: 20px 20px;">
+                                <fieldset class="layui-elem-field layui-field-title">
+                                    <legend>角色设置</legend>
+                                </fieldset>
+                                <div style="margin: 10px 10px 10px 10px">
+                                    <form class="layui-form layui-form-pane" action="">
+                                        <div class="layui-form-item">
+
+
+
+                                            <div class="layui-inline">
+                                                <button class="layui-btn layui-btn-sm data-refresh-btn"> 刷新角色 </button>
+                                                <button class="layui-btn layui-btn-sm data-add-btn"> 添加角色 </button>
+                                                <button class="layui-btn layui-btn-danger layui-btn-sm data-delete-btn">
+                                                    删除角色
+                                                </button>
+                                                <button type="button" class="layui-btn layui-btn-sm"
+                                                    lay-demo="getChecked" style="float: right;">更新角色权限列表</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+
+
+                                <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+                                <script type="text/html" id="checkbd">
+
+                                    <input type="radio" name="siam_one" title=""  lay-skin="primary" data-id = "{{ d.DataListID }}">
+                         
+                                </script>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                    <!-- <div class="layui-col-md2">
+                        <div class="layui-panel">
+
+
+                        </div>
+                    </div> -->
+                    <div class="layui-col-md6">
+                        <div class="layui-panel">
+                            <div style="padding: 20px 20px;">
+                                <fieldset class="layui-elem-field layui-field-title">
+                                    <legend>权限列表</legend>
+                                </fieldset>
+                                <div class="layui-btn-container">
+
+                                </div>
+
+                                <div id="test12" class="demo-tree-more"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="PZM" class="layui-form layuimini-form"
+        style="padding: 22px; line-height: 22px; font-weight: 300;display: none;">
+        <div id="CCS1" class="layui-form-item">
+            <!-- { "UserID": "1005","UserName": "张大强","PassWord": "77777","PowerKey": "2"} -->
+
+
+            <label class="layui-form-label required" style="text-align: right;">角色名：</label>
+            <div class="layui-input-block">
+                <input id="DataListName" type="text" name="DataListName" lay-verify="required" lay-reqtext="输入角色名"
+                    placeholder="请输入角色名" class="layui-input">
+            </div>
+
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="demo1" lay-submit="">⽴即提交</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                tree = layui.tree,
+                util = layui.util,
+                layuimini = layui.layuimini;
+
+
+            //权限列表
+            var data = [{
+                title: '常规管理'
+                , icon: "fa fa-address-book"
+                , id: 1
+                , type: 'page', checked: false, field: 'name1'
+                // ,checked: true
+                , spread: true
+                , children: [{
+                    title: '基础信息管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-cube"
+                    , target: "_self"
+                    , id: 11
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '毛坯基础信息'
+                        , href: "page/Basic_Information/RawMaterialInfo.html"
+                        , icon: "fa fa-cube"
+                        , target: "_self"
+                        , id: 111
+                        , type: 'page', checked: false, field: ''
+
+                        // , children: [{
+                        //     title: '物料添加'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 1111
+                        //     , type: 'button', checked: false, field: '物料添加'
+                        // }, {
+                        //     title: '物料批量导入'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 1112
+                        //     , type: 'button', checked: false, field: '物料批量导入'
+
+                        // }, {
+                        //     title: '物料编辑'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 1113
+                        //     , type: 'button', checked: false, field: '物料编辑'
+
+                        // }, {
+                        //     title: '物料删除'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 1114
+                        //     , type: 'button', checked: false, field: '物料删除'
+
+                        // }]
+                    }, {
+                        title: '成品基础信息'
+                        , href: "page/Basic_Information/FinishedProductInfo.html"
+                        , icon: "fa fa-cube"
+                        , target: "_self"
+                        , id: 112
+                        , type: 'page', checked: false, field: ''
+                    }, {
+                        title: '客户基础信息'
+                        , href: "page/Basic_Information/Cust.html"
+                        , icon: "fa fa-cube"
+                        , target: "_self"
+                        , id: 115
+                        , type: 'page', checked: false, field: ''
+                    },{
+                        title: '图号对应关系'
+                        , href: "page/Basic_Information/Relationship.html"
+                        , icon: "fa fa-cube"
+                        , target: "_self"
+                        , id: 113
+                        , type: 'page', checked: false, field: ''
+                    },{
+                        title: '虚拟库位配置'
+                        , href: "page/Basic_Information/VirtualLocation.html"
+                        , icon: "fa fa-cube"
+                        , target: "_self"
+                        , id: 116
+                        , type: 'page', checked: false, field: ''
+                    }, {
+                        title: '通用配置'
+                        , href: "page/Setting/CommonSettings.html"
+                        , icon: "fa fa-cogs"
+                        , target: "_self"
+                        , id: 114
+                        , type: 'page', checked: false, field: ''
+                        , children: [{
+                            title: '辅料物资类型'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1141
+                            , type: 'cols', checked: false, field: '辅料物资类型'
+                        }, {
+                            title: '领用人'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1142
+                            , type: 'cols', checked: false, field: '领用人'
+
+                        }, {
+                            title: '毛坯来源状态'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1143
+                            , type: 'cols', checked: false, field: '毛坯来源状态'
+
+                        }, {
+                            title: '成品类型'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1144
+                            , type: 'cols', checked: false, field: '成品类型'
+
+                        }, {
+                            title: '产品发货状态'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1145
+                            , type: 'cols', checked: false, field: '产品发货状态'
+
+                        }, {
+                            title: '热处理状态'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1146
+                            , type: 'cols', checked: false, field: '热处理状态'
+
+                        }, {
+                            title: '热处理厂商'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1147
+                            , type: 'cols', checked: false, field: '热处理厂商'
+
+                        }, {
+                            title: '供应商'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1148
+                            , type: 'cols', checked: false, field: '供应商'
+
+                        }]
+                    }]
+                }, {
+                    title: '毛坯管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-edit"
+                    , target: "_self"
+                    , id: 12
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '毛坯入库'
+                        , href: "page/blank/Blank_In.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 121
+                        , type: 'page', checked: false, field: ''
+
+                        , children: [{
+                            title: '毛坯入库'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1211
+                            , type: 'button', checked: false, field: ''
+
+                        }, {
+                            title: '添加废料'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1212
+                            , type: 'button', checked: false, field: ''
+
+                        }, {
+                            title: '添加废品'
+                            , href: "page/11.html"
+                            , icon: "fa fa-cube"
+                            , target: "_self"
+                            , id: 1213
+                            , type: 'button', checked: false, field: ''
+
+                        }]
+                    }, {
+                        title: '毛坯出库'
+                        , href: "page/blank/Blank_Out.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 122
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+
+                    }, {
+                        title: '毛坯出库确认'
+                        , href: "page/blank/Blank_sub.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 125
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    },
+                    // {
+                    //     title: '毛坯开票'
+                    //     , href: "page/blank/Blank_invoice.html"
+                    //     , icon: "fa fa-edit"
+                    //     , target: "_self"
+                    //     , id: 123
+                    //     , type: 'page', checked: false, field: ''
+                    //     , spread: true
+                    // },
+                    {
+                        title: '毛坯领用查询'
+                        , href: "page/MPCK.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 124
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }]
+                }, {
+                    title: '辅料管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-edit"
+                    , target: "_self"
+                    , id: 18
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '辅料入库'
+                        , href: "page/Acc/Acc_In_out.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 181
+                        , type: 'page', checked: false, field: ''
+                    }, {
+                        title: '辅料领用查询'
+                        , href: "page/Acc/Acc_search.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 182
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }]
+                }, {
+                    title: '成品管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-edit"
+                    , target: "_self"
+                    , id: 13
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '成品入库'
+                        , href: "page/product/product_In.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 131
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+
+                    }, {
+                        title: '成品发货备料'
+                        , href: "page/product/product_Out_step2.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 132
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }, {
+                        title: '成品出库确认'
+                        , href: "page/product/product_Out_step3.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 133
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }, {
+                        title: '成品发货单列表'
+                        , href: "page/product/product_Out_step1.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 134
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }]
+                }, {
+                    title: '普通物资管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-edit"
+                    , target: "_self"
+                    , id: 19
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '普通物资入库'
+                        , href: "page/GenMat/GenMat_In.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 191
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+
+                    }, {
+                        title: '普通物资发货备料'
+                        , href: "page/GenMat/GenMat_Out_step2.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 192
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }, {
+                        title: '普通物资回库确认'
+                        , href: "page/GenMat/GenMat_Out_step3.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 193
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }, {
+                        title: '普通物资发货单列表'
+                        , href: "page/GenMat/GenMat_Out_step1.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 194
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }]
+                }, {
+                    title: '库位管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-cube"
+                    , target: "_self"
+                    , id: 14
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '库位可视化'
+                        , href: "page/KWKH.html"
+                        , icon: "fa fa-line-chart"
+                        , target: "_self"
+                        , id: 141
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+
+                    }, {
+                        title: '库位信息查询'
+                        , href: "page/KW.html"
+                        , icon: "fa fa-cube"
+                        , target: "_self"
+                        , id: 142
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }]
+                }, {
+                    title: '监控中心'
+                    , href: "page/11.html"
+                    , icon: "fa fa-database"
+                    , target: "_self"
+                    , id: 15
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '立库数据监控'
+                        , href: "page/WMS_board/index.html"
+                        , icon: "fa fa-database"
+                        , target: "_self"
+                        , id: 151
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+
+                    }]
+                }, {
+                    title: '报表中心'
+                    , href: "page/11.html"
+                    , icon: "fa fa-database"
+                    , target: "_self"
+                    , id: 16
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '出入库记录'
+                        , href: "page/sealed_report.html"
+                        , icon: "fa fa-database"
+                        , target: "_self"
+                        , id: 161
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+
+                    }]
+                }, {
+                    title: '日志'
+                    , href: "page/11.html"
+                    , icon: "fa fa-file-text"
+                    , target: "_self"
+                    , id: 17
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '入库日志'
+                        , href: "page/KCRC.html"
+                        , icon: "fa fa-file-text"
+                        , target: "_self"
+                        , id: 171
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }, {
+                        title: '成品发货日志'
+                        , href: "page/KCCK.html"
+                        , icon: "fa fa-file-text"
+                        , target: "_self"
+                        , id: 172
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }]
+                }, {
+                    title: '报废物料管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-file-text"
+                    , target: "_self"
+                    , id: 20
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '登记处理'
+                        , href: "page/KCRC.html"
+                        , icon: "fa fa-file-text"
+                        , target: "_self"
+                        , id: 201
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }, {
+                        title: '查询报废物料'
+                        , href: "page/KCCK.html"
+                        , icon: "fa fa-file-text"
+                        , target: "_self"
+                        , id: 202
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }]
+                },]
+            }, {
+                title: '系统管理'
+                , icon: "fa fa-lemon-o"
+                , id: 2
+                , type: 'page', checked: false, field: ''
+                , spread: true
+                , children: [{
+                    title: '权限管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-cube"
+                    , target: "_self"
+                    , id: 21
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '用户管理'
+                        , href: "page/userlist.html"
+                        , icon: "fa fa-cube"
+                        , target: "_self"
+                        , id: 211
+                        , type: 'page', checked: false, field: ''
+
+                        // , children: [{
+                        //     title: '添加'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 2111
+                        //     , type: 'button', checked: false, field: '添加'
+
+                        // }, {
+                        //     title: '删除'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 2112
+                        //     , type: 'button', checked: false, field: '删除'
+
+                        // }, {
+                        //     title: '编辑'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 2113
+                        //     , type: 'button', checked: false, field: '编辑'
+
+                        // }]
+                    }, {
+                        title: '角色管理'
+                        , href: "page/PermissionManagement.html"
+                        , icon: "fa fa-cube"
+                        , target: "_self"
+                        , id: 212
+                        , type: 'button', checked: false, field: ''
+
+                        // , children: [{
+                        //     title: '添加'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 2121
+                        //     , type: 'button', checked: false, field: '添加'
+
+                        // }, {
+                        //     title: '删除'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 2122
+                        //     , type: 'button', checked: false, field: '删除'
+
+                        // }, {
+                        //     title: '编辑'
+                        //     , href: "page/11.html"
+                        //     , icon: "fa fa-cube"
+                        //     , target: "_self"
+                        //     , id: 2123
+                        //     , type: 'button', checked: false, field: '编辑'
+
+                        // }]
+                    }]
+                },
+                    // {
+                    //     title: '配置信息'
+                    //     , href: "page/11.html"
+                    //     , icon: "fa fa-clone"
+                    //     , target: "_self"
+                    //     , id: 22
+                    //     , type: 'page', checked: false, field: 'name11'
+                    //     , spread: true
+                    //     , children: [{
+                    //         title: '通用配置'
+                    //         , href: "page/Setting/CommonSettings.html"
+                    //         , icon: "fa fa-cogs"
+                    //         , target: "_self"
+                    //         , id: 221
+                    //         , type: 'page', checked: false, field: ''
+
+
+                    //     }]
+                    // }
+
+                ]
+            }]
+
+
+
+            //初始化
+            tree.render({
+                elem: '#test12'
+                , data: data
+                , showCheckbox: true  //是否显示复选框
+                , href: "page/11.html"
+                , icon: "fa fa-cube"
+                , target: "_self"
+                , id: 'demoId1'
+                , isJump: true //是否允许点击节点时弹出新窗口跳转
+                , click: function (obj) {
+                    // var data = obj.data;  //获取当前点击的节点数据
+                    // layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data));
+                }
+            });
+
+
+            //按钮事件
+            util.event('lay-demo', {
+
+                getChecked: function (othis) {
+
+                    var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
+
+                    var alertz = {}; // 定义一个数组来存储所有选中的项
+
+                    var role = ""
+
+
+                    alertz.DataListID = sessionStorage.getItem("DataListID")
+
+
+                    alertz.DataListValue = JSON.stringify(checkedData) + ""
+
+
+                    // layer.alert(JSON.stringify(checkedData), { shade: 0 });
+
+
+                    $.ajax({
+
+                        url: http1 + "UpdateDataListValueInfo",
+
+                        type: "post",
+
+                        // dataType: 'json',
+
+                        data: JSON.stringify(alertz),
+                        success: function (data) {
+
+                            if (data.code == "200") {
+
+                                layer.msg('更新成功！', function () { });
+                                // alert("提交成功：" + data)
+                                // layer.closeAll()
+                                table.reload('currentTableId', {
+                                    page: {
+                                        curr: 1
+                                    },
+                                    where: {
+                                        "DataListType": "角色信息"  // 固定
+                                    },
+                                }, 'data');
+                            } else {
+                                layer.msg(data.msg, function () { });
+                            }
+
+                        },
+
+                        error: function () {
+
+                            alert("服务器连接失败！")
+
+                        }
+
+                    })
+
+
+
+
+
+                }
+                , setChecked: function () {
+
+                    tree.setChecked('demoId1', [12, 16]); //勾选指定节点
+
+                }
+
+                , reload: function () {
+                    //重载实例
+                    tree.reload('demoId1', {
+
+                    });
+
+                }
+            });
+            readyselect()
+            function readyselect() {
+                let arr = []
+
+                // lj()
+                // zr()
+                // zr()
+
+            }
+            // 获取通过递归获取最后一层菜单ID
+            function getAllThirdLevelIds(tree) {
+                const ids = [];
+
+                function traverse(items) {
+                    for (const item of items) {
+                        if (!item.children) {
+                            // 如果没有children属性，说明是叶子节点，将ID添加到数组中
+                            if (item.id) {
+                                ids.push(item.id);
+                            }
+                        } else {
+                            // 如果有children属性，递归遍历子节点
+                            traverse(item.children);
+                        }
+                    }
+                }
+
+                // 从第一层开始遍历
+                traverse(tree);
+                return ids;
+            }
+
+            //点击某个用户 显示权限
+            table.on('radio(currentTableFilter)', function (obj) {
+
+                sessionStorage.setItem("DataListID", obj.data.DataListID);
+
+
+                let data = JSON.parse(obj.data.DataListValue)
+
+                tree.reload('demoId1', {
+
+                });
+
+                tree.setChecked('demoId1', getAllThirdLevelIds(data)); //勾选指定节点
+
+            });
+
+
+
+            table.render({
+                elem: '#currentTableId',
+                // toolbar: '#toolbarDemo',
+                method: "post",
+
+                contentType: 'application/json,charset=utf-8',
+                // url: '../api/table.json',
+                where: {
+                    "DataListType": "角色信息"  // 固定
+                },
+                url: http1 + "GetDataListInfoList",
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": "",
+                        "data": res.data //解析数据列表
+                    };
+                },
+
+                cols: [
+
+                    // UserID UserName PassWord permission
+                    // 1001 习大佬 1001 1
+                    // 1002 张大帅 1002 2
+                    // 1003 李大猛 1003 2
+                    // 1004 王小丽 1004 2
+                    [
+                        {
+                            type: "radio",
+                            // templet: "#checkbd",
+                            title: "",
+                            width: 60,
+                        },
+                        // { type: 'radio', fixed: 'left' },
+                        {
+                            field: 'DataListID',
+                            minWidth: 180,
+                            title: '角色编号',
+                            sort: true
+                        },
+                        {
+                            field: 'DataListName',
+                            minWidth: 180,
+                            title: '角色名',
+                            sort: true
+                        }]
+                ],
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 15,
+                // page: true
+            });
+
+
+            //添加
+            form.on('submit(demo1)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+                // let data2 = { 
+                //     "DataListType": "角色信息",
+
+                //  }
+                data.field.DataListType = "角色信息"
+                $.ajax({
+                    url: http1 + "AddDataListInfo",
+                    type: "post",
+                    // dataType: 'json',
+                    data: JSON.stringify(data.field),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg('添加成功！', function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+                                    "DataListType": "角色信息"  // 固定
+                                },
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+                    },
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+                return false;
+            });
+
+
+
+            // 监听添加操作
+
+            $('body').on('click', '.data-add-btn', function () {
+
+                var index = layer.open({
+                    type: 1,
+                    title: "添加角色" //不显示标题栏
+                    ,
+                    // closeBtn: false,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,
+                    // btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                    ,
+                    content: $("#PZM"),
+                    success: function (layero) { },
+                    yes: function (layero, index) {
+
+                    }
+                });
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+                return false;
+            });
+
+
+            // 监听刷新操作
+
+            $('body').on('click', '.data-refresh-btn', function () {
+
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    },
+                    where: {
+                        "DataListType": "角色信息"  // 固定
+                    },
+                }, 'data');
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+                return false;
+            });
+
+            // 监听删除操作
+
+
+            $('body').on('click', '.data-delete-btn', function () {
+
+                var alertz = {}; // 定义一个数组来存储所有选中的项
+                var role = ""
+
+
+                alertz.DataListID = sessionStorage.getItem("DataListID")
+
+
+                layer.confirm('是否删除' + sessionStorage.getItem("DataListID") + '角色?', function (index) {
+
+                    $.ajax({
+                        url: http1 + "DeleteDataListInfo",
+                        type: "post",
+
+                        data: JSON.stringify(alertz),
+                        success: function (data) {
+                            if (data.code == "200") {
+                                layer.msg('删除成功！', function () { });
+                                layer.closeAll();
+                                table.reload('currentTableId', {
+                                    page: {
+                                        curr: 1
+                                    }
+                                }, 'data');
+                            } else {
+                                layer.msg(data.msg, function () { });
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接失败！");
+                        }
+                    });
+                });
+
+
+                return false; // 如果.data-delete-btn是链接，则阻止其默认行为
+            });
+
+
+
+
+
+
+
+
+
+        });
+    </script>
+    <script>
+    </script>
+
+</body>
+
+</html>
