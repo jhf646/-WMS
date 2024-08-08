@@ -246,6 +246,15 @@
                 <input id="HeatTreatmentVendor" type="text" name="HeatTreatmentVendor" lay-reqtext="输入热处理厂商"
                     lay-reqtext="输入热处理厂商" placeholder="输入热处理厂商" class="layui-input">
             </div>
+
+            <label class="layui-form-label required" style="text-align: right;">供应商：</label>
+            <div class="layui-input-block">
+
+                <select id="Vendor" name="Vendor" lay-filter="Vendor" lay-search>
+
+                </select>
+            </div>
+
             <label class="layui-form-label required" style="text-align: right;">成品入库状态：</label>
             <div class="layui-input-block">
 
@@ -318,7 +327,7 @@
                 // let arr = []
                 // selectrender("ItemID")
                 // selectrender("BlockContent")
-                // pm("")
+                gys("")
                 // lbj("")
                 cp1("")
                 cp2("")
@@ -658,6 +667,41 @@
                 })
 
             }
+            //供应商状态
+            function gys(key) {
+
+                let Station = sessionStorage.getItem("Station")
+
+                let data2 = { "DataListType": "供应商" }
+
+                $.ajax({
+                    url: http1 + "GetDataListInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#Vendor");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.DataListValue, item.DataListValue));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
             //入库状态
             function cp1(key) {
 
@@ -955,9 +999,11 @@
                         { type: 'numbers', field: 'boxIndex', title: '#', align: "center", fixed: 'left', totalRowText: '合计' },
 
                         { field: 'WorkID', Width: "100", title: '工单号', align: "center" },
-                        { field: 'ItemID', Width: "100", title: '生产图号', align: "center", },
-                        { field: 'CustomerItemID', Width: "100", title: '入库图号', align: "center", },
-                        { field: 'FurnaceID', Width: "100", title: '炉号', align: "center", },
+                        { field: 'ItemID', Width: "80", title: '生产图号', align: "center", },
+                        { field: 'CustomerItemID', Width: "80", title: '入库图号', align: "center", },
+                        { field: 'FurnaceID', Width: "80", title: '炉号', align: "center", },
+
+                        { field: 'Vendor', Width: "80", title: '供应商', align: "center", },
                         { field: 'HeatTreatmentLotNo', Width: "100", title: '热处理批号', align: "center", },
 
                         { field: 'HeatTreatmentVendor', Width: "100", title: '热处理厂商', align: "center" },
@@ -969,7 +1015,7 @@
                             field: 'CurrentItemQty', Width: "100", sort: true, title: '入库数量', align: "center", totalRow: true
                         },
 
-                        { title: '操作', Width: "100", templet: '#currentTableBar', fixed: "right", align: "center" }
+                        { title: '操作', minWidth: "100", templet: '#currentTableBar', fixed: "right", align: "center" }
                     ]
                     ],
                     done: function (res, currentCount) {

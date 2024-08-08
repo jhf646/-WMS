@@ -778,10 +778,13 @@
                         { field: 'HeatTreatmentVendor', Width: "100", title: '热处理厂商', align: "center", },
                         { field: 'BlankInputStatus', Width: "100", title: '毛坯来料状态', align: "center", },
                         { field: 'StorageLineID', Width: "100", title: '库存编号', align: "center", },
+                        { field: 'LocationName', Width: "100", title: '库位', align: "center", },
                         { field: 'IsVisualJob', Width: "100", title: '是否虚拟库位', align: "center" },
+                        { field: 'CreateDate', Width: "100", title: '入库时间', align: "center" },
+                        
                         { field: 'CurrentItemQty', Width: "100", sort: true, title: '当前库存数量', align: "center", totalRow: true },
 
-                        { title: '操作', Width: "100", templet: '#currentTableBarNew', fixed: "right", align: "center" }
+                        { title: '操作', minWidth: "100", templet: '#currentTableBarNew', fixed: "right", align: "center" }
                     ]
                     ],
                     done: function (res, currentCount) {
@@ -835,7 +838,7 @@
                         { field: 'StorageLineID', Width: "100", title: '库存编号', align: "center", },
                         { field: 'ItemDetailQty', Width: "100", sort: true, title: '领用数量', align: "center", totalRow: true },
 
-                        { title: '操作', Width: "100", templet: '#currentTableBar', fixed: "right", align: "center" }
+                        { title: '操作', minWidth: "100", templet: '#currentTableBar', fixed: "right", align: "center" }
                     ]
                     ],
                     done: function (res, currentCount) {
