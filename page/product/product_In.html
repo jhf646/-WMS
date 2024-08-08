@@ -644,7 +644,7 @@
                         select.append(new Option("", ""));
                         $.each(result, function (index, item) {
                             console.log(index, item)
-                            select.append(new Option(item.LocationID, item.LocationID));// 下拉菜单里添加元素
+                            select.append(new Option(item.LocationName, item.LocationID));// 下拉菜单里添加元素
                         });
                         layui.form.render("select");
 
