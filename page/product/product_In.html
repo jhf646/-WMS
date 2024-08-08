@@ -821,7 +821,14 @@
             form.on('select(JobInputType)', function (data) {
 
                 // layer.msg("类型发生更改,清空入库数据", function () { });
-                QK()
+                let olddata = []
+
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
 
                 return false; // 阻止默认 form 跳转
             });
