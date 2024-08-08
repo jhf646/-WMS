@@ -211,8 +211,8 @@
                 <input id="ItemHaveQty" type="text" name="ItemHaveQty" value="" lay-reqtext="" readonly placeholder="0"
                     class="layui-input">
 
-                <div class="layui-form-mid layui-word-aux" style="float: none;"><button
-                        class="layui-btn layui-btn-normal" id="Query_YRK">查询已入库数量</button> 当前工单已入库的数量</div>
+                <!-- <div class="layui-form-mid layui-word-aux" style="float: none;"><button
+                        class="layui-btn layui-btn-normal" id="Query_YRK">查询已入库数量</button> 当前工单已入库的数量</div> -->
             </div>
             <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
             <div class="layui-input-block">
@@ -260,7 +260,7 @@
             <div class="layui-input-block">
                 <input type="text" name="ProductDate" id="ProductDate" placeholder="选择生产日期" class="layui-input">
             </div>
-        
+
             <label class="layui-form-label required" style="text-align: right;">炉号：</label>
             <div class="layui-input-block">
                 <input id="FurnaceID" type="text" name="FurnaceID" lay-reqtext="输入炉号" lay-reqtext="输入炉号"
@@ -609,13 +609,14 @@
 
                 layer.closeAll()
 
-                $('#CCS1')[0].reset();
-
-                form.render();//必须写
-                // form.resetField('PZM');
+                $('#PZM input[type=text]').val('');
+                $('#PZM select').val(''); // 清空select
 
 
-                olddata = []
+                $('#PZM1 input[type=text]').val('');
+                $('#PZM1 select').val(''); // 清空select
+
+                // olddata = []
 
                 return false
             });
@@ -817,12 +818,10 @@
 
             //根据入库单显示相关信息
 
-            form.on('select(InOrderID)', function (data) {
+            form.on('select(JobInputType)', function (data) {
 
-
-                // tableCZ_OLD(data.value)
-
-                tableCZ(data.value)
+                // layer.msg("类型发生更改,清空入库数据", function () { });
+                QK()
 
                 return false; // 阻止默认 form 跳转
             });
