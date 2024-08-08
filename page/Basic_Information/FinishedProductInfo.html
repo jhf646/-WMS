@@ -110,11 +110,14 @@
                     class="layui-input">
             </div> -->
 
-      
+
             <label class="layui-form-label " style="text-align: right;">毛坯图号：</label>
             <div class="layui-input-block">
-                <input id="BlankMPID" type="text" name="BlankMPID" value="" lay-reqtext="输入毛坯图号" placeholder="输入毛坯图号"
-                    class="layui-input">
+                <!-- <input id="BlankMPID" type="text" name="BlankMPID" value="" lay-reqtext="输入毛坯图号" placeholder="输入毛坯图号"
+                    class="layui-input"> -->
+                <select id="BlankMPID" name="BlankMPID" lay-verify="required" placeholder="">
+
+                </select>
             </div>
 
             <label class="layui-form-label " style="text-align: right;">备注：</label>
@@ -156,8 +159,12 @@
 
             <label class="layui-form-label " style="text-align: right;">毛坯图号：</label>
             <div class="layui-input-block">
-                <input id="BlankMPID" type="text" name="BlankMPID" value="" lay-reqtext="输入毛坯图号" placeholder="输入毛坯图号"
-                    class="layui-input">
+                <!-- <input id="BlankMPID" type="text" name="BlankMPID" value="" lay-reqtext="输入毛坯图号" placeholder="输入毛坯图号"
+                    class="layui-input"> -->
+
+                <select id="BlankMPID1" name="BlankMPID" lay-verify="required" placeholder="">
+
+                </select>
             </div>
 
             <label class="layui-form-label " style="text-align: right;">备注：</label>
@@ -225,16 +232,80 @@
                 layuimini = layui.layuimini;
 
 
-                readyselect()
+            readyselect()
             function readyselect() {
                 let arr = []
 
-                // lj()
-                // zr()
+                mp1()
+                mp()
                 zr()
                 zr1()
             }
+            //获取区域2.1  2.2区域
+            function mp1() {
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "BlankMPID": "" }
+                $.ajax({
+                    url: http1 + "GetBlankInfoList",
 
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#BlankMPID");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.BlankMPID, item.BlankMPID));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+            //获取区域2.1  2.2区域
+            function mp() {
+                // let Station = sessionStorage.getItem("Station")
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "BlankMPID": "" }
+                $.ajax({
+                    url: http1 + "GetBlankInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#BlankMPID1");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.BlankMPID, item.BlankMPID));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
             //获取区域2.1  2.2区域
             function zr() {
                 // let Station = sessionStorage.getItem("Station")
@@ -330,18 +401,18 @@
 
 
 
-    //             "ProductMPID": "6666", //成品型号、生产图号
-    // "ProductName": "双连轴", //产品名称
-    // "ProductType": "成品", //产品类型
-    // "CustomerMPID": "6666A", //  客户图号
-    // "CustomerName": "双环", //  客户名称
-    // "BlankMPID": "6666M", //  毛坯图号
-    // "BulkQty": 60, //  每批次发货数量
-    // "DeliveryBoxModel": "BOX-65", //  箱子型号
-    // "DeliveryBoxPerQty": 60, // 每箱数量
-    // "PartitionModel": "GB-87", // 隔板型号
-    // "PartitionModelPerQty": 15, //每箱隔板数量
-    // "PalletType": "TP-98", // 托盘类型
+                    //             "ProductMPID": "6666", //成品型号、生产图号
+                    // "ProductName": "双连轴", //产品名称
+                    // "ProductType": "成品", //产品类型
+                    // "CustomerMPID": "6666A", //  客户图号
+                    // "CustomerName": "双环", //  客户名称
+                    // "BlankMPID": "6666M", //  毛坯图号
+                    // "BulkQty": 60, //  每批次发货数量
+                    // "DeliveryBoxModel": "BOX-65", //  箱子型号
+                    // "DeliveryBoxPerQty": 60, // 每箱数量
+                    // "PartitionModel": "GB-87", // 隔板型号
+                    // "PartitionModelPerQty": 15, //每箱隔板数量
+                    // "PalletType": "TP-98", // 托盘类型
 
                     [{ field: 'ProductMPID', width: 140, title: '成品型号' },
                     { field: 'ProductName', width: 140, title: '产品名称' },
