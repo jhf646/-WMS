@@ -381,7 +381,7 @@
                     success: function (res) {
                         var select = $("#ProductMPID");//TypeID为HTML标签ID
                         let result = res.data
-                        select.append(new Option("",""));// 下拉菜单里添加元素
+                        select.append(new Option("全部",""));// 下拉菜单里添加元素
                         $.each(result, function (index, item) {
                             console.log(index, item)
                             select.append(new Option(item.ProductMPID, item.ProductMPID));// 下拉菜单里添加元素
