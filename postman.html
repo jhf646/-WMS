@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Postman Collection Runner</title>
+</head>
+<body>
+    <div id="postman-runner"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/postman-collection-runner/latest/postman-collection-runner.min.js" onload="initPostmanRunner()"></script>
+    <script>
+        function initPostmanRunner() {
+            // 确保 postman-collection-runner.min.js 加载完毕后执行
+            pm.visualize.init({
+                container: '#postman-runner',
+                collection: {
+                    // 这里放置你导出的 Collection JSON 文件路径或者直接放置 JSON 对象
+                    "url": "./ZYCH.json"
+                }
+            });
+        }
+    </script>
+</body>
+</html>
