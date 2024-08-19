@@ -276,7 +276,8 @@
                 tMinutes = doHandleMonth(tMinutes);
                 tSeconds = doHandleMonth(tSeconds);
 
-                return tYear + "-" + tMonth + "-" + tDate
+                // return tYear + "-" + tMonth + "-" + tDate  //年-月-日
+                return tYear + "-" + tMonth + "-" + tDate + " " + tHours + ":" + tMinutes + ":" + tSeconds;//年-月-日 时:分:秒
             }
 
             function doHandleMonth(month) {
@@ -289,7 +290,8 @@
 
             laydate.render({
                 elem: '#DeliveryDate', //指定元素
-                type: 'date', //日期选择器类型
+                //type: 'date', //年月日
+                type: 'datetime', //年月日时分秒
                 value: getRecentDay(0), //默认值
             });
 
@@ -1115,7 +1117,7 @@
                         { field: 'FurnaceID', Width: "100", title: '炉号', align: "center", },
 
                         { field: 'ProductDate', Width: "100", title: '生产日期', align: "center", },
-                        
+
                         { field: 'LocationName', Width: "100", title: '库位', align: "center", },
 
                         { field: 'IsVisualJob', Width: "100", title: '是否虚拟库位', align: "center" },
