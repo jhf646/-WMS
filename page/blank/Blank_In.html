@@ -147,8 +147,11 @@
             </div>
             <label class="layui-form-label required" style="text-align: right;">毛坯来料状态：</label>
             <div class="layui-input-block">
-                <input id="BlankInputStatus" type="text" name="BlankInputStatus" value="" lay-verify="required"
-                    lay-reqtext="输入毛坯来料状态" placeholder="输入毛坯来料状态" class="layui-input">
+                <!-- <input id="BlankInputStatus" type="text" name="BlankInputStatus" value="" lay-verify="required"
+                    lay-reqtext="输入毛坯来料状态" placeholder="输入毛坯来料状态" class="layui-input"> -->
+                <select id="BlankInputStatus" name="BlankInputStatus" lay-verify="required">
+
+                </select>
             </div>
             <label class="layui-form-label " style="text-align: right;">热处理批号：</label>
             <div class="layui-input-block">
@@ -234,6 +237,39 @@
                 selectrender("ItemID")
                 rcl()
                 rcl1()
+                rcl2()
+            }
+            //获取区域2.1  2.2区域
+            function rcl2() {
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "DataListType": "毛坯来源状态" }
+                $.ajax({
+                    url: http1 + "GetDataListInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#BlankInputStatus");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.DataListValue, item.DataListValue));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
             }
             //获取区域2.1  2.2区域
             function rcl() {
