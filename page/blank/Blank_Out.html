@@ -491,44 +491,14 @@
 
                 var olddata = table.cache["tableId"];
 
-                console.log(JSON.stringify(olddata.length))
-                //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，tableId 为表格的id
+                if (olddata.length > 0 && olddata[0].ItemID !=data.field.ItemID) {
+    
+                    layer.msg("单次领用只能同种物料！")
 
-                //                 { field: 'PreformID', Width: "100", title: '毛坯型号', align: "center",  },
+                    return false;
+                }
 
-                // { field: 'ItemLotNo', Width: "100", title: '批号', align: "center",  },
-
-                // { field: 'CanUseQty', Width: "100", title: '领用数量', align: "center", },
-
-                // { field: 'StorageLineID', Width: "100", title: '毛坯流水号', align: "center", },
-
-                // { field: 'PickID', Width: "100", title: '领用单号', align: "center",  },
-
-                // { field: 'Project', Width: "100", title: '领用项目', align: "center",  },
-
-                // { field: 'PickerDepartment', Width: "100", title: '领用部门', align: "center", },
-
-                // { field: 'Picker', Width: "100", title: '领用人员', align: "center",  },
                 var sj = data.field;
-                // var sj = {
-
-                //     "PreformID": data.field.PreformID,
-                //     "ItemName": data.field.ItemName,
-                //     "WorkID": data.field.WorkID,
-                //     "FurnaceID": data.field.FurnaceID,
-                //     "ItemLotNo": data.field.ItemLotNo,
-                //     "OutQty": data.field.OutQty,
-                //     "CanUseQty": data.field.OutQty,
-                //     "StorageLineID": data.field.StorageLineID,
-                //     "PickID": data.field.PickID,
-                //     "Project": data.field.Project,
-                //     "PickerDepartment": data.field.PickerDepartment,
-                //     "Picker": data.field.Picker,
-                //     "Creator": sessionStorage.getItem("UserID"),
-                //     "OutDate": getRecentDay(0)
-                //     ,
-                // }
-
 
                 // 示例：通过ID修改姓名（唯一值,可用数量值，领用数量）
                 updateRowDataByValue(data.field.StorageLineID, 'CurrentItemQty', - parseInt(data.field.ItemDetailQty)); // 
