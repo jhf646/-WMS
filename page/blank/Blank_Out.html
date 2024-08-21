@@ -35,8 +35,6 @@
     #PowerKey option {
         color: #000;
     }
-
-
 </style>
 
 <body>
@@ -235,7 +233,7 @@
                 tSeconds = doHandleMonth(tSeconds);
 
                 // return tYear + "-" + tMonth + "-" + tDate  //年-月-日
-                return tYear + "-" + tMonth + "-" + tDate+ " "+ tHours + ":" + tMinutes+ ":" + tSeconds;//年-月-日 时:分:秒
+                return tYear + "-" + tMonth + "-" + tDate + " " + tHours + ":" + tMinutes + ":" + tSeconds;//年-月-日 时:分:秒
             }
 
             function doHandleMonth(month) {
@@ -349,7 +347,7 @@
                 if (obj.event === 'delete') {
                     layer.confirm('是否删除？', function (index) {
 
-                        updateRowDataByValue(data.InPreformID, 'CanUseQty', parseInt(data.OutQty));
+                        updateRowDataByValue(data.StorageLineID, 'CurrentItemQty', parseInt(data.ItemDetailQty));
 
                         let rowindex = $(obj.tr).attr("data-index")
                         obj.del();
@@ -446,13 +444,13 @@
             });
 
 
-            // 表格通过唯一值来修改数据
-            function updateRowDataByValue(InPreformID, fieldName, newValue) {
+            // 表格通过唯一值来修改数据 //数量加减
+            function updateRowDataByValue(StorageLineID, fieldName, newValue) {
 
                 // console.log(layui.table.cache['tableId1'])
                 // 定位到特定的行
                 var index = layui.table.cache['tableId1'].findIndex(function (item) {
-                    return item.InPreformID === InPreformID;
+                    return item.StorageLineID === StorageLineID;
                 });
 
                 if (index !== -1) {
@@ -474,7 +472,7 @@
                     })
                     // 如果需要，可以在这里做一些其他的操作，比如发送Ajax请求到服务器
                 } else {
-                    layer.msg('未找到指定InPreformID毛坯流水号的数据行');
+                    layer.msg('未找到指定StorageLineID毛坯流水号的数据行');
                 }
             }
 
@@ -502,7 +500,7 @@
 
                 // { field: 'CanUseQty', Width: "100", title: '领用数量', align: "center", },
 
-                // { field: 'InPreformID', Width: "100", title: '毛坯流水号', align: "center", },
+                // { field: 'StorageLineID', Width: "100", title: '毛坯流水号', align: "center", },
 
                 // { field: 'PickID', Width: "100", title: '领用单号', align: "center",  },
 
@@ -521,7 +519,7 @@
                 //     "ItemLotNo": data.field.ItemLotNo,
                 //     "OutQty": data.field.OutQty,
                 //     "CanUseQty": data.field.OutQty,
-                //     "InPreformID": data.field.InPreformID,
+                //     "StorageLineID": data.field.StorageLineID,
                 //     "PickID": data.field.PickID,
                 //     "Project": data.field.Project,
                 //     "PickerDepartment": data.field.PickerDepartment,
@@ -532,8 +530,8 @@
                 // }
 
 
-                // 示例：通过ID修改姓名
-                updateRowDataByValue(data.field.InPreformID, 'CanUseQty', - parseInt(data.field.OutQty)); // 
+                // 示例：通过ID修改姓名（唯一值,可用数量值，领用数量）
+                updateRowDataByValue(data.field.StorageLineID, 'CurrentItemQty', - parseInt(data.field.ItemDetailQty)); // 
 
                 // 在尾部新增一行空数据，实现增行效果
                 olddata.push(sj);
@@ -782,7 +780,7 @@
                         { field: 'LocationName', Width: "100", title: '库位', align: "center", },
                         { field: 'IsVisualJob', Width: "100", title: '是否虚拟库位', align: "center" },
                         { field: 'CreateDate', Width: "100", title: '入库时间', align: "center" },
-                        
+
                         { field: 'CurrentItemQty', Width: "100", sort: true, title: '当前库存数量', align: "center", totalRow: true },
 
                         { title: '操作', minWidth: "100", templet: '#currentTableBarNew', fixed: "right", align: "center" }
@@ -877,6 +875,15 @@
                 // $("#PalletID_add").val(field)
                 //表格重载
                 tableCZ_OLD(data.field)
+
+                let olddata = []
+
+                table.reload("tableId", {
+                    url: "",
+                    data: olddata,   // 将新数据重新载入表格
+                    limit: 1000,
+                    page: false
+                })
                 // tableCZ()
                 return false; // 阻止默认 form 跳转
             });

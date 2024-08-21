@@ -577,7 +577,7 @@
                 if (obj.event === 'delete') {
                     layer.confirm('是否删除？', function (index) {
 
-                        updateRowDataByValue(data.StorageLineID, 'ItemQty', parseInt(data.ItemDetailQty));
+                        updateRowDataByValue(data.StorageLineID, 'CurrentItemQty', parseInt(data.ItemDetailQty));
 
                         let rowindex = $(obj.tr).attr("data-index")
                         obj.del();
@@ -895,7 +895,7 @@
 
 
                 // 示例：通过ID修改姓名
-                updateRowDataByValue(data.field.StorageLineID, 'ItemQty', - parseInt(data.field.ItemDetailQty)); // 将ID为1的行的姓名修改为“张小三”
+                updateRowDataByValue(data.field.StorageLineID, 'CurrentItemQty', - parseInt(data.field.ItemDetailQty)); // 将ID为1的行的姓名修改为“张小三”
 
                 // 在尾部新增一行空数据，实现增行效果
                 olddata.push(sj);
