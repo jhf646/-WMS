@@ -212,14 +212,14 @@
                         , target: "_self"
                         , id: 115
                         , type: 'page', checked: false, field: ''
-                    },{
+                    }, {
                         title: '图号对应关系'
                         , href: "page/Basic_Information/Relationship.html"
                         , icon: "fa fa-cube"
                         , target: "_self"
                         , id: 113
                         , type: 'page', checked: false, field: ''
-                    },{
+                    }, {
                         title: '虚拟库位配置'
                         , href: "page/Basic_Information/VirtualLocation.html"
                         , icon: "fa fa-cube"
@@ -374,6 +374,14 @@
                         , id: 124
                         , type: 'page', checked: false, field: ''
                         , spread: true
+                    }, {
+                        title: '毛坯库存查询'
+                        , href: "page/blank/Blank_query.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 126
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
                     }]
                 }, {
                     title: '辅料管理'
@@ -440,9 +448,17 @@
                         , id: 134
                         , type: 'page', checked: false, field: ''
                         , spread: true
+                    }, {
+                        title: '成品库存查询'
+                        , href: "page/blank/product_query.html"
+                        , icon: "fa fa-edit"
+                        , target: "_self"
+                        , id: 135
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
                     }]
                 }, {
-                    title: '普通物资管理'
+                    title: '其它物资管理'
                     , href: "page/11.html"
                     , icon: "fa fa-edit"
                     , target: "_self"
@@ -450,8 +466,8 @@
                     , type: 'page', checked: false, field: 'name11'
                     , spread: true
                     , children: [{
-                        title: '普通物资入库'
-                        , href: "page/GenMat/GenMat_In.html"
+                        title: '其它物资入库'
+                        , href: "page/Item/Item_In.html"
                         , icon: "fa fa-edit"
                         , target: "_self"
                         , id: 191
@@ -459,24 +475,24 @@
                         , spread: true
 
                     }, {
-                        title: '普通物资发货备料'
-                        , href: "page/GenMat/GenMat_Out_step2.html"
+                        title: '其它物资发货备料'
+                        , href: "page/Item/Item_Out_step2.html"
                         , icon: "fa fa-edit"
                         , target: "_self"
                         , id: 192
                         , type: 'page', checked: false, field: ''
                         , spread: true
                     }, {
-                        title: '普通物资回库确认'
-                        , href: "page/GenMat/GenMat_Out_step3.html"
+                        title: '其它物资回库确认'
+                        , href: "page/Item/Item_Out_step3.html"
                         , icon: "fa fa-edit"
                         , target: "_self"
                         , id: 193
                         , type: 'page', checked: false, field: ''
                         , spread: true
                     }, {
-                        title: '普通物资发货单列表'
-                        , href: "page/GenMat/GenMat_Out_step1.html"
+                        title: '其它物资发货单列表'
+                        , href: "page/Item/Item_Out_step1.html"
                         , icon: "fa fa-edit"
                         , target: "_self"
                         , id: 194
@@ -571,7 +587,7 @@
                         , spread: true
                     }]
                 }, {
-                    title: '报废物料管理'
+                    title: '废料管理'
                     , href: "page/11.html"
                     , icon: "fa fa-file-text"
                     , target: "_self"
@@ -579,8 +595,8 @@
                     , type: 'page', checked: false, field: 'name11'
                     , spread: true
                     , children: [{
-                        title: '登记处理'
-                        , href: "page/KCRC.html"
+                        title: '废料登记'
+                        , href: "page/Waste/Waste_Registration.html"
                         , icon: "fa fa-file-text"
                         , target: "_self"
                         , id: 201
@@ -588,10 +604,35 @@
                         , spread: true
                     }, {
                         title: '查询报废物料'
-                        , href: "page/KCCK.html"
-                        , icon: "fa fa-file-text"
+                        , href: "page/Waste/Waste_query.html"
+                        , icon: "fa fa-file-text" 
                         , target: "_self"
                         , id: 202
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }]
+                }, {
+                    title: '废品管理'
+                    , href: "page/11.html"
+                    , icon: "fa fa-file-text"
+                    , target: "_self"
+                    , id: 23
+                    , type: 'page', checked: false, field: 'name11'
+                    , spread: true
+                    , children: [{
+                        title: '废品登记'
+                        , href: "page/scrap/scrap_Registration.html"
+                        , icon: "fa fa-file-text"
+                        , target: "_self"
+                        , id: 231
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }, {
+                        title: '查询废品物料'
+                        , href: "page/scrap/scrap_query.html"
+                        , icon: "fa fa-file-text"
+                        , target: "_self"
+                        , id: 232
                         , type: 'page', checked: false, field: ''
                         , spread: true
                     }]
