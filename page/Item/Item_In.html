@@ -86,10 +86,9 @@
                     <label class="layui-form-label">入库类型</label>
                     <div class="layui-input-inline">
                         <select id="JobInputType" name="JobInputType" lay-filter="JobInputType" lay-search>
-                            <!-- 自制成品入库  外购成品入库 外协成品入库   -->
-                            <option value="自制成品入库" selected="">自制成品入库</option>
-                            <option value="外购成品入库">外购成品入库</option>
-                            <option value="外协成品入库">外协成品入库</option>
+                            <!-- 半成品入库  外购成品入库 外协成品入库   -->
+                            <option value="半成品入库" selected="">半成品入库</option>
+                            <option value="其他物资入库">其他物资入库</option>
                         </select>
                     </div>
                 </div>
@@ -112,7 +111,7 @@
 
             <script type="text/html" id="toolbarDemo">
                         <div class="layui-btn-container">
-                            <button class="layui-btn layui-btn-sm" id="ADD_data">添加成品入库信息</button>
+                            <button class="layui-btn layui-btn-sm" id="ADD_data">添加入库信息</button>
                         </div>
                     </script>
             <script type="text/html" id="currentTableBar">
@@ -235,16 +234,25 @@
         style="padding: 22px; line-height: 22px;  font-weight: 300;display: none;">
         <div id="CCS1" class="layui-form-item">
 
-
-            <label class="layui-form-label required" style="text-align: right;">热处理批号：</label>
+            <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
-                <input id="HeatTreatmentLotNo" type="text" name="HeatTreatmentLotNo" lay-reqtext="输入热处理批号"
-                    lay-reqtext="输入热处理批号" placeholder="输入热处理批号" class="layui-input">
+                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"
+                    placeholder="输入物资编号" class="layui-input">
             </div>
-            <label class="layui-form-label required" style="text-align: right;">热处理厂商：</label>
+            <label class="layui-form-label " style="text-align: right;">物资名称：</label>
             <div class="layui-input-block">
-                <input id="HeatTreatmentVendor" type="text" name="HeatTreatmentVendor" lay-reqtext="输入热处理厂商"
-                    lay-reqtext="输入热处理厂商" placeholder="输入热处理厂商" class="layui-input">
+                <input id="ItemName" type="text" name="ItemName"  
+                    placeholder="输入物资名称" class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">热处理批号：</label>
+            <div class="layui-input-block">
+                <input id="HeatTreatmentLotNo" type="text" name="HeatTreatmentLotNo" 
+                    placeholder="输入热处理批号" class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">热处理厂商：</label>
+            <div class="layui-input-block">
+                <input id="HeatTreatmentVendor" type="text" name="HeatTreatmentVendor" 
+                   placeholder="输入热处理厂商" class="layui-input">
             </div>
 
             <label class="layui-form-label required" style="text-align: right;">供应商：</label>
@@ -255,7 +263,7 @@
                 </select>
             </div>
 
-            <label class="layui-form-label required" style="text-align: right;">成品入库状态：</label>
+            <label class="layui-form-label required" style="text-align: right;">入库状态：</label>
             <div class="layui-input-block">
 
                 <!-- <input id="ProductInputStatus" type="text" name="ProductInputStatus" lay-reqtext="输入成品入库状态"
@@ -270,22 +278,12 @@
                 <input type="text" name="ProductDate" id="ProductDate" placeholder="选择生产日期" class="layui-input">
             </div>
 
-            <label class="layui-form-label required" style="text-align: right;">炉号：</label>
+            <label class="layui-form-label " style="text-align: right;">炉号：</label>
             <div class="layui-input-block">
-                <input id="FurnaceID" type="text" name="FurnaceID" lay-reqtext="输入炉号" lay-reqtext="输入炉号"
+                <input id="FurnaceID" type="text" name="FurnaceID" 
                     placeholder="输入炉号" class="layui-input">
             </div>
-            <label class="layui-form-label required" style="text-align: right;">生产图号：</label>
-            <div class="layui-input-block">
-                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入生产图号"
-                    placeholder="输入生产图号" class="layui-input">
-            </div>
-            <label class="layui-form-label required" style="text-align: right;">入库图号：</label>
-            <div class="layui-input-block">
-                <input id="CustomerItemID" type="text" name="CustomerItemID" lay-verify="required" lay-reqtext="输入入库图号"
-                    placeholder="输入入库图号" class="layui-input">
-            </div>
-
+        
             <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
             <div class="layui-input-block">
                 <input id="CurrentItemQty" type="text" name="CurrentItemQty" value="" lay-verify="sl"
@@ -524,7 +522,7 @@
             $('body').on('click', '#ADD_data', function () {
 
                 var key = "PZM"
-                if ($("#JobInputType").val() != "自制成品入库") {
+                if ($("#JobInputType").val() != "半成品入库") {
 
                     key = "PZM1"
 
@@ -1007,7 +1005,7 @@
                         { field: 'HeatTreatmentLotNo', Width: "100", title: '热处理批号', align: "center", },
 
                         { field: 'HeatTreatmentVendor', Width: "100", title: '热处理厂商', align: "center" },
-                        { field: 'ProductInputStatus', Width: "100", title: '成品入库状态', align: "center", },
+                        { field: 'ProductInputStatus', Width: "100", title: '入库状态', align: "center", },
                         { field: 'ProductDate', Width: "100", title: '生产日期', align: "center", },
                         { field: 'OutBlankCode', Width: "100", title: '毛坯领用识别码', align: "center", },
 
@@ -1254,7 +1252,7 @@
                 // data.push({"ce":JSON.stringify(dataz)})
                 // layer.alert(data);
                 $.ajax({
-                    url: http1 + "SubmitProductInputInfo",
+                    url: http1 + "SubmitItemInputInfo",
 
                     type: "post",
 
