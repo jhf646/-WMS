@@ -231,7 +231,7 @@
                     "Creator": sessionStorage.getItem("UserID")
                 }
                 $.ajax({
-                    url: http1 + "SubmitProductOutCheckBackInfo",
+                    url: http1 + "SubmitItemOutCheckBackInfo",
 
                     type: "post",
 
@@ -265,7 +265,7 @@
                     // toolbar: '#toolbarDemo',
                     method: "post",
                     // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    url: http1 + "GetProductOutCheckInfoAlll",
+                    url: http1 + "GetItemOutCheckInfoAlll",
 
                     contentType: 'application/json,charset=utf-8',
                     parseData: function (res) { //res 即为原始返回的数据
@@ -316,7 +316,7 @@
                                         { field: 'HeatTreatmentLotNo', Width: "100", title: '热处理批号', align: "center", },
                                         { field: 'HeatTreatmentVendor', Width: "100", title: '热处理厂商', align: "center", },
                                         { field: 'FurnaceID', Width: "100", title: '炉号', align: "center", },
-                                        { field: 'ProductInputStatus', Width: "100", title: '成品发货状态', align: "center", },
+                                        { field: 'ItemInputStatus', Width: "100", title: '成品发货状态', align: "center", },
                                         { field: 'ItemQty', Width: "100", title: '出库数量', align: "center", totalRow: true },
                                     ]]
                                     , done: function () {
@@ -405,7 +405,7 @@
                 //     // toolbar: '#toolbarDemo',
                 //     method: "post",
                 //     // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                //     url: http1 + "GetProductOutCheckInfo",
+                //     url: http1 + "GetItemOutCheckInfo",
                 //     // headers: {"token": "111"},
                 //     cellMinWidth: 80,
                 //     where: {},
@@ -533,8 +533,8 @@
                         let ce1 = "Creator"
                         data[ce1] = sessionStorage.getItem("UserID")
 
-                        $.ajax({
-                            url: http1 + "SubmitProductOutCheckInfo",
+                        $.ajax({   
+                            url: http1 + "SubmitItemOutCheckInfo",
 
                             type: "post",
 
@@ -625,7 +625,7 @@
                 // data.push({"ce":JSON.stringify(dataz)})
                 // layer.alert(data);
                 $.ajax({
-                    url: http1 + "SubmitProductOutCheckInfo",
+                    url: http1 + "SubmitItemOutCheckInfo",
 
                     type: "post",
 

@@ -51,10 +51,10 @@
 
                     <div class="layui-form-item ">
 
-                        <label class="layui-form-label ">客户图号</label>
+                        <label class="layui-form-label ">物资编号</label>
                         <div class="layui-input-inline">
 
-                            <select id="CustomerItemID" name="CustomerItemID" lay-filter="CustomerItemID" lay-search>
+                            <select id="ItemID" name="ItemID" lay-filter="ItemID" lay-search>
 
                             </select>
                         </div>
@@ -100,16 +100,16 @@
 
                     <div class="layui-form-item">
 
-                        <label class="layui-form-label required">客户ID</label>
+                        <!-- <label class="layui-form-label required">客户ID</label>
                         <div class="layui-input-inline">
 
                             <select id="CustomerID" name="CustomerID" lay-filter="CustomerID" lay-verify="required"
                                 lay-reqtext="请选择客户ID" lay-search>
 
                             </select>
-                            <!-- <input id="CustomerID" type="text" name="CustomerID" lay-verify="required" lay-reqtext=""
-                                placeholder="" class="layui-input"> -->
-                        </div>
+                            <input id="CustomerID" type="text" name="CustomerID" lay-verify="required" lay-reqtext=""
+                                placeholder="" class="layui-input">
+                        </div> -->
 
                         <!-- <label class="layui-form-label">客户名</label>
                         <div class="layui-input-inline">
@@ -126,9 +126,9 @@
                             <input id="DeliveryTellNo" type="text" name="DeliveryTellNo" lay-verify="required"
                                 lay-reqtext="" placeholder="" class="layui-input">
                         </div> -->
-                        <label class="layui-form-label">发货日期</label>
+                        <label class="layui-form-label">出库日期</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="DeliveryDate" id="DeliveryDate" placeholder="选择发货日期"
+                            <input type="text" name="DeliveryDate" id="DeliveryDate" placeholder="选择出库日期"
                                 class="layui-input">
                         </div>
                         <!-- <label class="layui-form-label">库位选择</label>
@@ -141,7 +141,7 @@
                         <div class="layui-form-mid layui-word-aux">动态选择库位(为空则自动分配)</div> -->
                     </div>
 
-                    <button class="layui-btn" id="qrbd" lay-submit lay-filter="example1">成品发货备料确认</button>
+                    <button class="layui-btn" id="qrbd" lay-submit lay-filter="example1">出库备料确认</button>
                 </form>
 
 
@@ -158,7 +158,7 @@
                     </script>
 
             <script type="text/html" id="currentTableBarNew">
-                        <a class="layui-btn layui-btn-xs layui-btn data-count-delete" lay-event="add">添加发货清单</a>
+                        <a class="layui-btn layui-btn-xs layui-btn data-count-delete" lay-event="add">添加出库清单</a>
                         
                     </script>
             <!-- </div>
@@ -221,10 +221,10 @@
             </div>
             <!-- </div> -->
 
-            <label class="layui-form-label required" style="text-align: right;">领用数量：</label>
+            <label class="layui-form-label required" style="text-align: right;">出库数量：</label>
             <div class="layui-input-block">
-                <input id="ItemDetailQty" type="text" name="ItemDetailQty" value="" lay-verify="sl" lay-reqtext="输入领用数量"
-                    placeholder="输入领用数量" class="layui-input">
+                <input id="ItemDetailQty" type="text" name="ItemDetailQty" value="" lay-verify="sl" lay-reqtext="输入出库数量"
+                    placeholder="输入出库数量" class="layui-input">
             </div>
             <!--       "PickID": "LY0001",     //领用单号
                              "Picker": "老王",   // 领用人员
@@ -357,7 +357,7 @@
                 let data2 = form.val("example_OLD")
 
                 $.ajax({
-                    url: http1 + "GetProductInfoQueryList",
+                    url: http1 + "GetItemInfoQueryList",
 
                     type: "post",
 
@@ -368,14 +368,14 @@
                     success: function (res) {
 
                         // if (data2.ItemID == "") {
-                        var select1 = $("#CustomerItemID");//TypeID为HTML标签ID
+                        var select1 = $("#ItemID");//TypeID为HTML标签ID
 
                         select1.empty();
-                        let result = res.data.CustomerItemIDList
+                        let result = res.data.ItemIDList
                         select1.append(new Option("", ""));
                         $.each(result, function (index, item) {
                             console.log(index, item)
-                            select1.append(new Option(item.CustomerItemID, item.CustomerItemID));// 下拉菜单里添加元素
+                            select1.append(new Option(item.ItemID, item.ItemID));// 下拉菜单里添加元素
                         });
 
                         layui.form.render("select");
@@ -428,7 +428,7 @@
                 let data2 = form.val("example_OLD")
 
                 $.ajax({
-                    url: http1 + "GetProductInfoQueryList",
+                    url: http1 + "GetItemInfoQueryList",
 
                     type: "post",
 
@@ -439,14 +439,14 @@
                     success: function (res) {
 
                         // if (key != "1") {
-                        var select1 = $("#CustomerItemID");//TypeID为HTML标签ID
-                        let selectVal1 = $("#CustomerItemID").val();
+                        var select1 = $("#ItemID");//TypeID为HTML标签ID
+                        let selectVal1 = $("#ItemID").val();
                         select1.empty();
-                        let result = res.data.CustomerItemIDList
+                        let result = res.data.ItemIDList
                         select1.append(new Option("", ""));
                         $.each(result, function (index, item) {
                             console.log(index, item)
-                            select1.append(new Option(item.CustomerItemID, item.CustomerItemID));// 下拉菜单里添加元素
+                            select1.append(new Option(item.ItemID, item.ItemID));// 下拉菜单里添加元素
                         });
                         if (selectVal1 != "") {
                             select1.find("option[value=" + selectVal1 + "]").attr("selected", true);
@@ -519,7 +519,7 @@
             }
 
 
-            form.on('select(CustomerItemID)', function (data) {
+            form.on('select(ItemID)', function (data) {
 
                 threeLds("1")
                 return false; // 阻止默认 form 跳转
@@ -644,7 +644,7 @@
 
                     var index = layer.open({
                         type: 1,
-                        title: "添加发货清单" //不显示标题栏
+                        title: "添加出库清单" //不显示标题栏
                         ,
                         // closeBtn: false,
                         area: '500px;',
@@ -1077,7 +1077,7 @@
                     // toolbar: '#toolbarDemo',
                     method: "post",
                     // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    url: http1 + "GetLocationProductInfoDetailFuzzyForOut",
+                    url: http1 + "GetLocationItemInfoDetailFuzzyForOut",
                     // headers: {"token": "111"},
                     where: key,
                     cellMinWidth: 80,
@@ -1319,13 +1319,13 @@
             }
 
             //根据产品类型，
-            form.on('select(ItemID)', function (data) {
+            // form.on('select(ItemID)', function (data) {
 
-                // $("#OutOrderID").val(data.value)
-                // alert(111)
-                lh(data.value)
-                return false; // 阻止默认 form 跳转
-            });
+            //     // $("#OutOrderID").val(data.value)
+            //     // alert(111)
+            //     lh(data.value)
+            //     return false; // 阻止默认 form 跳转
+            // });
 
 
 
@@ -1353,7 +1353,7 @@
                 // data.push({"ce":JSON.stringify(dataz)})
                 // layer.alert(data);
                 $.ajax({
-                    url: http1 + "SubmitProductDeliveryInfo",
+                    url: http1 + "SubmitItemDeliveryInfo",
 
                     type: "post",
 
@@ -1449,7 +1449,7 @@
                 // data.push({"ce":JSON.stringify(dataz)})
                 // layer.alert(data);
                 $.ajax({
-                    url: http1 + "SubmitProductDeliveryInfo",
+                    url: http1 + "SubmitItemDeliveryInfo",
 
                     type: "post",
 
