@@ -57,17 +57,17 @@
                                 </div>
                             </div>
                             <div class="layui-inline">
-                                <label class="layui-form-label">客户号</label>
+                                <label class="layui-form-label">物资编号</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="CustomerName" autocomplete="off" class="layui-input">
+                                    <input type="text" name="ItemID" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
 
-                            <div class="layui-inline" style="display: none;">
-                                <label class="layui-form-label">发货类型</label>
+                            <div class="layui-inline" >
+                                <label class="layui-form-label">物资名称</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="DeliveryType" autocomplete="off" class="layui-input"
-                                        value="成品发货">
+                                    <input type="text" name="ItemName" autocomplete="off" class="layui-input"
+                                        value="">
                                 </div>
                             </div>
 
@@ -239,7 +239,7 @@
                 toolbar: '#toolbarDemo',
                 method: "post",
                 // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                url: http1 + "GetDeliveryInfoWithDetailList",
+                url: http1 + "GetLocationItemOutputInfo",
 
                 contentType: 'application/json,charset=utf-8',
                 parseData: function (res) { //res 即为原始返回的数据
@@ -254,7 +254,9 @@
 
                 },
                 where: {
-                    'DeliveryType': "成品发货"
+                    "DateFrom": "1999-01-18 00:00:00",
+                    "DateTo": "2099-11-23 00:00:00",
+
                 },
                 defaultToolbar: ['filter', 'exports', 'print', {
                     title: '提示',
@@ -264,7 +266,7 @@
 
                 cols: [[
                     //     "DeliveryID": "SD20240323001",
-                    // "SaleDeliveryType": "成品发货",
+                    // "SaleDeliveryType": "成品出库",
                     // "SaleDeliveryStatus": "等待出库",
                     // "IsAccessory": null,
                     // "CustomerName": "老王啊",
@@ -279,75 +281,34 @@
                     // "CreateDate": "1900-01-01 00:00:00",
 
                     {
-                        field: 'DeliveryID', width: 140, title: '发货单号',
+                        field: 'JobOutputLineID', width: 140, title: '出库单号',
                         sort: true
                     },
-
-                    //                     BlankInputStatus
-                    // :
-                    //                     "粗车件"
-                    // DeliveryDate
-                    // :
-                    //                     "2024-07-26 00:00:00"
-                    // DeliveryID
-                    // :
-                    //                     "ML20240726001"
-                    // DeliveryLineDetailID
-                    // :
-                    //                     "FHL0000002039"
-                    // DeliveryStatus
-                    // :
-                    //                     "出库完毕"
-                    // DeliveryType
-                    // :
-                    //                     "毛坯领用"
-                    // FurnaceID
-                    // :
-                    //                     "456789"
-                    // HeatTreatmentLotNo
-                    // :
-                    //                     "AT1234"
-                    // HeatTreatmentVendor
-                    // :
-                    //                     "AS"
-                    // ItemDetailQty
-                    // :
-                    //                     1
-                    // ItemID
-                    // :
-                    //                     "39655M"
-                    // ItemName
-                    // :
-                    { field: 'DeliveryType', width: 140, title: '发货类型' },
-                    { field: 'BlankInputStatus', width: 140, title: '产品发货状态' },
+                    { field: 'JobOutputType', minWidth: 200, title: '出库类型' },
+                    { field: 'JobOutputLineStatus', width: 140, title: '产品出库状态' },
                     { field: 'ItemID', width: 140, title: '物料号' },
-                    { field: 'ItemDetailQty', width: 140, title: '发货数量' },
-                    { field: 'HeatTreatmentVendor', width: 140, title: '热处理厂商' },
+                    { field: 'ItemQty', width: 140, title: '出库数量' },
+                    { field: 'HeatTreatmentVendor', width: 200, title: '热处理厂商' },
                     { field: 'HeatTreatmentLotNo', width: 140, title: '热处理批号' },
-                    { field: 'DeliveryStatus', width: 140, title: '发货状态' },
-                    { field: 'CustomerName', width: 140, title: '客户' },
-                    { field: 'DeliveryAddress', width: 140, title: '地址' },
-                    { field: 'DeliveryTellNo', width: 140, title: '电话' },
-                    { field: 'DeliveryDate', width: 240, title: '发货时间' },
-                    { field: 'Creator', width: 140, title: '发货人' },
-                    {
-                        field: 'CreateDate', minWidth: 140, title: '创建时间',
-                        sort: true
-                    },
 
-                    {
-                        title: '操作',
-                        minWidth: 150,
-                        templet: '#currentTableBar',
-                        fixed: "right",
-                        align: "center",
+     
+                    { field: 'StartDate', minWidth: 240, title: '出库时间' },
+                    { field: 'Creator', width: 140, title: '出库人' },
+              
 
-                        templet: function (d) {
+                    // {
+                    //     title: '操作',
+                    //     minWidth: 150,
+                    //     templet: '#currentTableBar',
+                    //     fixed: "right",
+                    //     align: "center",
 
-                            return '<a class="layui-btn layui-btn-xs data-count-edit" lay-event="out">打印发货单</a>'
+                    //     templet: function (d) {
 
-                        }
-                    }
+                    //         return '<a class="layui-btn layui-btn-xs data-count-edit" lay-event="out">打印出库单</a>'
+
+                    //     }
+                    // }
                 ]],
                 done: function (res, currentCount) {
                     // soulTable.render(this)
@@ -370,17 +331,27 @@
 
             // 监听搜索操作
             form.on('submit(data-search-btn)', function (data) {
-                var result = JSON.stringify(data.field);
+                var result = data.field;
                 // layer.alert(result, {
                 //     title: '最终的搜索信息'
                 // });
-
+                let cans1 = (result.date).split(" ")[0]
+                cans1 = cans1.replace(/^\s*/g, '')
+                let cans2 = (result.date).split(" ")[2]
+                cans2 = cans2.replace(/^\s*/g, '')
+                console.log(result)
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // DateFrom日期从2022 - 11 - 01
+                // DateTo日期到2022 - 11 - 12
+                result.DateFrom=cans1
+                result.DateTo=cans2
                 //执行搜索重载
                 table.reload('currentTableId', {
                     page: {
                         curr: 1
                     }
-                    , where: data.field
+                    , where: result
                 }, 'data');
 
                 return false;
