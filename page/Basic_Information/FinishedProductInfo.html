@@ -32,7 +32,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">成品型号</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="BlankMPID" autocomplete="off" class="layui-input">
+                                    <input type="text" name="ProductMPID" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <!-- <div class="layui-inline">
@@ -104,11 +104,7 @@
 
                 </select>
             </div>
-            <!-- <label class="layui-form-label " style="text-align: right;">客户图号：</label>
-            <div class="layui-input-block">
-                <input id="CustomerMPID" type="text" name="CustomerMPID" value="" lay-reqtext="输入客户图号" placeholder="输入客户图号"
-                    class="layui-input">
-            </div> -->
+         
 
 
             <label class="layui-form-label " style="text-align: right;">毛坯图号：</label>
@@ -119,7 +115,11 @@
 
                 </select>
             </div>
-
+            <label class="layui-form-label " style="text-align: right;">计量单位：</label>
+            <div class="layui-input-block">
+                <input id="ItemUnit" type="text" name="ItemUnit" value="" lay-reqtext="输入计量单位" placeholder="输入计量单位"
+                    class="layui-input">
+            </div>
             <label class="layui-form-label " style="text-align: right;">备注：</label>
             <div class="layui-input-block">
                 <textarea id="Remark" name="Remark" placeholder="" class="layui-textarea"></textarea>
@@ -166,7 +166,11 @@
 
                 </select>
             </div>
-
+            <label class="layui-form-label " style="text-align: right;">计量单位：</label>
+            <div class="layui-input-block">
+                <input id="ItemUnit" type="text" name="ItemUnit" value="" lay-reqtext="输入计量单位" placeholder="输入计量单位"
+                    class="layui-input">
+            </div>
             <label class="layui-form-label " style="text-align: right;">备注：</label>
             <div class="layui-input-block">
                 <textarea id="Remark" name="Remark" placeholder="" class="layui-textarea"></textarea>
@@ -426,7 +430,7 @@
                     // { field: 'DeliveryBoxPerQty', minwidth: 140, title: '每箱数量' },
                     // { field: 'PartitionModel', minwidth: 140, title: '隔板型号' },
                     // { field: 'PartitionModelPerQty', minwidth: 140, title: '每箱隔板数量' },
-                    // { field: 'PalletType', minwidth: 140, title: '托盘类型' },
+                    { field: 'ItemUnit', minwidth: 140, title: '计量单位' },
                     { field: 'Remark', minwidth: 140, title: '备注' },
 
                     {
@@ -473,9 +477,7 @@
                     page: {
                         curr: 1
                     },
-                    where: {
-                        "ItemID": data.field.ItemID
-                    }
+                    where: data.field
                 }, 'data');
 
                 return false;
