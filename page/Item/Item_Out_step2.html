@@ -74,7 +74,11 @@
 
                             </select>
                         </div>
-
+                        <label class="layui-form-label">领用识别码 </label>
+                        <div class="layui-input-inline">
+                            <input id="OutBlankCode" type="text" name="OutBlankCode" lay-verify="required"
+                                lay-reqtext="" placeholder="" class="layui-input">
+                        </div>
 
 
                     </div>
@@ -1125,6 +1129,8 @@
                         { field: 'CreateDate', Width: "100", title: '入库时间', align: "center" },
 
                         { field: 'StorageLineID', Width: "100", title: '库存编号', align: "center", },
+
+                        { field: 'OutBlankCode', Width: "100", title: '领用识别码', align: "center", },
 
                         { title: '操作', minWidth: "100", templet: '#currentTableBarNew', fixed: "right", align: "center" }
                     ]
