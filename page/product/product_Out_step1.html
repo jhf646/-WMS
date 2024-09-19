@@ -370,17 +370,27 @@
 
             // 监听搜索操作
             form.on('submit(data-search-btn)', function (data) {
-                var result = JSON.stringify(data.field);
+                var result = data.field;
                 // layer.alert(result, {
                 //     title: '最终的搜索信息'
                 // });
-
+                let cans1 = (result.date).split(" ")[0]
+                cans1 = cans1.replace(/^\s*/g, '')
+                let cans2 = (result.date).split(" ")[2]
+                cans2 = cans2.replace(/^\s*/g, '')
+                console.log(result)
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // DateFrom日期从2022 - 11 - 01
+                // DateTo日期到2022 - 11 - 12
+                result.DateFrom = cans1
+                result.DateTo = cans2
                 //执行搜索重载
                 table.reload('currentTableId', {
                     page: {
                         curr: 1
                     }
-                    , where: data.field
+                    , where: result
                 }, 'data');
 
                 return false;
@@ -549,7 +559,7 @@
                         ,
                         content: 'PSL.html',
 
-                        yes: function (index,layero) {
+                        yes: function (index, layero) {
                             console.log(index);
                             console.log(layero);
                             // alert("打印预览");
