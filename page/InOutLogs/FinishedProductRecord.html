@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <link rel="stylesheet" href="../../lib/layui-soul-table/soulTable.css" media="all">
+</head>
+
+<style>
+    .laytable-cell-checkbox .layui-disabled.layui-form-checked i {
+        background: #fff !important;
+    }
+
+    .layui-table-cell {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <!-- "InOrderLineID": "RKL0000000032",
+                            "InOrderID": "RKH00000024",    
+                            "InDateFrom": "1900-01-01 00:00:00",
+                            "InDateTo": "2900-01-01 00:00:00",
+                            "ItemLotNo": "1",
+                            "PalletID": "BOX10001",
+                            "ItemID": "1001" -->
+                            <div class="layui-inline">
+                                <label class="layui-form-label">日期选择</label>
+
+                                <div class="layui-input-inline">
+                                    <input type="text" name="date" autocomplete="off" id="date" class="layui-input"
+                                        placeholder="开始日期">
+                                </div>
+                            </div>
+                            <!-- 
+                            "InPreformID": "" , //毛坯入库编号
+                            "OutPreformID": ""   ,//毛坯领用单 编号
+                            "OutPreformCode": "#MC00000020#MC00000021" , //毛坯领用 组合识别码
+                            "PreformID": "234"   //生产图号
+                             -->
+                            <div class="layui-inline">
+                                <label class="layui-form-label">生产图号</label>
+                                <div class="layui-input-inline">
+                                    <select id="ItemID" name="ItemID" lay-filter="ItemID" lay-search>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">来料状态</label>
+                                <div class="layui-input-inline">
+                                    <select id="BlankInputStatus" name="BlankInputStatus" lay-filter="BlankInputStatus"
+                                        lay-search>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">炉号</label>
+                                <div class="layui-input-inline">
+                                    <select id="FurnaceID" name="FurnaceID" lay-filter="FurnaceID" lay-search>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工单</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="WorkID" autocomplete="off" class="layui-input" value="">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">出入单号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="JobHeadID" autocomplete="off" class="layui-input" value="">
+                                </div>
+                            </div>
+                            <!-- <div class="layui-inline" style="display: none;">
+                                <label class="layui-form-label">发货类型</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="DeliveryType" autocomplete="off" class="layui-input"
+                                        value="毛坯领用">
+                                </div>
+                            </div> -->
+
+
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <!-- <button class="layui-btn layui-btn-sm" lay-event="CK">批量出库</button> -->
+                <!-- <button class="layui-btn layui-btn-sm data-add-btn"> 批量出库 </button> -->
+            </div>
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+            <script type="text/html" id="checkbd">
+                <!-- {{#  if (d.stockStatus!== "空闲"){ }}
+                <input type="checkbox" name="siam_one" title="" lay-skin="primary" data-id = "{{ d.LocationID }}">
+                {{#  } }} -->
+            </script>
+            <script type="text/html" id="currentTableBar">
+                <!-- <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">出库</a> -->
+            <!-- <a class="layui-btn layui-btn-xs data-count-edit" lay-event="out">出库</a> -->
+            <!-- <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a> -->
+            </script>
+        </div>
+    </div>
+    <script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../soulTable.js" charset="utf-8"></script>
+    <script src="../soulTable.slim.js"></script>
+    <script src="../tableChild.js"></script>
+    <script src="../tableMerge.js"></script>
+    <script src="../tableFilter.js"></script>
+    <script src="../excel.js"></script>
+    <script src="../../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', 'laydate', 'soulTable', 'element'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+            soulTable = layui.soulTable;
+            tableChild = layui.tableChild;
+            element = layui.element;
+
+
+            //select 可编辑 可模糊
+            readyselect()
+            function readyselect() {
+
+                threeLd()
+            }
+
+
+
+            //三联动开始=====================================================================================
+            function threeLd() {
+
+                let data2 = form.val("example_OLD")
+
+                $.ajax({
+                    url: http1 + "GetBlankInfoQueryList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        // if (data2.ItemID == "") {
+                        var select1 = $("#ItemID");//TypeID为HTML标签ID
+
+                        select1.empty();
+                        let result = res.data.ItemIDList
+                        select1.append(new Option("", ""));
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select1.append(new Option(item.ItemID, item.ItemID));// 下拉菜单里添加元素
+                        });
+
+                        layui.form.render("select");
+
+
+                        // if (data2.BlankInputStatus == "") {
+                        var select2 = $("#BlankInputStatus");//TypeID为HTML标签ID
+
+                        select2.empty();
+                        let result2 = res.data.BlankInputStatusList
+                        select2.append(new Option("", ""));
+                        $.each(result2, function (index, item) {
+                            console.log(index, item)
+                            select2.append(new Option(item.BlankInputStatus, item.BlankInputStatus));// 下拉菜单里添加元素
+                        });
+
+                        layui.form.render("select");
+
+
+                        // }
+                        // if (data2.FurnaceID == "") {
+                        var select3 = $("#FurnaceID");//TypeID为HTML标签ID
+
+                        select3.empty();
+                        let result3 = res.data.FurnaceIDList
+                        select3.append(new Option("", ""));
+                        $.each(result3, function (index, item) {
+                            console.log(index, item)
+                            select3.append(new Option(item.FurnaceID, item.FurnaceID));// 下拉菜单里添加元素
+                        });
+
+                        layui.form.render("select");
+
+                        // }
+
+
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+
+            }
+
+            function threeLds(key) {
+
+                let data2 = form.val("example_OLD")
+
+                $.ajax({
+                    url: http1 + "GetBlankInfoQueryList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        // if (key != "1") {
+                        var select1 = $("#ItemID");//TypeID为HTML标签ID
+                        let selectVal1 = $("#ItemID").val();
+                        select1.empty();
+                        let result = res.data.ItemIDList
+                        select1.append(new Option("", ""));
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select1.append(new Option(item.ItemID, item.ItemID));// 下拉菜单里添加元素
+                        });
+                        if (selectVal1 != "") {
+                            select1.find("option[value=" + selectVal1 + "]").attr("selected", true);
+                        }
+                        layui.form.render("select");
+
+
+
+                        // }
+                        // if (key != "2"&&$("#BlankInputStatus").val()!="") {
+                        var select2 = $("#BlankInputStatus");//TypeID为HTML标签ID
+                        let selectVal2 = $("#BlankInputStatus").val();
+                        select2.empty();
+                        let result2 = res.data.BlankInputStatusList
+                        select2.append(new Option("", ""));
+                        $.each(result2, function (index, item) {
+                            console.log(index, item)
+                            select2.append(new Option(item.BlankInputStatus, item.BlankInputStatus));// 下拉菜单里添加元素
+                        });
+                        if (selectVal2 != "") {
+                            select2.find("option[value=" + selectVal2 + "]").attr("selected", true);
+                        }
+                        layui.form.render("select");
+
+
+
+                        // }
+                        // if (key != "3") {
+                        var select3 = $("#FurnaceID");//TypeID为HTML标签ID
+                        let selectVal3 = $("#FurnaceID").val();
+                        select3.empty();
+                        let result3 = res.data.FurnaceIDList
+                        select3.append(new Option("", ""));
+                        $.each(result3, function (index, item) {
+                            console.log(index, item)
+                            select3.append(new Option(item.FurnaceID, item.FurnaceID));// 下拉菜单里添加元素
+                        });
+                        if (selectVal3 != "") {
+                            select3.find("option[value=" + selectVal3 + "]").attr("selected", true);
+                        }
+
+                        layui.form.render("select");
+
+
+
+                        // if (selectVal1 != "") {
+                        //     select.find("option[value=" + selectVal1 + "]").attr("selected", true);
+                        // }
+
+                        // if (selectVal2 != "") {
+                        //     select.find("option[value=" + selectVal2 + "]").attr("selected", true);
+                        // }
+
+                        // if (selectVal3 != "") {
+                        //     select.find("option[value=" + selectVal3 + "]").attr("selected", true);
+                        // }
+
+                        // }
+
+
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+
+            }
+
+
+            form.on('select(ItemID)', function (data) {
+
+                threeLds("1")
+                return false; // 阻止默认 form 跳转
+            });
+
+            form.on('select(BlankInputStatus)', function (data) {
+
+                threeLds("2")
+                return false; // 阻止默认 form 跳转
+            });
+
+            form.on('select(FurnaceID)', function (data) {
+
+                threeLds("3")
+                return false; // 阻止默认 form 跳转
+            });
+            //三联动结束=========================================================================================
+
+
+
+
+            function getRecentDay(day) {
+                var today = new Date();
+                var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+                today.setTime(targetday_milliseconds);
+                var tYear = today.getFullYear();
+                var tMonth = today.getMonth();
+                var tDate = today.getDate();
+                var tHours = today.getHours();
+                var tMinutes = today.getMinutes();
+                var tSeconds = today.getSeconds();
+                tMonth = doHandleMonth(tMonth + 1);
+                tDate = doHandleMonth(tDate);
+                tHours = doHandleMonth(tHours);
+                tMinutes = doHandleMonth(tMinutes);
+                tSeconds = doHandleMonth(tSeconds);
+
+                return tYear + "-" + tMonth + "-" + tDate
+            }
+
+            function doHandleMonth(month) {
+                var m = month;
+                if (month.toString().length == 1) {
+                    m = "0" + month;
+                }
+                return m;
+            }
+
+            laydate.render({
+                elem: '#date',
+                type: 'date',
+                range: '~' //或 range: '~' 来自定义分割字符
+                ,
+                value: getRecentDay(-30) + ' ~ ' + getRecentDay(-1),
+                // value: "2021-12-06 ~ 2021-12-31",
+
+            });
+            laydate.render({
+                elem: '#date1'
+                , type: 'datetime'
+                , range: '~' //或 range: '~' 来自定义分割字符
+            });
+
+
+            table.render({
+                elem: '#currentTableId',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                url: http1 + "GetProductInputOutputInfoList",
+
+                contentType: 'application/json,charset=utf-8',
+                // where: {
+
+                // },
+                parseData: function (res) { //res 即为原始返回的数据
+                    console.log(res)
+                    // "data": res.listcount == "0" ? "" : JSON.parse(res.content)  判断有没有数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": res.count,
+                        "data": res.data
+                    }
+
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+
+                cols: [[
+                    //     "OutOrderLineID": "CKL0000000010",
+                    // "OutOrderNo": "RKH00000023",
+                    // "OutOrderType": "普通出库",
+                    // "OutOrderStatus": "已完成",
+                    // "StorageLineID": "KC00000028",
+                    // "PalletID": "BOX100001",
+                    // "SourceID": null,
+                    // "SourceType": null,
+                    // "ItemID": "WL1001",
+                    // "ItemLotNo": "1",
+                    // "ItemQty": 12,
+                    // "LocationIDFrom": "1-01-01",
+                    // "LocationIDTo": null,
+                    // "Creator": "2001",
+                    // "CreateDate": "2023-12-01 15:20:34",
+                    // "StartDate": "2023-12-01 15:20:34",
+                    // "FinishDate": "2023-12-01 15:20:34",
+                    // "SortValue": 0,
+                    // "ReMark": null
+                    // "InPreformID": "" , //毛坯入库编号
+                    //                 "OutPreformID": ""   ,//毛坯领用单 编号
+                    //                 "OutPreformCode": "#MC00000020#MC00000021" , //毛坯领用识别码
+                    //                 "PreformID": "234"   //生产图号
+                    {
+                        field: 'JobHeadID', width: 140, title: '出入单号',
+                        sort: true
+                    },
+
+                    { field: 'JobType', width: 140, title: '操作类型' },
+                    { field: 'ItemName', width: 140, title: '名称' },
+                    { field: 'ItemID', width: 100, title: '生产图号' },
+                    { field: 'FurnaceID', width: 100, title: '炉号' },
+                    { field: 'ItemQty', width: 100, title: '数量' },
+                    { field: 'ItemUnit', width: 100, title: '计量单位' },
+                    { field: 'Material', width: 140, title: '材质' },
+                    { field: 'IsVisualJob', width: 140, title: '是否虚拟库' },
+                    { field: 'HeatTreatmentVendor', width: 100, title: '热处理厂商' },
+                    { field: 'HeatTreatmentLotNo', width: 100, title: '热处理批号' },
+
+                    { field: 'BlankInputStatus', width: 100, title: '来源状态' },
+                    { field: 'OutBlankCode', width: 100, title: '毛坯领用单号' },
+                    { field: 'ProductDate', width: 140, title: '生产日期' },
+                    {
+                        field: 'CreateDate', minWidth: 140, title: '操作日期',
+                        sort: true
+                    },
+
+                    // { field: 'LocationIDFrom', title: '来源库位编号', minWidth: 100 },
+                    // {
+                    //    title: '操作',
+                    //    minWidth: 50,
+                    //    templet: '#currentTableBar',
+                    //    fixed: "right",
+                    //    align: "center",
+
+                    //    templet: function (d) {
+
+                    //           return '<a class="layui-btn layui-btn-xs data-count-edit" lay-event="out">出库</a>'
+
+                    //   }
+                    // }
+                ]],
+                done: function (res, currentCount) {
+                    // soulTable.render(this)
+                    tableChild.render(this)
+                },
+
+                limit: 10
+                , page: false
+            });
+            form.on("checkbox(siam_all)", function () {
+                var status = $(this).prop("checked");
+                $.each($("input[name=siam_one]"), function (i, value) {
+                    $(this).prop("checked", status);
+                });
+                form.render();
+            });
+
+
+
+
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function (data) {
+                var result = data.field;
+                // layer.alert(result, {
+                //     title: '最终的搜索信息'
+                // });
+                let cans1 = (result.date).split(" ")[0]
+                cans1 = cans1.replace(/^\s*/g, '')
+                let cans2 = (result.date).split(" ")[2]
+                cans2 = cans2.replace(/^\s*/g, '')
+                console.log(result)
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // DateFrom日期从2022 - 11 - 01
+                // DateTo日期到2022 - 11 - 12
+                result.DateFrom = cans1
+                result.DateTo = cans2
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: result
+                }, 'data');
+
+                return false;
+            });
+
+            // 批量出库
+
+            table.on('toolbar(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'CK') {
+                    var ids = [];
+
+                    var alertz = []
+
+                    $.each($("input[name=siam_one]:checked"), function (i, value) {
+
+                        ids[i] = { "LocationID": $(this).attr("data-id") }  // 如果需要获取其他的值 需要在模板中把值放到属性中 然后这里就可以拿到了
+
+                        alertz[i] = $(this).attr("data-id")
+
+                    });
+
+                    <!-- wms/createoutlistjob -->
+
+                    layer.confirm('是否确认' + JSON.stringify(alertz) + '库位出库?', function (index) {
+
+                        $.ajax({
+                            url: http1 + "wms/createoutlistjob",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(ids),
+                            success: function (data) {
+
+                                if (data.code == 200) {
+
+                                    layer.msg(data.msg, function () { });
+
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+
+                                        }
+                                    }, 'data');
+
+                                } else {
+
+                                    layer.msg(data.msg, function () { });
+
+                                }
+                            },
+                            error: function () {
+
+                                layer.msg("提交失败", function () { });
+
+                            }
+                        })
+
+                    });
+
+
+
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+                }
+
+
+            });
+            $(".data-add-btn").on("click", function () {
+
+                var ids = [];
+
+                var alertz = []
+
+                $.each($("input[name=siam_one]:checked"), function (i, value) {
+
+                    ids[i] = { "LocationID": $(this).attr("data-id") }  // 如果需要获取其他的值 需要在模板中把值放到属性中 然后这里就可以拿到了
+
+                    alertz[i] = $(this).attr("data-id")
+
+                });
+
+
+                layer.confirm('是否确认' + JSON.stringify(alertz) + '库位出库?', function (index) {
+
+                    $.ajax({
+                        url: http1 + "wms/createoutlistjob",
+                        type: "post",
+                        dataType: 'json',
+                        data: JSON.stringify(ids),
+                        success: function (data) {
+
+                            if (data.code == 200) {
+
+                                layer.msg(data.msg, function () { });
+
+                                table.reload('currentTableId', {
+                                    page: {
+                                        curr: 1
+                                    },
+                                    where: {
+
+                                    }
+                                }, 'data');
+
+                            } else {
+
+                                layer.msg(data.msg, function () { });
+
+                            }
+                        },
+                        error: function () {
+
+                            layer.msg("提交失败", function () { });
+
+                        }
+                    })
+
+                });
+
+
+
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+                return false;
+            });
+
+            // 监听删除操作
+            $(".data-delete-btn").on("click", function () {
+
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(currentTableFilter)', function (obj) {
+                console.log(obj)
+                var checkStatus = table.checkStatus('tableId')
+                    , dataz = checkStatus.data;
+                layer.alert(JSON.stringify(dataz));
+            });
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'out') {
+
+
+
+                    layer.confirm('是否确认' + data.LocationID + '库位出库?', function (index) {
+
+                        console.log(data.UserID)
+                        console.log(index)
+                        let data1 = {
+                            "Creator": "P001",
+                            "PalletID": data.PalletID,
+                            "LocationID": data.LocationID
+                        }
+                        $.ajax({
+                            url: http1 + "SubmitOutOrderInfo",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(data1),
+                            success: function (data) {
+
+                                if (data.code == 200) {
+
+                                    layer.msg(data.msg, function () { });
+
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+
+                                        }
+                                    }, 'data');
+                                } else {
+
+                                    layer.msg(data.msg, function () { });
+
+                                }
+                            },
+                            error: function () {
+
+                                layer.msg("提交失败", function () { });
+
+                            }
+                        })
+                    });
+
+
+
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

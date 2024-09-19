@@ -368,7 +368,7 @@
                     // },
                     {
                         title: '毛坯领用查询'
-                        , href: "page/MPCK.html"
+                       , href: "page/blank/Blank_Out_query.html"
                         , icon: "fa fa-edit"
                         , target: "_self"
                         , id: 124
@@ -383,31 +383,33 @@
                         , type: 'page', checked: false, field: ''
                         , spread: true
                     }]
-                }, {
-                    title: '辅料管理'
-                    , href: "page/11.html"
-                    , icon: "fa fa-edit"
-                    , target: "_self"
-                    , id: 18
-                    , type: 'page', checked: false, field: 'name11'
-                    , spread: true
-                    , children: [{
-                        title: '辅料入库'
-                        , href: "page/Acc/Acc_In_out.html"
-                        , icon: "fa fa-edit"
-                        , target: "_self"
-                        , id: 181
-                        , type: 'page', checked: false, field: ''
-                    }, {
-                        title: '辅料领用查询'
-                        , href: "page/Acc/Acc_search.html"
-                        , icon: "fa fa-edit"
-                        , target: "_self"
-                        , id: 182
-                        , type: 'page', checked: false, field: ''
-                        , spread: true
-                    }]
-                }, {
+                },
+                //  {
+                //     title: '辅料管理'
+                //     , href: "page/11.html"
+                //     , icon: "fa fa-edit"
+                //     , target: "_self"
+                //     , id: 18
+                //     , type: 'page', checked: false, field: 'name11'
+                //     , spread: true
+                //     , children: [{
+                //         title: '辅料入库'
+                //         , href: "page/Acc/Acc_In_out.html"
+                //         , icon: "fa fa-edit"
+                //         , target: "_self"
+                //         , id: 181
+                //         , type: 'page', checked: false, field: ''
+                //     }, {
+                //         title: '辅料领用查询'
+                //         , href: "page/Acc/Acc_search.html"
+                //         , icon: "fa fa-edit"
+                //         , target: "_self"
+                //         , id: 182
+                //         , type: 'page', checked: false, field: ''
+                //         , spread: true
+                //     }]
+                // }, 
+                {
                     title: '成品管理'
                     , href: "page/11.html"
                     , icon: "fa fa-edit"
@@ -552,7 +554,7 @@
                     , type: 'page', checked: false, field: 'name11'
                     , spread: true
                     , children: [{
-                        title: '出入库记录'
+                        title: '出入库柱状图'
                         , href: "page/sealed_report.html"
                         , icon: "fa fa-database"
                         , target: "_self"
@@ -562,7 +564,7 @@
 
                     }]
                 }, {
-                    title: '日志'
+                    title: '出入库记录'
                     , href: "page/11.html"
                     , icon: "fa fa-file-text"
                     , target: "_self"
@@ -570,19 +572,27 @@
                     , type: 'page', checked: false, field: 'name11'
                     , spread: true
                     , children: [{
-                        title: '入库日志'
-                        , href: "page/KCRC.html"
+                        title: '毛坯记录'
+                        , href: "page/InOutLogs/RawMaterialRecord.html"
                         , icon: "fa fa-file-text"
                         , target: "_self"
                         , id: 171
                         , type: 'page', checked: false, field: ''
                         , spread: true
                     }, {
-                        title: '成品发货日志'
-                        , href: "page/KCCK.html"
+                        title: '成品记录'
+                        , href: "page/InOutLogs/FinishedProductRecord.html"
                         , icon: "fa fa-file-text"
                         , target: "_self"
                         , id: 172
+                        , type: 'page', checked: false, field: ''
+                        , spread: true
+                    }, {
+                        title: '半成品记录'
+                        , href: "page/InOutLogs/SemiFinishedProductRecord.html"
+                        , icon: "fa fa-file-text"
+                        , target: "_self"
+                        , id: 173
                         , type: 'page', checked: false, field: ''
                         , spread: true
                     }]
