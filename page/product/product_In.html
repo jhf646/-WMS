@@ -1096,8 +1096,13 @@
             $("#Query_GD").on("click", function () {
 
 
+                // $('#PZM input[type=text]').val('');
+                // $('#PZM select').val('');
+
 
                 let data2 = { "WorkID": $('input[name="WorkID"]').val() }
+
+                let key =$('input[name="WorkID"]').val()
 
                 $.ajax({
 
@@ -1112,13 +1117,28 @@
                     success: function (res) {
 
                         console.log(res)
-                        //表单获取
-                        form.val('PZM', res.data)
-                        //表格重载
-                        // tableCZ()
-                        $("input[name='ItemID']").val(res.data.ProductMPID)
-                        $("input[name='CustomerItemID']").val(res.data.CustomerMPID)
-                        $("input[name='CurrentItemQty']").val(res.data.ItemInQty)
+
+                        if (res.code == 200) {
+                            //表单获取
+                            form.val('PZM', res.data)
+                            //表格重载
+                            // tableCZ()
+                            $("input[name='ItemID']").val(res.data.ProductMPID)
+                            $("input[name='CustomerItemID']").val(res.data.CustomerMPID)
+                            $("input[name='CurrentItemQty']").val(res.data.ItemInQty)
+                        } else {
+
+
+                            $('#PZM input[type=text]').val('');
+                            $('#PZM select').val('');
+
+                            $('input[name="WorkID"]').val(key)
+
+                            layer.msg("工单信息查询失败!", function () { });
+                        }
+
+
+
                     },
 
 
