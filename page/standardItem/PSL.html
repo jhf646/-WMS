@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+</head>
+<style>
+.layui-row {
+   font-weight: bold;
+}
+
+table{
+    font-weight: bold;
+    border:1px solid ;
+    overflow:hidden
+}
+
+.zt{
+    text-align: center !important;
+}
+.layui-form-label {
+
+    width: 40px;
+
+
+}
+.layui-input, .layui-select, .layui-textarea {
+ 
+    border-width: 1px;
+    border-style: none
+
+}
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+
+
+
+            <div id="PZM" class="layui-form layuimini-form" lay-filter="PZM">
+                <div id="CCS1" class="layui-form-item">
+
+
+                    <div class="layui-row  zt">
+                        <div class="layui-col-xs9">
+                            <h1>江苏安托精密销售出库单</h1>
+                        </div>
+                        <div class="layui-col-xs3">
+                          <div class="grid-demo"></div>
+                        </div>
+                      </div>
+                      <div class="layui-row">
+                        <div class="layui-col-xs6" style="text-align: left;">
+                            <!-- <label>客户:</label>
+                            <input id="CustomerName" type="text" name="CustomerName" > -->
+                            <label class="layui-form-label"  style="text-align: left;">客户:</label>
+                            <div class="layui-input-inline">
+                                <input id="CustomerName" type="text" name="CustomerName" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs3" style="text-align: left;">
+                            <label class="layui-form-label" style="text-align: left;">日期:</label>
+                            <div class="layui-input-inline">
+                                <input id="DeliveryDate" type="text" name="DeliveryDate" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs3" style="text-align: left;">
+                            <label class="layui-form-label" style="text-align: left;">编号:</label>
+                            <div class="layui-input-inline">
+                                <input id="DeliveryID" type="text" name="DeliveryID" class="layui-input">
+                            </div>
+                        </div>
+
+                      </div>
+
+
+       
+
+                    <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+                    <div class="layui-row">
+                        <div class="layui-col-xs2" style="text-align: left;">
+                            <!-- <label>客户:</label>
+                            <input id="CustomerName" type="text" name="CustomerName" > -->
+                            <label class="layui-form-label"  style="text-align: left;">审核:</label>
+                            <div class="layui-input-inline">
+                                <input id="" type="text" name="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs2" style="text-align: left;">
+                            <label class="layui-form-label" style="text-align: left;">记账:</label>
+                            <div class="layui-input-inline">
+                                <input id="" type="text" name="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs2" style="text-align: left;">
+                            <label class="layui-form-label" style="text-align: left;">经手:</label>
+                            <div class="layui-input-inline">
+                                <input id="" type="text" name="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs3" style="text-align: left;">
+                            <label class="layui-form-label" style="text-align: left;">制单:</label>
+                            <div class="layui-input-inline">
+                                <input id="" type="text" name="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs3" style="text-align: left;">
+                            <label class="layui-form-label" style="text-align: left;">签收:</label>
+                            <div class="layui-input-inline">
+                                <input id="" type="text" name="" class="layui-input">
+                            </div>
+                        </div>
+                      </div>
+                      <div class="layui-row">
+                        <div class="layui-col-xs9" style="text-align: left;">
+                            <!-- <label>客户:</label>
+                            <input id="CustomerName" type="text" name="CustomerName" > -->
+                            <label class="layui-form-label" style="text-align: left;" >地址:</label>
+                            <div class="layui-input-inline">
+                                <input id="DeliveryAddress" type="text" name="DeliveryAddress" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-xs3" style="text-align: left;">
+                            <label class="layui-form-label" style="text-align: left;">电话:</label>
+                            <div class="layui-input-inline">
+                                <input id="DeliveryTellNo" type="text" name="DeliveryTellNo" class="layui-input">
+                            </div>
+                        </div>
+                   
+
+                      </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../../js/xlsx.full.min.js"></script>
+    <script src="../../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', 'upload',], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                upload = layui.upload,
+                layuimini = layui.layuimini;
+
+
+            // $("#DeliveryID").val(sessionStorage.getItem("DeliveryID"))
+
+
+            let data1 = {
+                "DeliveryID": sessionStorage.getItem("DeliveryID")
+            }
+            $.ajax({
+                url: http1 + "GetDeliveryListPrintInfo",
+                type: "post",
+                dataType: 'json',
+                data: JSON.stringify(data1),
+                success: function (data) {
+
+                    if (data.code == 200) {
+
+                        // layer.msg(data.msg, function () { });
+                        // print(data.data)
+
+                        form.val("PZM", data.data )
+
+                    } else {
+
+                        layer.msg(data.msg, function () { });
+
+                    }
+                },
+                error: function () {
+
+                    layer.msg("提交失败", function () { });
+
+                }
+            })
+
+            table.render({
+                elem: '#currentTableId',
+                method: "post",
+                // url: '../api/table.json',
+                where: {
+                    "DeliveryID": sessionStorage.getItem("DeliveryID")
+                },
+                url: http1 + "GetDeliveryListPrintInfo",
+                contentType: 'application/json,charset=utf-8',
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": res.count,
+                        "data": res.data.DeliveryLineInfoList
+                    };
+                },
+
+                cols: [
+
+                
+
+                    [{ field: 'DeliveryID', width: "9%" , title: '订单号' },
+                    { field: 'ProductInputStatus', width: "6%", title: '工序' },
+                    { field: 'CustomerItemID', width: "6%", title: '客户图号' },
+                    { field: 'ItemUnit', width: "9%", title: '单位' },
+                    { field: 'ItemLineQty', width: "6%", title: '数量' },
+                    { field: 'FurnaceID', width: "9%", title: '炉号' },
+                    { field: 'BlankBalanceQty', width: "6%", title: '结存数' },
+                    { field: 'Material', width: "6%", title: '材质' },
+                    { field: 'SteelSpecification', width: "6%", title: '钢材规格' },
+                    { field: 'HeatTreatmentVendor', width: "9%", title: '正火厂家' },
+                    { field: 'HeatTreatmentLotNo', width: "9%", title: '正火批次' },
+                    { field: 'Remark', minwidth: "9%", title: '备注' }
+                    ]
+                ],
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 15,
+                // page: true
+            });
+
+
+        });
+    </script>
+    <script>
+    </script>
+
+</body>
+
+</html>

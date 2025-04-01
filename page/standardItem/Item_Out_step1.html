@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <link rel="stylesheet" href="../../lib/layui-soul-table/soulTable.css" media="all">
+</head>
+
+<style>
+    .laytable-cell-checkbox .layui-disabled.layui-form-checked i {
+        background: #fff !important;
+    }
+
+    .layui-table-cell {
+        text-align: center;
+    }
+</style>
+<style>
+    @media print {
+
+        /* 打印时的样式 */
+        .layuimini-container {
+            /* 例如，隐藏某些不需要打印的元素 */
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <!-- "InOrderLineID": "RKL0000000032",
+                            "InOrderID": "RKH00000024",    
+                            "InDateFrom": "1900-01-01 00:00:00",
+                            "InDateTo": "2900-01-01 00:00:00",
+                            "ItemLotNo": "1",
+                            "PalletID": "BOX10001",
+                            "ItemID": "1001" -->
+                            <div class="layui-inline">
+                                <label class="layui-form-label">日期选择</label>
+
+                                <div class="layui-input-inline">
+                                    <input type="text" name="date" autocomplete="off" id="date" class="layui-input"
+                                        placeholder="开始日期">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">物资编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="ItemID" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-inline" >
+                                <label class="layui-form-label">物资名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="ItemName" autocomplete="off" class="layui-input"
+                                        value="">
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <!-- <button class="layui-btn layui-btn-sm" lay-event="CK">批量出库</button> -->
+                <!-- <button class="layui-btn layui-btn-sm data-add-btn"> 批量出库 </button> -->
+            </div>
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+            <script type="text/html" id="checkbd">
+                <!-- {{#  if (d.stockStatus!== "空闲"){ }}
+                <input type="checkbox" name="siam_one" title="" lay-skin="primary" data-id = "{{ d.LocationID }}">
+                {{#  } }} -->
+            </script>
+            <script type="text/html" id="currentTableBar">
+                <!-- <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">出库</a> -->
+            <!-- <a class="layui-btn layui-btn-xs data-count-edit" lay-event="out">出库</a> -->
+            <!-- <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a> -->
+            </script>
+        </div>
+    </div>
+
+
+
+    <!-- 单个添加 -->
+
+
+    <script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../soulTable.js" charset="utf-8"></script>
+    <script src="../soulTable.slim.js"></script>
+    <script src="../tableChild.js"></script>
+    <script src="../tableMerge.js"></script>
+    <script src="../tableFilter.js"></script>
+    <script src="../excel.js"></script>
+    <script src="../../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', 'laydate', 'soulTable', 'element'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                layuimini = layui.layuimini,
+                laydate = layui.laydate;
+            soulTable = layui.soulTable;
+            tableChild = layui.tableChild;
+            element = layui.element;
+
+
+            function getRecentDay(day) {
+                var today = new Date();
+                var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+                today.setTime(targetday_milliseconds);
+                var tYear = today.getFullYear();
+                var tMonth = today.getMonth();
+                var tDate = today.getDate();
+                var tHours = today.getHours();
+                var tMinutes = today.getMinutes();
+                var tSeconds = today.getSeconds();
+                tMonth = doHandleMonth(tMonth + 1);
+                tDate = doHandleMonth(tDate);
+                tHours = doHandleMonth(tHours);
+                tMinutes = doHandleMonth(tMinutes);
+                tSeconds = doHandleMonth(tSeconds);
+
+                return tYear + "-" + tMonth + "-" + tDate
+            }
+
+            function doHandleMonth(month) {
+                var m = month;
+                if (month.toString().length == 1) {
+                    m = "0" + month;
+                }
+                return m;
+            }
+
+            laydate.render({
+                elem: '#date',
+                type: 'date',
+                range: '~' //或 range: '~' 来自定义分割字符
+                ,
+                value: getRecentDay(-30) + ' ~ ' + getRecentDay(-1),
+                // value: "2021-12-06 ~ 2021-12-31",
+
+            });
+            laydate.render({
+                elem: '#date1'
+                , type: 'datetime'
+                , range: '~' //或 range: '~' 来自定义分割字符
+            });
+            // table.render({
+            //     elem: '#currentTableId',
+            //     url: '../api/moni.json',
+            //     // url: 'http://192.168.0.107:8080/?interface=getOrderList',
+            //     toolbar: '#toolbarDemo',
+            //     defaultToolbar: ['filter', 'exports', 'print', {
+            //         title: '提示',
+            //         layEvent: 'LAYTABLE_TIPS',
+            //         icon: 'layui-icon-tips'
+            //     }]
+            //     // toolbar: true
+            //     ,cellMinWidth: 80
+            //     // , height: 500
+            //     , rowDrag: {/*trigger: 'row',*/ done: function (obj) {
+            //         // 完成时（松开时）触发
+            //         // 如果拖动前和拖动后无变化，则不会触发此方法
+            //         console.log(obj.row) // 当前行数据
+            //         console.log(obj.cache) // 改动后全表数据
+            //         console.log(obj.oldIndex) // 原来的数据索引
+            //         console.log(obj.newIndex) // 改动后数据索引
+            //     }
+            //     },
+            //     cols: [[
+            //         //             "orderID": "O0001",
+            //         //             "materialID": "M0001",
+            //         //             "materialID": "T1",
+            //         //             "totalWorkpieceNum": "20",
+            //         //             "orderStatus": "0",
+            //         //             "createTime": "2020/2/26 17:03:03",
+            //         //             "endTime": "2020/2/26 17:03:03",
+            //         //             "creator": "manager"
+            //         { type: "checkbox", width: 40, fixed: "left" },
+            //         { field: 'orderID', width: 140, title: 'ERP单号' },
+            //         { field: 'materialID', width: 100, title: '物料号' },
+            //         { field: 'totalWorkpieceNum', width: 85, title: '工件总数' },
+            //         { field: 'createTime', width: 140, title: '开始时间' },
+            //         { field: 'endTime', width: 140, title: '结束时间' },
+            //         { field: 'creator', width: 80, title: '创建员' },
+            //         { field: 'workTechnology', width: 85, title: '优先级' },
+            //         {field: 'orderStatus', Width: 90, title: '任务进度', templet: function (d) {
+            //                 //***重点***：判断颜色
+            //                 var ys = '';
+            //                 if (30 < d.orderStatus && d.orderStatus < 100) {
+            //                     ys = 'layui-bg-orange'
+            //                 } else if (0 < d.orderStatus && d.orderStatus <= 30) {
+            //                     ys = 'layui-bg-red'
+            //                 }
+            //                 //***重点***：拼接进度条
+            //                 return '<div class="layui-progress layui-progress-big" lay-showpercent="true"><div class="layui-progress-bar ' + ys + '" lay-percent="' + d.orderStatus + '%"></div></div><br>'
+
+            //             }
+            //         },
+            //         { field: 'sign', title: '备注', Width: 100 },
+            //         { title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center" }
+            //     ]],
+            //     done: function (res, currentCount) {
+            //         soulTable.render(this)
+            //         //***重点***：table渲染完成后渲染element进度条
+            //         element.render()
+            //     }
+
+            //     // limits: [10, 15, 20, 25, 50, 100],
+            //     // limit: 10,
+            //     // page: true
+            // });
+
+
+            table.render({
+                elem: '#currentTableId',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                url: http1 + "GetLocationItemOutputInfo",
+
+                contentType: 'application/json,charset=utf-8',
+                parseData: function (res) { //res 即为原始返回的数据
+                    console.log(res)
+                    // "data": res.listcount == "0" ? "" : JSON.parse(res.content)  判断有没有数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": res.count,
+                        "data": res.data
+                    }
+
+                },
+                where: {
+                    "DateFrom": "1999-01-18 00:00:00",
+                    "DateTo": "2099-11-23 00:00:00",
+
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+
+                cols: [[
+                    //     "DeliveryID": "SD20240323001",
+                    // "SaleDeliveryType": "成品出库",
+                    // "SaleDeliveryStatus": "等待出库",
+                    // "IsAccessory": null,
+                    // "CustomerName": "老王啊",
+                    // "CustomerID": null,
+                    // "DeliveryAddress": "开明路23号",
+                    // "DeliveryTellNo": "435435435",
+                    // "DeliveryDate": "2024-03-02 00:00:00",
+                    // "DeliveryPerson": null,
+                    // "DeliveryPersonName": null,
+                    // "Creator": "1000",
+                    // "CreatorName": null,
+                    // "CreateDate": "1900-01-01 00:00:00",
+
+                    {
+                        field: 'JobOutputLineID', width: 140, title: '出库单号',
+                        sort: true
+                    },
+                    { field: 'JobOutputType', minWidth: 200, title: '出库类型' },
+                    { field: 'JobOutputLineStatus', width: 140, title: '产品出库状态' },
+                    { field: 'ItemID', width: 140, title: '物料号' },
+                    { field: 'ItemQty', width: 140, title: '出库数量' },
+                    { field: 'HeatTreatmentVendor', width: 200, title: '热处理厂商' },
+                    { field: 'HeatTreatmentLotNo', width: 140, title: '热处理批号' },
+
+     
+                    { field: 'StartDate', minWidth: 240, title: '出库时间' },
+                    { field: 'Creator', width: 140, title: '出库人' },
+              
+
+                    // {
+                    //     title: '操作',
+                    //     minWidth: 150,
+                    //     templet: '#currentTableBar',
+                    //     fixed: "right",
+                    //     align: "center",
+
+                    //     templet: function (d) {
+
+                    //         return '<a class="layui-btn layui-btn-xs data-count-edit" lay-event="out">打印出库单</a>'
+
+                    //     }
+                    // }
+                ]],
+                done: function (res, currentCount) {
+                    // soulTable.render(this)
+                    tableChild.render(this)
+                },
+
+                limit: 10
+                , page: false
+            });
+            form.on("checkbox(siam_all)", function () {
+                var status = $(this).prop("checked");
+                $.each($("input[name=siam_one]"), function (i, value) {
+                    $(this).prop("checked", status);
+                });
+                form.render();
+            });
+
+
+
+
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function (data) {
+                var result = data.field;
+                // layer.alert(result, {
+                //     title: '最终的搜索信息'
+                // });
+                let cans1 = (result.date).split(" ")[0]
+                cans1 = cans1.replace(/^\s*/g, '')
+                let cans2 = (result.date).split(" ")[2]
+                cans2 = cans2.replace(/^\s*/g, '')
+                console.log(result)
+                // http://192.168.0.114:8081/?interface=getGraphicData&StartDay=2021-12-10&
+                // EndDay=2021-12-20&Type=F00RJ02401&Station=OP10
+                // DateFrom日期从2022 - 11 - 01
+                // DateTo日期到2022 - 11 - 12
+                result.DateFrom=cans1
+                result.DateTo=cans2
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: result
+                }, 'data');
+
+                return false;
+            });
+
+            // 批量出库
+
+            table.on('toolbar(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'CK') {
+                    var ids = [];
+
+                    var alertz = []
+
+                    $.each($("input[name=siam_one]:checked"), function (i, value) {
+
+                        ids[i] = { "LocationID": $(this).attr("data-id") }  // 如果需要获取其他的值 需要在模板中把值放到属性中 然后这里就可以拿到了
+
+                        alertz[i] = $(this).attr("data-id")
+
+                    });
+
+                    <!-- wms/createoutlistjob -->
+
+                    layer.confirm('是否确认' + JSON.stringify(alertz) + '库位出库?', function (index) {
+
+                        $.ajax({
+                            url: http1 + "wms/createoutlistjob",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(ids),
+                            success: function (data) {
+
+                                if (data.code == 200) {
+
+                                    layer.msg(data.msg, function () { });
+
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+
+                                        }
+                                    }, 'data');
+
+                                } else {
+
+                                    layer.msg(data.msg, function () { });
+
+                                }
+                            },
+                            error: function () {
+
+                                layer.msg("提交失败", function () { });
+
+                            }
+                        })
+
+                    });
+
+
+
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+                }
+
+
+            });
+            $(".data-add-btn").on("click", function () {
+
+                var ids = [];
+
+                var alertz = []
+
+                $.each($("input[name=siam_one]:checked"), function (i, value) {
+
+                    ids[i] = { "LocationID": $(this).attr("data-id") }  // 如果需要获取其他的值 需要在模板中把值放到属性中 然后这里就可以拿到了
+
+                    alertz[i] = $(this).attr("data-id")
+
+                });
+
+
+                layer.confirm('是否确认' + JSON.stringify(alertz) + '库位出库?', function (index) {
+
+                    $.ajax({
+                        url: http1 + "wms/createoutlistjob",
+                        type: "post",
+                        dataType: 'json',
+                        data: JSON.stringify(ids),
+                        success: function (data) {
+
+                            if (data.code == 200) {
+
+                                layer.msg(data.msg, function () { });
+
+                                table.reload('currentTableId', {
+                                    page: {
+                                        curr: 1
+                                    },
+                                    where: {
+
+                                    }
+                                }, 'data');
+
+                            } else {
+
+                                layer.msg(data.msg, function () { });
+
+                            }
+                        },
+                        error: function () {
+
+                            layer.msg("提交失败", function () { });
+
+                        }
+                    })
+
+                });
+
+
+
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+                return false;
+            });
+
+            // 监听删除操作
+            $(".data-delete-btn").on("click", function () {
+
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(currentTableFilter)', function (obj) {
+                console.log(obj)
+                var checkStatus = table.checkStatus('tableId')
+                    , dataz = checkStatus.data;
+                layer.alert(JSON.stringify(dataz));
+            });
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'out') {
+
+                    sessionStorage.setItem("DeliveryID", data.DeliveryID);
+
+                    var index = layer.open({
+                        type: 2,
+                        title: "打印预览" //不显示标题栏
+                        ,
+                        area: ['100%', '100%'],
+                        btn: ['打印', '取消'],
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                        ,
+                        content: 'PSL.html',
+
+                        yes: function (index,layero) {
+                            console.log(index);
+                            console.log(layero);
+                            // alert("打印预览");
+                            var $layero = $(layero); // 将 layero 转换为 jQuery 对象
+                            if ($layero.find('iframe').length > 0) {
+                                var iframe = $layero.find('iframe')[0];
+                                if (iframe.contentWindow) {
+                                    iframe.contentWindow.print(); // 触发打印
+                                    // layer.close(index);
+                                }
+                            }
+                        },
+                        cancel: function (index) {
+                            // 这里可以编写取消按钮的逻辑
+                            // 如果需要关闭当前iframe层，可以直接使用 index 参数
+                            layer.close(index);
+                        },
+                        success: function (layero, index) {
+
+                            // setTimeout(function () {
+                            //     var $layero = $(layero); // 将 layero 转换为 jQuery 对象
+                            //     if ($layero.find('iframe').length > 0) {
+                            //         var iframe = $layero.find('iframe')[0];
+                            //         if (iframe.contentWindow) {
+                            //             iframe.contentWindow.print(); // 触发打印
+                            //             // layer.close(index);
+                            //         }
+                            //     }
+
+                            // }, 3000);
+
+
+
+                        }
+                    });
+
+                    // layer.confirm('是否确认' + data.DeliveryID + '库位出库?', function (index) {
+
+
+
+                    // });
+
+
+
+                }
+            });
+
+            // function print(data) {
+
+            //     var index = layer.open({
+            //         type: 2,
+            //         title: '打印预览',
+            //         content: $("#PZM"),
+            //         area: ['1000px', '600px'],
+            //         btn: '打印',
+            //         btnAlign: 'c',
+            //         yes: function (index, layero) {
+            //             var iframe = layer.getChildFrame('content', index); // 获取 iframe 的 window 对象
+            //             iframe.print(); // 触发打印
+            //             layer.close(index); // 关闭弹出框（可选）
+            //             // window.print();
+            //         },
+            //         success: function (layero, index) {
+            //             // 在弹出框中添加打印按钮的事件监听
+            //             layero.find('#demo1').on('click', function () {
+            //                 // 使用 iframe 的 contentWindow.print() 方法来触发打印
+            //                 var iframe = layer.getChildFrame('content', index); // 获取 iframe 的 window 对象
+            //                 iframe.print(); // 触发打印
+            //                 layer.close(index); // 关闭弹出框（可选）
+            //             });
+            //         }
+            //     })
+
+            // }
+        });
+    </script>
+</body>
+
+</html>
