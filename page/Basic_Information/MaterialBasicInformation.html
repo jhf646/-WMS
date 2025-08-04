@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+</head>
+<style>
+    #CCS1 div {
+        margin-bottom: 10px;
+    }
+
+    #PowerKey option {
+        color: #000;
+    }
+</style>
+
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <form class="layui-form layui-form-pane" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">物料型号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="ItemModel" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">物料名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="ItemName" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">物料类型</label>
+                                <div class="layui-input-inline">
+                                    <select id="ItemType" name="ItemType">
+                                        <option value="">全部</option>
+                                        <option value="毛坯">毛坯</option>
+                                        <option value="成品">成品</option>
+                                        <option value="半成品">半成品</option>
+                                        <option value="辅料">辅料</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+
+            <script type="text/html" id="toolbarDemo">
+
+                <div class="layui-btn-container">
+               
+                    <button class="layui-btn layui-btn-sm data-add-btn"> 单个添加物料 </button>
+                    <!-- <button class="layui-btn layui-btn-sm data-PL-btn"> 批量导入(excel) </button>
+                    <button class="layui-btn layui-btn-sm data-MB-btn"> 批量导入模板下载 </button> -->
+                </div>
+          
+
+            </script>
+
+            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+
+        </div>
+    </div>
+    <!-- 单个添加 -->
+    <div id="PZM" class="layui-form layuimini-form" lay-filter="PZM"
+        style="padding: 22px; line-height: 22px;  font-weight: 300;display: none;">
+        <div id="CCS1" class="layui-form-item">
+            <!-- "ItemName": "616812337", // 名称
+            "ItemModel": "GB123", // 型号
+            "ItemStatus": "启用", //状态
+            "ItemType": "成品", // 物资类别
+            "ItemMaterial": "304不锈钢", //材料
+            "SingleWeight": 40000, // 单重
+            "ItemUnit": "个", //计量单位 -->
+            <label class="layui-form-label required" style="text-align: right;">物料状态：</label>
+            <div class="layui-input-block">
+                <!-- <input type="text" name="DataListType" lay-verify="required" lay-reqtext="" placeholder=""
+                    class="layui-input"> -->
+                <select id="ItemStatus" name="ItemStatus">
+                    <option value="启用">启用</option>
+                    <option value="不启用">不启用</option>
+                </select>
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">物料类型：</label>
+            <div class="layui-input-block">
+                <!-- <input type="text" name="DataListType" lay-verify="required" lay-reqtext="" placeholder=""
+                    class="layui-input"> -->
+                <select id="ItemType" name="ItemType">
+                    <option value="毛坯">毛坯</option>
+                    <option value="成品">成品</option>
+                    <option value="半成品">半成品</option>
+                    <option value="辅料">辅料</option>
+
+                </select>
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">物料型号：</label>
+            <div class="layui-input-block">
+                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" lay-reqtext="输入型号"
+                    placeholder="输入成品型号" class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">物料名称：</label>
+            <div class="layui-input-block">
+                <input id="ItemName" type="text" name="ItemName" lay-reqtext="输入产品名称" placeholder="输入产品名称"
+                    class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">材质：</label>
+            <div class="layui-input-block">
+                <input id="ItemMaterial" type="text" name="ItemMaterial" value="" lay-reqtext="输入材质" placeholder="输入材质"
+                    class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">单品重量：</label>
+            <div class="layui-input-block">
+                <input id="SingleWeight" type="text" name="SingleWeight" value="" lay-reqtext="输入单品重量"
+                    placeholder="输入单品重量" class="layui-input">
+            </div>
+
+            <label class="layui-form-label " style="text-align: right;">计量单位：</label>
+            <div class="layui-input-block">
+                <input id="ItemUnit" type="text" name="ItemUnit" value="" lay-reqtext="输入计量单位" placeholder="输入计量单位"
+                    class="layui-input">
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="demo1" lay-submit="">⽴即提交</button>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- 编辑 -->
+    <div id="PZM1" class="layui-form layuimini-form" lay-filter="PZM1"
+        style="padding: 22px; line-height: 22px; font-weight: 300;display: none;">
+        <div id="CCS1" class="layui-form-item">
+            <!-- "ItemName": "616812337", // 名称
+            "ItemModel": "GB123", // 型号
+            "ItemStatus": "启用", //状态
+            "ItemType": "成品", // 物资类别
+            "ItemMaterial": "304不锈钢", //材料
+            "SingleWeight": 40000, // 单重
+            "ItemUnit": "个", //计量单位 -->
+            <label class="layui-form-label required" style="text-align: right;">物料状态：</label>
+            <div class="layui-input-block">
+                <!-- <input type="text" name="DataListType" lay-verify="required" lay-reqtext="" placeholder=""
+                    class="layui-input"> -->
+                <select id="ItemStatus" name="ItemStatus">
+                    <option value="启用">启用</option>
+                    <option value="不启用">不启用</option>
+                </select>
+            </div>
+
+            <label class="layui-form-label required" style="text-align: right;">物料类型：</label>
+            <div class="layui-input-block">
+                <!-- <input type="text" name="DataListType" lay-verify="required" lay-reqtext="" placeholder=""
+                    class="layui-input"> -->
+                <select id="ItemType" name="ItemType">
+                    <option value="毛坯">毛坯</option>
+                    <option value="成品">成品</option>
+                    <option value="半成品">半成品</option>
+                    <option value="辅料">辅料</option>
+
+                </select>
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">物料编号：</label>
+            <div class="layui-input-block">
+                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入型号"
+                    placeholder="输入成品型号" class="layui-input">
+            </div>
+            <label class="layui-form-label required" style="text-align: right;">物料型号：</label>
+            <div class="layui-input-block">
+                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" lay-reqtext="输入型号"
+                    placeholder="输入成品型号" class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">物料名称：</label>
+            <div class="layui-input-block">
+                <input id="ItemName" type="text" name="ItemName" lay-reqtext="输入产品名称" placeholder="输入产品名称"
+                    class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">材质：</label>
+            <div class="layui-input-block">
+                <input id="ItemMaterial" type="text" name="ItemMaterial" value="" lay-reqtext="输入材质" placeholder="输入材质"
+                    class="layui-input">
+            </div>
+            <label class="layui-form-label " style="text-align: right;">单品重量：</label>
+            <div class="layui-input-block">
+                <input id="SingleWeight" type="text" name="SingleWeight" value="" lay-reqtext="输入单品重量"
+                    placeholder="输入单品重量" class="layui-input">
+            </div>
+
+            <label class="layui-form-label " style="text-align: right;">计量单位：</label>
+            <div class="layui-input-block">
+                <input id="ItemUnit" type="text" name="ItemUnit" value="" lay-reqtext="输入计量单位" placeholder="输入计量单位"
+                    class="layui-input">
+            </div>
+
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="demo2" lay-submit="">⽴即提交</button>
+            </div>
+
+        </div>
+    </div>
+    <script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../../js/xlsx.full.min.js"></script>
+    <script src="../../js/api/http.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'table', 'upload',], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table,
+                upload = layui.upload,
+                layuimini = layui.layuimini;
+
+
+            readyselect()
+            function readyselect() {
+                let arr = []
+
+                mp1()
+                mp()
+                zr()
+                zr1()
+
+            }
+            //获取区域2.1  2.2区域
+            function mp1() {
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "BlankMPID": "" }
+                $.ajax({
+                    url: http1 + "GetBlankInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#BlankMPID");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.BlankMPID, item.BlankMPID));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+            //获取区域2.1  2.2区域
+            function mp() {
+                // let Station = sessionStorage.getItem("Station")
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "BlankMPID": "" }
+                $.ajax({
+                    url: http1 + "GetBlankInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#BlankMPID1");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.BlankMPID, item.BlankMPID));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+            //获取区域2.1  2.2区域
+            function zr() {
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "DataListType": "成品类型" }
+                $.ajax({
+                    url: http1 + "GetDataListInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#ProductType");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.DataListValue, item.DataListValue));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+
+            //获取区域2.1  2.2区域
+            function zr1() {
+                // let Station = sessionStorage.getItem("Station")
+                let data2 = { "DataListType": "成品类型" }
+                $.ajax({
+                    url: http1 + "GetDataListInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+                        var select = $("#ProductType1");//TypeID为HTML标签ID
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            console.log(index, item)
+                            select.append(new Option(item.DataListValue, item.DataListValue));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+
+            }
+
+            table.render({
+                elem: '#currentTableId',
+                toolbar: '#toolbarDemo',
+                method: "post",
+                // url: '../api/table.json',
+                // where: {
+                //     "interface": "getUserAll",
+                //     "right": "0"
+                // },
+                url: http1 + "GetItemInfoList",
+                contentType: 'application/json,charset=utf-8',
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,
+                        "msg": "",
+                        "count": res.count,
+                        "data": res.data
+                    };
+                },
+                defaultToolbar: ['filter', 'exports', 'print', {
+                    title: '提示',
+                    layEvent: 'LAYTABLE_TIPS',
+                    icon: 'layui-icon-tips'
+                }],
+
+                cols: [
+
+                    // <!-- "ItemName": "616812337", // 名称
+                    //             "ItemModel": "GB123", // 型号
+                    //             "ItemStatus": "启用", //状态
+                    //             "ItemType": "成品", // 物资类别
+                    //             "ItemMaterial": "304不锈钢", //材料
+                    //             "SingleWeight": 40000, // 单重
+                    //             "ItemUnit": "个", //计量单位 -->
+
+
+
+
+
+                    [
+                        { field: 'ItemType', width: 140, title: '物料类型' },
+                        { field: 'ItemModel', width: 140, title: '物料型号' },
+                        { field: 'ItemName', minwidth: 140, title: '物料名称' },
+                        { field: 'ItemMaterial', minwidth: 140, title: '材质' },
+                        { field: 'ItemUnit', minwidth: 140, title: '计量单位' },
+                        { field: 'SingleWeight', minwidth: 140, title: '单品重量' },
+                        { field: 'ItemStatus', minwidth: 140, title: '物料状态' },
+
+                        {
+                            title: '操作',
+                            minWidth: 120,
+                            templet: '#currentTableBar',
+                            fixed: "right",
+                            align: "center",
+                            templet: function (d) {
+                                //***重点***：判断颜色
+                                // var ys = d.Currsent_tep
+                                // //***重点***：拼接进度条
+                                // let power = sessionStorage.getItem("PowerKey");
+
+
+                                // if (power == "3" ||power == "4") {
+                                //     return '<span>无操作权限</span>'
+                                // } else if (power == "1" || power == "2") {
+
+                                return `                <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>`
+                                // }
+
+
+
+
+                            }
+                        }]
+                ],
+                // limits: [10, 15, 20, 25, 50, 100],
+                // limit: 15,
+                // page: true
+            });
+
+            // 监听搜索操作
+            form.on('submit(data-search-btn)', function (data) {
+                var result = JSON.stringify(data.field);
+                // layer.alert(result, {
+                //     title: '最终的搜索信息'
+                // });
+
+                //执行搜索重载
+                table.reload('currentTableId', {
+                    page: {
+                        curr: 1
+                    },
+                    where: data.field
+                }, 'data');
+
+                return false;
+            });
+
+            //添加
+            form.on('submit(demo1)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+                $.ajax({
+                    // AddItemInfo  UpdateItemInfo    DeleteItemInfo
+                    url: http1 + "AddItemInfo",
+                    type: "post",
+                    // dataType: 'json',
+                    data: JSON.stringify(data.field),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg('添加成功！', function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+                    },
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
+                return false;
+            });
+
+            //编辑
+            form.on('submit(demo2)', function (data) {
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+
+                $.ajax({
+                    // AddItemInfo  UpdateItemInfo    DeleteItemInfo
+                    url: http1 + "UpdateItemInfo",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data.field),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg('修改成功！', function () { });
+                            // alert("提交成功：" + data)
+                            layer.closeAll()
+                            table.reload('currentTableId', {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+
+                                }
+                            }, 'data');
+                        } else {
+                            layer.msg(data.msg, function () { });
+                        }
+
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+
+                })
+
+
+                return false;
+            });
+            //批量导入
+
+            // 监听添加操作
+
+            $('body').on('click', '.data-add-btn', function () {
+
+                var index = layer.open({
+                    type: 1,
+                    title: "添加物料" //不显示标题栏
+                    ,
+                    // closeBtn: false,
+                    area: '500px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,
+                    // btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1 //拖拽模式，0或者1
+                    ,
+                    content: $("#PZM"),
+                    success: function (layero) {
+                        // zr()
+                    },
+                    yes: function (layero, index) {
+
+
+
+                    }
+                });
+
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+                return false;
+            });
+
+            table.on('tool(currentTableFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'edit') {
+
+                    console.log(data)
+
+                    // zr1()
+
+                    // form.render()
+                    var index = layer.open({
+                        type: 1,
+                        title: "编辑物料" //不显示标题栏
+                        ,
+                        // closeBtn: false,
+                        area: '500px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,
+                        // btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        moveType: 1 //拖拽模式，0或者1
+                        ,
+                        content: $("#PZM1"),
+                        success: function (layero) {
+
+                            form.val('PZM1', data);
+
+                        },
+                        yes: function (layero, index) {
+
+
+                        }
+                    });
+
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                    return false;
+
+                } else if (obj.event === 'delete') {
+
+                    layer.confirm('是否删除' + data.ItemName + '物料?', function (index) {
+
+                        console.log(data.UserID)
+                        console.log(index)
+
+                        let data1 = {
+                            "ItemID": data.ItemID
+                        }
+
+                        $.ajax({
+                            url: http1 + "DeleteItemInfo",
+                            type: "post",
+                            dataType: 'json',
+                            data: JSON.stringify(data1),
+                            success: function (data) {
+
+                                if (data.code == "200") {
+                                    layer.msg('删除成功！', function () { });
+                                    // alert("提交成功：" + data)
+                                    obj.del();
+                                    layer.closeAll()
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+
+                                        }
+                                    }, 'data');
+                                } else {
+                                    layer.msg(data.msg, function () { });
+                                }
+                            },
+                            error: function () {
+                                alert("提交失败")
+                            }
+                        })
+                    });
+
+                }
+            });
+
+        });
+    </script>
+    <script>
+    </script>
+
+</body>
+
+</html>

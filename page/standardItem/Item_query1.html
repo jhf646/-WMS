@@ -143,10 +143,23 @@
         style="padding: 22px; line-height: 22px;  font-weight: 300;display: none;">
         <div id="CCS1" class="layui-form-item">
 
+               <!-- "ItemID": "66213", //  
+            "ItemType": "毛坯", //                        
+            "ItemName": "66213", // 物资名称   
+            "ItemModel": "66213", //  规格型号
+            "ItemInputStatus": "淬火", //  入库状态
+            "Vendor": "双环公司", //  供应商
+            "FurnaceID": "LQSD03", //  炉号
+            "HeatTreatmentLotNo": "2034-01-02", //  正火批次号
+            "ItemUnit": "支", //单位
+            "ItemQty": 34535, //入库数量          
+            "OrderCode": "SO213213123", //单据号
+            "Remark": "备注" //备注 -->
+
             <label class="layui-form-label required" style="text-align: right;">物料型号：</label>
             <div class="layui-input-block">
 
-                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物料型号" readonly="true"
+                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" lay-reqtext="输入物料型号" readonly="true"
                     placeholder="输入物料型号" class="layui-input">
             </div>
 
@@ -203,12 +216,12 @@
 
 
         </div>
-        <div class="layui-form-item">
+        <!-- <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-filter="demo1" lay-submit="">⽴即提交</button>
             </div>
 
-        </div>
+        </div> -->
 
     </div>
 
@@ -1054,9 +1067,9 @@
                         // "LocationID": "01-02-01",
                         {
                             field: 'CurrentItemQty', Width: "100", sort: true, title: '库存数量', align: "center", totalRow: true
-                        },
+                        }
 
-                        { title: '操作', minWidth: "100", templet: '#currentTableBarNew', fixed: "right", align: "center" }
+                        // ,{ title: '操作', minWidth: "100", templet: '#currentTableBarNew', fixed: "right", align: "center" }
                     ]
                     ],
                     done: function (res, currentCount) {
