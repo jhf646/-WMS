@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>成品入库</title>
+    <title>物资入库</title>
     <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="../../css/public.css" media="all">
     <link rel="stylesheet" href="../../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
@@ -153,7 +153,7 @@
             "Remark": "备注" //备注 -->
             <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
-                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"
+                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"  readonly 
                     placeholder="输入物资编号" class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
@@ -165,7 +165,7 @@
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
             <div class="layui-input-block">
-                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" placeholder="输入物资型号"
+                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" placeholder="输入物资型号"  readonly 
                     class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
@@ -227,7 +227,7 @@
             "Remark": "备注" //备注 -->
             <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
-                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"
+                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"  readonly 
                     placeholder="输入物资编号" class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
@@ -239,7 +239,7 @@
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
             <div class="layui-input-block">
-                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" placeholder="输入物资型号"
+                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" placeholder="输入物资型号"  readonly 
                     class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
@@ -301,7 +301,7 @@
             "Remark": "备注" //备注 -->
             <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
-                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"
+                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"  readonly 
                     placeholder="输入物资编号" class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
@@ -313,7 +313,7 @@
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
             <div class="layui-input-block">
-                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" placeholder="输入物资型号"
+                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" placeholder="输入物资型号"  readonly 
                     class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
@@ -375,7 +375,7 @@
             "Remark": "备注" //备注 -->
             <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
-                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"
+                <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"  readonly 
                     placeholder="输入物资编号" class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
@@ -387,7 +387,7 @@
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
             <div class="layui-input-block">
-                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" placeholder="输入物资型号"
+                <input id="ItemModel" type="text" name="ItemModel" lay-verify="required" placeholder="输入物资型号"  readonly 
                     class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">入库数量：</label>
@@ -395,9 +395,9 @@
                 <input id="ItemQty" type="text" name="ItemQty" value="" lay-verify="sl" lay-reqtext="输入入库数量"
                     placeholder="输入入库数量" class="layui-input">
             </div>
-            <label class="layui-form-label " style="text-align: right;">炉号：</label>
+            <label class="layui-form-label " style="text-align: right;">品牌：</label>
             <div class="layui-input-block">
-                <input id="FurnaceID" type="text" name="FurnaceID" placeholder="输入炉号" class="layui-input">
+                <input id="ItemBrand" type="text" name="ItemBrand" placeholder="输入品牌" class="layui-input">
             </div>
             <label class="layui-form-label " style="text-align: right;">供应商：</label>
             <div class="layui-input-block">
@@ -407,10 +407,12 @@
             <div class="layui-input-block">
                 <input id="ItemInputStatus" type="text" name="ItemInputStatus" placeholder="输入状态" class="layui-input">
             </div>
-            <label class="layui-form-label " style="text-align: right;">正火批次：</label>
+             <label class="layui-form-label required" style="text-align: right;">辅料类别：</label>
             <div class="layui-input-block">
-                <input id="HeatTreatmentLotNo" type="text" name="HeatTreatmentLotNo" placeholder="输入正火批次"
-                    class="layui-input">
+
+                <select id="AccessoryType" name="AccessoryType" lay-filter="AccessoryType" lay-search>
+
+                </select>
             </div>
             <label class="layui-form-label " style="text-align: right;">单位：</label>
             <div class="layui-input-block">
@@ -464,17 +466,58 @@
             }
 
 
-            
+
             // 根据入库单显示相关信息
 
             form.on('select(ItemName)', function (data) {
+                // console.log(data); //得到被选中的值
+                // alert("选中物资名称：" + data.value);
+                let Station = sessionStorage.getItem("Station")
 
-                alert("选中物资名称：" + data.value);
-                // tableCZ_OLD(data.value)
 
-                // tableCZ(data.value)
 
-                // return false; // 阻止默认 form 跳转
+                let data2 = { "ItemID": data.value }
+
+                $.ajax({
+                    url: http1 + "GetItemInfoList",
+
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+                        console.log(res);
+
+                        document.querySelectorAll('#ItemModel').forEach(function (element) {
+
+                            if (res.data && res.data.length > 0) {
+                                $(element).val(res.data[0].ItemModel);
+                            }
+
+                            layui.form.render();
+
+                        });
+                        document.querySelectorAll('#ItemID').forEach(function (element) {
+
+                            if (res.data && res.data.length > 0) {
+                                $(element).val(res.data[0].ItemID);
+
+                            }
+
+                            layui.form.render();
+
+                        });
+                    },
+
+                    error: function () {
+
+                        alert("服务器连接失败！")
+
+                    }
+                })
             });
 
             // 成品入库方式选中事件
@@ -678,8 +721,8 @@
                     ,
                     content: $("#PZM1"),
                     success: function (layero) {
-
-                        // wl()
+                        $('#PZM1 #ItemModel').val("");
+                        $('#PZM1 #ItemType').val("毛坯");
 
 
                     },
@@ -717,8 +760,8 @@
                     content: $("#PZM2"),
                     success: function (layero) {
 
-                        // wl()
-
+                        $('#PZM2 #ItemModel').val("");
+                        $('#PZM2 #ItemType').val("成品");
 
                     },
                     yes: function (layero, index) {
@@ -754,9 +797,9 @@
                     ,
                     content: $("#PZM3"),
                     success: function (layero) {
-
+                        $('#PZM3 #ItemModel').val("");
                         // wl()
-
+                        $('#PZM3 #ItemType').val("半成品");
 
                     },
                     yes: function (layero, index) {
@@ -794,8 +837,8 @@
                     success: function (layero) {
 
                         // wl()
-
-
+                        $('#PZM4 #ItemModel').val("");
+                        $('#PZM4 #ItemType').val("辅料");
                     },
                     yes: function (layero, index) {
 
@@ -852,12 +895,19 @@
 
                 layer.closeAll()
 
-                $('#PZM input[type=text]').val('');
-                $('#PZM select').val(''); // 清空select
+                $('#PZM4 input[type=text]').val('');
+                $('#PZM4 select').val(''); // 清空select
 
 
                 $('#PZM1 input[type=text]').val('');
                 $('#PZM1 select').val(''); // 清空select
+
+
+                $('#PZM2 input[type=text]').val('');
+                $('#PZM2 select').val(''); // 清空select
+
+                $('#PZM3 input[type=text]').val('');
+                $('#PZM3 select').val(''); // 清空select
 
                 // olddata = []
 
@@ -976,20 +1026,26 @@
 
                 let Station = sessionStorage.getItem("Station")
 
-                let data2 = { "ItemName": "" }
 
-                $.ajax({
-                    url: http1 + "GetItemInfoList",
 
-                    type: "post",
+                let lex = ["毛坯", "成品", "半成品", "辅料"]
 
-                    // dataType: 'json',
+                document.querySelectorAll('#ItemName').forEach(function (element, index) {
 
-                    data: JSON.stringify(data2),
+                    let data2 = { "ItemName": "", "ItemType": lex[index] }
 
-                    success: function (res) {
+                    $.ajax({
+                        url: http1 + "GetItemInfoList",
 
-                        document.querySelectorAll('#ItemName').forEach(function (element) {
+                        type: "post",
+
+                        // dataType: 'json',
+
+                        data: JSON.stringify(data2),
+
+                        success: function (res) {
+
+
 
                             // var select = $("#ItemName");//TypeID为HTML标签ID
 
@@ -999,34 +1055,33 @@
 
                                 console.log(index, item)
 
-                                element.append(new Option(item.ItemName, item.ItemName));// 下拉菜单里添加元素
+                                element.append(new Option(item.ItemName + "(" + item.ItemType + ")", item.ItemID));// 下拉菜单里添加元素
 
                             });
 
                             layui.form.render("select");
 
-                        });
-                    },
 
-                    error: function () {
+                        },
 
-                        alert("服务器连接失败！")
+                        error: function () {
 
-                    }
-                })
+                            alert("服务器连接失败！")
 
+                        }
+                    })
+                });
             }
 
 
             //成品号
-
-            function wl(key) {
+wl()
+            function wl() {
                 let data2 = {
-                    "StockStatus": "空闲",
-                    "WorkStatus": "空闲"
+                    "DataListType": "辅料物资类型",
                 }
                 $.ajax({
-                    url: http1 + "GetItemInfoList",
+                    url: http1 + "GetDataListInfoList",
 
                     type: "post",
 
@@ -1039,12 +1094,12 @@
 
 
 
-                        var select = $("#ItemID");//TypeID为HTML标签ID
+                        var select = $("#AccessoryType");//TypeID为HTML标签ID
                         select.empty();
                         let result = res.data
                         $.each(result, function (index, item) {
                             // console.log(index, item)
-                            select.append(new Option(item.ItemID, item.ItemID));// 下拉菜单里添加元素
+                            select.append(new Option(item.DataListValue, item.DataListValue));// 下拉菜单里添加元素
                         });
                         layui.form.render("select");
 
@@ -1245,7 +1300,7 @@
                         { field: 'ItemType', Width: "80", title: '入库类型', align: "center", },
                         { field: 'ItemName', Width: "80", title: '物资名称', align: "center", },
                         { field: 'FurnaceID', Width: "80", title: '炉号', align: "center", },
-                        { field: 'WorkID', Width: "100", title: '工单号', align: "center" },
+                        // { field: 'WorkID', Width: "100", title: '工单号', align: "center" },
                         { field: 'OrderCode', Width: "80", title: '单号', align: "center", },
                         { field: 'Vendor', Width: "80", title: '供应商', align: "center", },
 

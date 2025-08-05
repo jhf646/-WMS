@@ -218,7 +218,44 @@
             //
 
 
+wl()
+            function wl() {
+                let data2 = {
+                    "DataListType": "辅料物资类型",
+                }
+                $.ajax({
+                    url: http1 + "GetDataListInfoList",
 
+                    type: "post",
+
+                    // dataType: 'json',
+
+                    data: JSON.stringify(data2),
+
+                    success: function (res) {
+
+
+
+
+                        var select = $("#AccessoryType");//TypeID为HTML标签ID
+                        select.empty();
+                        let result = res.data
+                        $.each(result, function (index, item) {
+                            // console.log(index, item)
+                            select.append(new Option(item.DataListValue, item.DataListValue));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+
+                    },
+
+                    error: function () {
+
+                        layer.msg("服务器连接失败！", function () { });
+
+                    }
+                })
+
+            }
 
 
 
