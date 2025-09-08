@@ -151,17 +151,22 @@
             "ItemQty": 34535, //入库数量          
             "OrderCode": "SO213213123", //单据号
             "Remark": "备注" //备注 -->
+              <label class="layui-form-label required" style="text-align: right;">物资选择：</label>
+            <div class="layui-input-block">
+
+                <select id="selectALL" name="selectALL" lay-filter="selectALL" lay-search>
+
+                </select>
+            </div>
             <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
                 <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"  readonly 
                     placeholder="输入物资编号" class="layui-input">
             </div>
-            <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
+           <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
             <div class="layui-input-block">
-
-                <select id="ItemName" name="ItemName" lay-filter="ItemName" lay-search>
-
-                </select>
+                <input id="ItemName" type="text" name="ItemName" lay-verify="required" lay-reqtext="输入物资名称"  readonly 
+                    placeholder="输入物资编名称" class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
             <div class="layui-input-block">
@@ -225,17 +230,22 @@
             "ItemQty": 34535, //入库数量          
             "OrderCode": "SO213213123", //单据号
             "Remark": "备注" //备注 -->
+                   <label class="layui-form-label required" style="text-align: right;">物资选择：</label>
+            <div class="layui-input-block">
+
+                <select id="selectALL" name="selectALL" lay-filter="selectALL" lay-search>
+
+                </select>
+            </div>
             <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
                 <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"  readonly 
                     placeholder="输入物资编号" class="layui-input">
             </div>
-            <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
+           <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
             <div class="layui-input-block">
-
-                <select id="ItemName" name="ItemName" lay-filter="ItemName" lay-search>
-
-                </select>
+                <input id="ItemName" type="text" name="ItemName" lay-verify="required" lay-reqtext="输入物资名称"  readonly 
+                    placeholder="输入物资编名称" class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
             <div class="layui-input-block">
@@ -299,17 +309,22 @@
             "ItemQty": 34535, //入库数量          
             "OrderCode": "SO213213123", //单据号
             "Remark": "备注" //备注 -->
+                     <label class="layui-form-label required" style="text-align: right;">物资选择：</label>
+            <div class="layui-input-block">
+
+                <select id="selectALL" name="selectALL" lay-filter="selectALL" lay-search>
+
+                </select>
+            </div>
             <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
                 <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"  readonly 
                     placeholder="输入物资编号" class="layui-input">
             </div>
-            <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
+           <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
             <div class="layui-input-block">
-
-                <select id="ItemName" name="ItemName" lay-filter="ItemName" lay-search>
-
-                </select>
+                <input id="ItemName" type="text" name="ItemName" lay-verify="required" lay-reqtext="输入物资名称"  readonly 
+                    placeholder="输入物资编名称" class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
             <div class="layui-input-block">
@@ -373,17 +388,22 @@
             "ItemQty": 34535, //入库数量          
             "OrderCode": "SO213213123", //单据号
             "Remark": "备注" //备注 -->
+                     <label class="layui-form-label required" style="text-align: right;">物资选择：</label>
+            <div class="layui-input-block">
+
+                <select id="selectALL" name="selectALL" lay-filter="selectALL" lay-search>
+
+                </select>
+            </div>
             <label class="layui-form-label required" style="text-align: right;">物资编号：</label>
             <div class="layui-input-block">
                 <input id="ItemID" type="text" name="ItemID" lay-verify="required" lay-reqtext="输入物资编号"  readonly 
                     placeholder="输入物资编号" class="layui-input">
             </div>
-            <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
+           <label class="layui-form-label required" style="text-align: right;">物资名称：</label>
             <div class="layui-input-block">
-
-                <select id="ItemName" name="ItemName" lay-filter="ItemName" lay-search>
-
-                </select>
+                <input id="ItemName" type="text" name="ItemName" lay-verify="required" lay-reqtext="输入物资名称"  readonly 
+                    placeholder="输入物资编名称" class="layui-input">
             </div>
             <label class="layui-form-label required" style="text-align: right;">物资型号：</label>
             <div class="layui-input-block">
@@ -469,7 +489,7 @@
 
             // 根据入库单显示相关信息
 
-            form.on('select(ItemName)', function (data) {
+            form.on('select(selectALL)', function (data) {
                 // console.log(data); //得到被选中的值
                 // alert("选中物资名称：" + data.value);
                 let Station = sessionStorage.getItem("Station")
@@ -495,6 +515,16 @@
 
                             if (res.data && res.data.length > 0) {
                                 $(element).val(res.data[0].ItemModel);
+                            }
+
+                            layui.form.render();
+
+                        });
+                        document.querySelectorAll('#ItemName').forEach(function (element) {
+
+                            if (res.data && res.data.length > 0) {
+                                $(element).val(res.data[0].ItemName);
+
                             }
 
                             layui.form.render();
@@ -1030,7 +1060,7 @@
 
                 let lex = ["毛坯", "成品", "半成品", "辅料"]
 
-                document.querySelectorAll('#ItemName').forEach(function (element, index) {
+                document.querySelectorAll('#selectALL').forEach(function (element, index) {
 
                     let data2 = { "ItemName": "", "ItemType": lex[index] }
 

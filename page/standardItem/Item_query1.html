@@ -1026,7 +1026,7 @@
                 // alert(('#PalletID').val() )
                 table.render({
                     elem: '#tableId1',
-                    // toolbar: '#toolbarDemo',
+                    toolbar: '#toolbarDemo',
                     method: "post",
                     // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     url: http1 + "GetLocationItemInfoDetailFuzzyForOut2",
@@ -1060,9 +1060,11 @@
                         { field: 'ItemType', Width: "80", title: '入库类型', align: "center", },
                         { field: 'ItemName', Width: "80", title: '物资名称', align: "center", },
                         { field: 'FurnaceID', Width: "80", title: '炉号', align: "center", },
-                        { field: 'WorkID', Width: "100", title: '工单号', align: "center" },
-                        { field: 'OrderCode', Width: "80", title: '单号', align: "center", },
+                        { field: 'ItemInputStatus', Width: "80", title: '状态', align: "center" },
+                        { field: 'HeatTreatmentLotNo', Width: "100", title: '正火批次', align: "center", },
                         { field: 'Vendor', Width: "80", title: '供应商', align: "center", },
+                        { field: 'ItemBrand', Width: "80", title: '品牌', align: "center", },
+                        { field: 'ItemUnit', Width: "80", title: '单位', align: "center", },
                         { field: 'LocationID', Width: "80", title: '库位', align: "center", },
                         // "LocationID": "01-02-01",
                         {

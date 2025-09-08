@@ -423,6 +423,9 @@
                                     //0-1-2-3库位-4任务单号-5物料编号-6库位数量
                                     if (params.data[2] == 1) {
                                         return "空闲";
+                                    }
+                                    if (params.data[2] == 2) {
+                                        return "空箱";
                                     } else {
                                         // return '物料号：' + params.data[3]  + '<br/>'+  '库位编号：' + params.data[4];
                                         return `物料号：${params.data[3]}\n库位编号：${params.data[4]}`;
