@@ -1065,7 +1065,9 @@
                         { field: 'Vendor', Width: "80", title: '供应商', align: "center", },
                         { field: 'ItemBrand', Width: "80", title: '品牌', align: "center", },
                         { field: 'ItemUnit', Width: "80", title: '单位', align: "center", },
-                        { field: 'LocationID', Width: "80", title: '库位', align: "center", },
+                        { field: 'LocationID', Width: "80", title: '库位', align: "center", templet: function (d) {
+                            return d.LocationID ="KW:"+ d.LocationID;
+                        }},
                         // "LocationID": "01-02-01",
                         {
                             field: 'CurrentItemQty', Width: "100", sort: true, title: '库存数量', align: "center", totalRow: true
